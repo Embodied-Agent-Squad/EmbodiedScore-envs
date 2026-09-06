@@ -45,6 +45,10 @@ seven metrics; the acceptance bar is bit-exact positions and metrics equal to
 
 1. habitat-sim 0.3.3 from EmbodiedScore-habitat (`./build.sh --env <env> --verify`).
 2. `pip install -e .` in the same environment (adds gymnasium, numpy-quaternion, fastdtw).
+   For nDTW to match the habitat-lab 0.1.7 boards to the last digit, fastdtw must be its
+   Cython build (the pip wheel silently falls back to pure Python, which differs by ~1e-4):
+   `pip install cython && pip install --no-cache-dir --no-binary fastdtw --no-build-isolation fastdtw`.
+   `VLNCEMetrics` warns once if the fallback is in use.
 3. Data: point `EMBODIEDSCORE_DATA_ROOT` at the directory holding
    `R2R_VLNCE_v1-3_preprocessed/` and `RxR_VLNCE_v0/`, and
    `EMBODIEDSCORE_SCENE_ROOT` at the directory holding `mp3d/`.

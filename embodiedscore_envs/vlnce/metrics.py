@@ -33,7 +33,17 @@ from typing import Any
 
 import gymnasium as gym
 import numpy as np
+import warnings
+
+import fastdtw as _fastdtw_pkg
 from fastdtw import fastdtw
+
+if not _fastdtw_pkg.fastdtw.__module__.endswith("_fastdtw"):   # pure-Python fallback in use
+    warnings.warn(
+        "fastdtw is running its pure-Python fallback; nDTW can differ from the habitat-lab "
+        "0.1.7 numbers by ~1e-4 (the boards used the Cython build). Install it with: "
+        "pip install cython && pip install --no-cache-dir --no-binary fastdtw --no-build-isolation fastdtw",
+        RuntimeWarning, stacklevel=2)
 
 from .dataset import load_gt_locations
 
