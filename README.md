@@ -3,7 +3,8 @@
 Every habitat benchmark of the EmbodiedScore workspace on one simulator —
 a frozen [habitat-sim 0.3.3](https://github.com/Embodied-Agent-Squad/EmbodiedScore-habitat),
 no habitat-lab — behind the Gymnasium 1.3 API, with the legacy stacks'
-numerics reproduced to the last digit (see `PARITY.md`).
+numerics reproduced to the last digit (evidence archived on the
+`archive/reproduction` branch).
 
 ```python
 import embodiedscore_envs as es
@@ -61,13 +62,14 @@ Both can be overridden per call: `es.make(name, split, data_root=..., scene_root
 
 ## Fidelity
 
-`scripts/parity_replay.py` replays recorded runs of the legacy stacks
-(habitat-lab 0.1.7 + VLN-CE, habitat-lab 0.2.4, raw habitat-sim 0.3.3) and
-compares per-step positions, distance-to-goal, every metric, camera pitch and
-rendered frames; `scripts/oracle/` produces replay truth in the legacy conda
-envs for the benchmarks without recorded runs. `PARITY.md` has the numbers.
+The port reproduces the legacy evaluators (habitat-lab 0.1.7 + VLN-CE,
+habitat-lab 0.2.4, raw habitat-sim 0.3.3) to the last digit: recorded runs
+replayed through this stack give the same per-step positions, distance-to-goal,
+metrics, camera pitch and rendered frames. The replay tooling, oracle
+generators and per-episode logs are archived on the `archive/reproduction`
+branch (`reproduction/REPRODUCTION.md` there has the numbers).
 
-Two things the parity work showed that a re-implementation must copy:
+Two things the reproduction work showed that a re-implementation must copy:
 habitat-sim's `MultiGoalShortestPath` prunes with bounds carried over from the
 previous query, so `distance_to_goal` depends on *when* it is queried (the
 habitat-lab call pattern — only when the agent moved — is reproduced, and
