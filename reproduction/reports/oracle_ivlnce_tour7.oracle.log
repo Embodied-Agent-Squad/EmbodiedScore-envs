@@ -1,0 +1,135 @@
+2026-09-06 20:34:58.940666: I tensorflow/core/util/util.cc:169] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-09-06 20:35:00,729 Initializing dataset Iterative-VLN-CE
+2026-09-06 20:35:00,831 initializing sim Sim-v0
+WARNING: Logging before InitGoogleLogging() is written to STDERR
+I0906 20:35:00.832485 3914317 ManagedContainerBase.cpp:19] ManagedContainerBase::convertFilenameToJSON : Filename : default changed to proposed JSON configuration filename : default.scene_dataset_config.json
+I0906 20:35:00.832530 3914317 AttributesManagerBase.h:283] AttributesManager<T>::createFromJsonOrDefaultInternal  (Dataset) : Proposing JSON name : default.scene_dataset_config.json from original name : default | This file  does not exist.
+I0906 20:35:00.832605 3914317 AssetAttributesManager.cpp:117] Asset attributes (capsule3DSolid : capsule3DSolid_hemiRings_4_cylRings_1_segments_12_halfLen_0.75_useTexCoords_false_useTangents_false) created and registered.
+I0906 20:35:00.832630 3914317 AssetAttributesManager.cpp:117] Asset attributes (capsule3DWireframe : capsule3DWireframe_hemiRings_8_cylRings_1_segments_16_halfLen_1) created and registered.
+I0906 20:35:00.832656 3914317 AssetAttributesManager.cpp:117] Asset attributes (coneSolid : coneSolid_segments_12_halfLen_1.25_rings_1_useTexCoords_false_useTangents_false_capEnd_true) created and registered.
+I0906 20:35:00.832674 3914317 AssetAttributesManager.cpp:117] Asset attributes (coneWireframe : coneWireframe_segments_32_halfLen_1.25) created and registered.
+I0906 20:35:00.832683 3914317 AssetAttributesManager.cpp:117] Asset attributes (cubeSolid : cubeSolid) created and registered.
+I0906 20:35:00.832691 3914317 AssetAttributesManager.cpp:117] Asset attributes (cubeWireframe : cubeWireframe) created and registered.
+I0906 20:35:00.832712 3914317 AssetAttributesManager.cpp:117] Asset attributes (cylinderSolid : cylinderSolid_rings_1_segments_12_halfLen_1_useTexCoords_false_useTangents_false_capEnds_true) created and registered.
+I0906 20:35:00.832728 3914317 AssetAttributesManager.cpp:117] Asset attributes (cylinderWireframe : cylinderWireframe_rings_1_segments_32_halfLen_1) created and registered.
+I0906 20:35:00.832738 3914317 AssetAttributesManager.cpp:117] Asset attributes (icosphereSolid : icosphereSolid_subdivs_1) created and registered.
+I0906 20:35:00.832748 3914317 AssetAttributesManager.cpp:117] Asset attributes (icosphereWireframe : icosphereWireframe_subdivs_1) created and registered.
+I0906 20:35:00.832762 3914317 AssetAttributesManager.cpp:117] Asset attributes (uvSphereSolid : uvSphereSolid_rings_8_segments_16_useTexCoords_false_useTangents_false) created and registered.
+I0906 20:35:00.832774 3914317 AssetAttributesManager.cpp:117] Asset attributes (uvSphereWireframe : uvSphereWireframe_rings_16_segments_32) created and registered.
+I0906 20:35:00.832780 3914317 AssetAttributesManager.cpp:105] AssetAttributesManager::buildCtorFuncPtrMaps : Built default primitive asset templates : 12
+I0906 20:35:00.833158 3914317 SceneDatasetAttributesManager.cpp:23] File (default) not found, so new default dataset attributes created and registered.
+I0906 20:35:00.833163 3914317 MetadataMediator.cpp:47] MetadataMediator::createDataset : Dataset default successfully created.
+I0906 20:35:00.836524 3914317 AttributesManagerBase.h:283] AttributesManager<T>::createFromJsonOrDefaultInternal  (Physics Manager) : Proposing JSON name : ./data/default.physics_config.json from original name : ./data/default.physics_config.json | This file  does not exist.
+I0906 20:35:00.836547 3914317 PhysicsAttributesManager.cpp:27] File (./data/default.physics_config.json) not found, so new default physics manager attributes created and registered.
+I0906 20:35:00.836555 3914317 AbstractObjectAttributesManagerBase.h:175] AbstractObjectAttributesManager<T>::createObject  (Stage) : Making attributes with handle : data/scene_datasets/mp3d/QUCTc6BB5sX/QUCTc6BB5sX.glb
+I0906 20:35:00.836571 3914317 ManagedContainerBase.cpp:19] ManagedContainerBase::convertFilenameToJSON : Filename : data/scene_datasets/mp3d/QUCTc6BB5sX/QUCTc6BB5sX.glb changed to proposed JSON configuration filename : data/scene_datasets/mp3d/QUCTc6BB5sX/QUCTc6BB5sX.stage_config.json
+I0906 20:35:00.836581 3914317 AttributesManagerBase.h:283] AttributesManager<T>::createFromJsonOrDefaultInternal  (Stage) : Proposing JSON name : data/scene_datasets/mp3d/QUCTc6BB5sX/QUCTc6BB5sX.stage_config.json from original name : data/scene_datasets/mp3d/QUCTc6BB5sX/QUCTc6BB5sX.glb | This file  does not exist.
+I0906 20:35:00.836634 3914317 AbstractObjectAttributesManagerBase.h:181] AbstractObjectAttributesManager<T>::createObject  (Stage) : Done making attributes with handle : data/scene_datasets/mp3d/QUCTc6BB5sX/QUCTc6BB5sX.glb
+I0906 20:35:00.836638 3914317 AbstractObjectAttributesManagerBase.h:188] File (data/scene_datasets/mp3d/QUCTc6BB5sX/QUCTc6BB5sX.glb) exists but is not a recognized config filename extension, so new default Stage attributes created and registered.
+I0906 20:35:00.836648 3914317 Simulator.cpp:156] Loading navmesh from data/scene_datasets/mp3d/QUCTc6BB5sX/QUCTc6BB5sX.navmesh
+I0906 20:35:00.837265 3914317 Simulator.cpp:158] Loaded.
+I0906 20:35:00.837287 3914317 SceneGraph.h:93] Created DrawableGroup: 
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_ES2_compatibility
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_invalidate_subdata
+    GL_ARB_multi_bind
+    GL_ARB_robustness
+    GL_ARB_separate_shader_objects
+    GL_ARB_texture_filter_anisotropic
+    GL_ARB_texture_storage
+    GL_ARB_texture_storage_multisample
+    GL_ARB_vertex_array_object
+    GL_KHR_debug
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+I0906 20:35:01.036422 3914317 ResourceManager.cpp:234] ResourceManager::loadStage : Not loading semantic mesh
+I0906 20:35:01.036439 3914317 ResourceManager.cpp:262] ResourceManager::loadStage : start load render asset data/scene_datasets/mp3d/QUCTc6BB5sX/QUCTc6BB5sX.glb.
+I0906 20:35:01.036443 3914317 ResourceManager.cpp:569] ResourceManager::loadStageInternal : Attempting to load stage data/scene_datasets/mp3d/QUCTc6BB5sX/QUCTc6BB5sX.glb 
+I0906 20:35:01.036468 3914317 ResourceManager.cpp:1119] Importing Basis files as BC7 for QUCTc6BB5sX.glb
+W0906 20:35:05.794885 3914317 Simulator.cpp:248] :
+---
+ The active scene does not contain semantic annotations. 
+---
+I0906 20:35:05.965794 3914317 simulator.py:213] Loaded navmesh data/scene_datasets/mp3d/QUCTc6BB5sX/QUCTc6BB5sX.navmesh
+2026-09-06 20:35:05,967 Initializing task VLN-v0
+I0906 20:35:07.100392 3914317 SceneGraph.h:93] Created DrawableGroup: 
+I0906 20:35:07.105577 3914317 PhysicsManager.cpp:33] Deconstructing PhysicsManager
+I0906 20:35:07.105620 3914317 SemanticScene.h:41] Deconstructing SemanticScene
+I0906 20:35:07.111076 3914317 SceneManager.h:25] Deconstructing SceneManager
+I0906 20:35:07.111109 3914317 SceneGraph.h:26] Deconstructing SceneGraph
+I0906 20:35:07.111588 3914317 Sensor.h:87] Deconstructing Sensor
+I0906 20:35:07.111722 3914317 Sensor.h:87] Deconstructing Sensor
+I0906 20:35:07.118165 3914317 Renderer.cpp:34] Deconstructing Renderer
+I0906 20:35:07.118211 3914317 WindowlessContext.h:17] Deconstructing WindowlessContext
+I0906 20:35:07.119256 3914317 MetadataMediator.cpp:56] MetadataMediator::setActiveSceneDatasetName : Old active dataset default changed to default successfully.
+I0906 20:35:07.119537 3914317 AttributesManagerBase.h:283] AttributesManager<T>::createFromJsonOrDefaultInternal  (Physics Manager) : Proposing JSON name : ./data/default.physics_config.json from original name : ./data/default.physics_config.json | This file  does not exist.
+I0906 20:35:07.119599 3914317 PhysicsAttributesManager.cpp:27] File (./data/default.physics_config.json) not found, so new default physics manager attributes created and registered.
+I0906 20:35:07.119611 3914317 AbstractObjectAttributesManagerBase.h:175] AbstractObjectAttributesManager<T>::createObject  (Stage) : Making attributes with handle : data/scene_datasets/mp3d/pLe4wQe7qrG/pLe4wQe7qrG.glb
+I0906 20:35:07.119619 3914317 ManagedContainerBase.cpp:19] ManagedContainerBase::convertFilenameToJSON : Filename : data/scene_datasets/mp3d/pLe4wQe7qrG/pLe4wQe7qrG.glb changed to proposed JSON configuration filename : data/scene_datasets/mp3d/pLe4wQe7qrG/pLe4wQe7qrG.stage_config.json
+I0906 20:35:07.120536 3914317 AttributesManagerBase.h:283] AttributesManager<T>::createFromJsonOrDefaultInternal  (Stage) : Proposing JSON name : data/scene_datasets/mp3d/pLe4wQe7qrG/pLe4wQe7qrG.stage_config.json from original name : data/scene_datasets/mp3d/pLe4wQe7qrG/pLe4wQe7qrG.glb | This file  does not exist.
+I0906 20:35:07.120623 3914317 AbstractObjectAttributesManagerBase.h:181] AbstractObjectAttributesManager<T>::createObject  (Stage) : Done making attributes with handle : data/scene_datasets/mp3d/pLe4wQe7qrG/pLe4wQe7qrG.glb
+I0906 20:35:07.120630 3914317 AbstractObjectAttributesManagerBase.h:188] File (data/scene_datasets/mp3d/pLe4wQe7qrG/pLe4wQe7qrG.glb) exists but is not a recognized config filename extension, so new default Stage attributes created and registered.
+I0906 20:35:07.120638 3914317 Simulator.cpp:156] Loading navmesh from data/scene_datasets/mp3d/pLe4wQe7qrG/pLe4wQe7qrG.navmesh
+I0906 20:35:07.120950 3914317 Simulator.cpp:158] Loaded.
+I0906 20:35:07.120959 3914317 SceneGraph.h:93] Created DrawableGroup: 
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_ES2_compatibility
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_invalidate_subdata
+    GL_ARB_multi_bind
+    GL_ARB_robustness
+    GL_ARB_separate_shader_objects
+    GL_ARB_texture_filter_anisotropic
+    GL_ARB_texture_storage
+    GL_ARB_texture_storage_multisample
+    GL_ARB_vertex_array_object
+    GL_KHR_debug
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+I0906 20:35:07.124781 3914317 ResourceManager.cpp:234] ResourceManager::loadStage : Not loading semantic mesh
+I0906 20:35:07.124794 3914317 ResourceManager.cpp:262] ResourceManager::loadStage : start load render asset data/scene_datasets/mp3d/pLe4wQe7qrG/pLe4wQe7qrG.glb.
+I0906 20:35:07.124797 3914317 ResourceManager.cpp:569] ResourceManager::loadStageInternal : Attempting to load stage data/scene_datasets/mp3d/pLe4wQe7qrG/pLe4wQe7qrG.glb 
+I0906 20:35:07.124821 3914317 ResourceManager.cpp:1119] Importing Basis files as BC7 for pLe4wQe7qrG.glb
+W0906 20:35:08.064870 3914317 Simulator.cpp:248] :
+---
+ The active scene does not contain semantic annotations. 
+---
+I0906 20:35:08.085912 3914317 simulator.py:213] Loaded navmesh data/scene_datasets/mp3d/pLe4wQe7qrG/pLe4wQe7qrG.navmesh
+I0906 20:35:08.210525 3914317 SceneGraph.h:93] Created DrawableGroup: 
+I0906 20:35:08.218854 3914317 SceneGraph.h:93] Created DrawableGroup: 
+ep 261 (tour pos 0): 33 actions, success 1.0, spl 1.0, transit 0, t-nDTW 98.3162
+ep 262 (tour pos 1): 11 actions, success 0.0, spl 0.0, transit 6, t-nDTW 74.4405
+ep 263 (tour pos 2): 30 actions, success 1.0, spl 1.0, transit 54, t-nDTW 81.0799
+ep 264 (tour pos 3): 11 actions, success 0.0, spl 0.0, transit 30, t-nDTW 72.4402
+ep 265 (tour pos 4): 51 actions, success 1.0, spl 0.9991231687960892, transit 39, t-nDTW 78.5084
+ep 266 (tour pos 5): 11 actions, success 0.0, spl 0.0, transit 19, t-nDTW 69.2369
+I0906 20:35:17.350703 3914317 PhysicsManager.cpp:33] Deconstructing PhysicsManager
+I0906 20:35:17.388541 3914317 SemanticScene.h:41] Deconstructing SemanticScene
+I0906 20:35:17.389678 3914317 SceneManager.h:25] Deconstructing SceneManager
+I0906 20:35:17.389705 3914317 SceneGraph.h:26] Deconstructing SceneGraph
+I0906 20:35:17.420455 3914317 Sensor.h:87] Deconstructing Sensor
+I0906 20:35:17.420959 3914317 Sensor.h:87] Deconstructing Sensor
+I0906 20:35:17.465531 3914317 Renderer.cpp:34] Deconstructing Renderer
+I0906 20:35:17.465611 3914317 WindowlessContext.h:17] Deconstructing WindowlessContext
+wrote /data/git_all/EmbodiedScore-envs/parity_reports/oracle_ivlnce_val_unseen_tour7.json

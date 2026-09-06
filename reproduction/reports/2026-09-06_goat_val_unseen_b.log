@@ -1,0 +1,1417 @@
+[22:25:12:496263]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/example/00861-GLAQ4DNUx5U/*.basis.glb` so unable to load templates from that path.
+[22:25:12:496345]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/minival/00800-TEEsavR23oF/*.basis.glb` so unable to load templates from that path.
+[22:25:12:496367]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/minival/00802-wcojb4TFT35/*.basis.glb` so unable to load templates from that path.
+[22:25:12:496387]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/minival/00803-k1cupFYWXJ6/*.basis.glb` so unable to load templates from that path.
+[22:25:12:496406]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/minival/00808-y9hTuugGdiq/*.basis.glb` so unable to load templates from that path.
+[22:25:12:496426]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00900-XRJ2muKkwAV/*.basis.glb` so unable to load templates from that path.
+[22:25:12:496446]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00901-aJoC8Qw6xQ5/*.basis.glb` so unable to load templates from that path.
+[22:25:12:496466]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00904-S9CUp5RsFY9/*.basis.glb` so unable to load templates from that path.
+[22:25:12:496485]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00905-9v5HzFAB1cm/*.basis.glb` so unable to load templates from that path.
+[22:25:12:496505]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00907-WGxjrSp71zX/*.basis.glb` so unable to load templates from that path.
+[22:25:12:496524]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00909-MrKys1cv4jD/*.basis.glb` so unable to load templates from that path.
+[22:25:12:496543]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00910-jE7Qzu3FyJD/*.basis.glb` so unable to load templates from that path.
+[22:25:12:496562]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00911-a8h4mZT8buN/*.basis.glb` so unable to load templates from that path.
+[22:25:12:496582]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00913-URu5ybF8PrH/*.basis.glb` so unable to load templates from that path.
+[22:25:12:496605]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00914-TxyEAAVD4iD/*.basis.glb` so unable to load templates from that path.
+[22:25:12:496624]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00915-ieavb8rbmA9/*.basis.glb` so unable to load templates from that path.
+[22:25:12:496644]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00918-NQX2SZD1TMJ/*.basis.glb` so unable to load templates from that path.
+[22:25:12:496663]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00921-nhtTwUrWv7v/*.basis.glb` so unable to load templates from that path.
+[22:25:12:496683]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00925-4QUpJVDQ1DN/*.basis.glb` so unable to load templates from that path.
+[22:25:12:496702]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00926-egVUByjgpHU/*.basis.glb` so unable to load templates from that path.
+[22:25:12:496721]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00927-kucQY8TbKkz/*.basis.glb` so unable to load templates from that path.
+[22:25:12:496740]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00929-azb2LDaMrGZ/*.basis.glb` so unable to load templates from that path.
+[22:25:12:496760]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00939-VedHjk858Vu/*.basis.glb` so unable to load templates from that path.
+[22:25:12:496779]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00940-oHcTqmvveM7/*.basis.glb` so unable to load templates from that path.
+[22:25:12:496798]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00947-fyZC1Whhj9i/*.basis.glb` so unable to load templates from that path.
+[22:25:12:496818]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00951-RGvKsZAErEk/*.basis.glb` so unable to load templates from that path.
+[22:25:12:496837]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00952-ogAZhviACbN/*.basis.glb` so unable to load templates from that path.
+[22:25:12:496856]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00955-5TxBa2qkcAh/*.basis.glb` so unable to load templates from that path.
+[22:25:12:496877]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00956-oNiVkiFKkAr/*.basis.glb` so unable to load templates from that path.
+[22:25:12:496897]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00957-DowRMDn4MVe/*.basis.glb` so unable to load templates from that path.
+[22:25:12:496916]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00961-dU7KLdn2Kcd/*.basis.glb` so unable to load templates from that path.
+[22:25:12:496935]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00963-awRQoguC7TN/*.basis.glb` so unable to load templates from that path.
+[22:25:12:496954]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00967-XwXCfkthawu/*.basis.glb` so unable to load templates from that path.
+[22:25:12:496974]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00970-kUmc6DP2tff/*.basis.glb` so unable to load templates from that path.
+[22:25:12:496994]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00977-1cQ7WUQgXJ4/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497013]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00978-sZJ5zo6FrEe/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497032]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00981-Rp8JNfstaew/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497052]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00985-3ZJjFFjJKqZ/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497071]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00989-t9gvgFMoH4R/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497090]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00992-G3AqUkGnykx/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497110]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00006-HkseAnWCgqk/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497129]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00009-vLpv2VX547B/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497152]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00016-qk9eeNeR4vw/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497172]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00017-oEPjPNSPmzL/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497191]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00020-XYyR54sxe6b/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497210]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00022-gmuS7Wgsbrx/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497229]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00023-zepmXAdrpjR/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497249]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00025-ixTj1aTMup2/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497268]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00031-Wo6kuutE9i7/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497287]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00033-oPj9qMxrDEa/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497307]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00034-6imZUJGRUq4/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497326]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00035-3XYAD64HpDr/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497346]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00043-Jfyvj3xn2aJ/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497365]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00055-HxmXPBbFCkH/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497385]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00057-1UnKg1rAb8A/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497404]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00059-kJxT5qssH4H/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497425]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00062-ACZZiU6BXLz/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497445]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00064-gQgtJ9Stk5s/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497464]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00081-5biL7VEkByM/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497483]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00087-YY8rqV6L6rf/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497503]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00096-6HRFAUDqpTb/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497522]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00099-226REUyJh2K/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497541]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00105-xWvSkKiWQpC/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497560]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00108-oStKKWkQ1id/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497580]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00109-GTV2Y73Sn5t/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497599]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00135-HeSYRw7eMtG/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497619]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00141-iigzG1rtanx/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497639]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00143-5Kw4nGdqYtS/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497658]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00149-UuwwmrTsfBN/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497693]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00150-LcAd9dhvVwh/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497715]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00155-iLDo95ZbDJq/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497735]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00164-XfUxBGTFQQb/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497754]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00166-RaYrxWt5pR1/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497774]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00168-bHKTDQFJxTw/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497794]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00172-bB6nKqfsb1z/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497814]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00173-qZ4B7U6XE5Y/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497833]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00177-VSxVP19Cdyw/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497853]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00179-MVVzj944atG/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497872]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00188-dQrLTxHvLXU/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497892]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00203-VoVGtfYrpuQ/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497912]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00205-NEVASPhcrxR/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497932]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00207-FRQ75PjD278/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497951]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00210-j2EJhFEQGCL/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497971]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00217-qz3829g1Lzf/*.basis.glb` so unable to load templates from that path.
+[22:25:12:497993]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00222-g8Xrdbe9fir/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498013]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00234-nACV8wLu1u5/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498033]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00238-j6fHrce9pHR/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498052]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00241-h6nwVLpAKQz/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498072]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00245-741Fdj7NLF9/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498092]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00250-U3oQjwTuMX8/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498111]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00251-wsAYBFtQaL7/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498131]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00254-YMNvYDhK8mB/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498151]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00255-NGyoyh91xXJ/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498170]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00256-92vYG1q49FY/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498190]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00258-2Pc8W48bu21/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498209]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00261-fK2vEV32Lag/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498229]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00262-1xGrZPxG1Hz/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498250]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00263-GGBvSFddQgs/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498270]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00267-gQ3xxshDiCz/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498290]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00269-JNiWU5TZLtt/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498310]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00272-kA2nG18hCAr/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498330]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00294-PPTLa8SkUfo/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498349]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00299-bdp1XNEdvmW/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498369]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00304-X6Pct1msZv5/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498388]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00307-vDfkYo5VqEQ/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498408]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00313-PE6kVEtrxtj/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498428]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00323-yHLr6bvWsVm/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498447]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00324-DoSbsoo4EAg/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498472]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00326-u9rPN5cHWBg/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498492]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00327-xgLmjqzoAzF/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498511]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00330-WhNyDTnd9g5/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498533]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00366-fxbzYAGkrtm/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498552]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00378-DqJKU7YU7dA/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498572]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00382-S7uMvxjBVZq/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498591]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00384-ceJTwFNjqCt/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498611]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00386-b3WpMbPFB6q/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498630]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00388-pcpn6mFqFCg/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498651]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00397-ZNanfzgCdm3/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498671]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00401-H8rQCnvBgo6/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498691]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00404-QN2dRqwd84J/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498711]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00407-NPHxDe6VeCc/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498730]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00410-v7DzfFFEpsD/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498750]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00414-77mMEyxhs44/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498769]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00417-nGhNxKrgBPb/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498789]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00422-8wJuSPJ9FXG/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498810]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00434-L5QEsaVqwrY/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498830]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00440-wPLokgvCnuk/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498850]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00444-sX9xad6ULKc/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498870]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00463-URjpCob8MGw/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498889]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00466-xAHnY3QzFUN/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498909]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00475-g7hUFVNac26/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498929]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00476-NtnvZSMK3en/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498948]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00487-erXNfWVjqZ8/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498968]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00495-CQWES1bawee/*.basis.glb` so unable to load templates from that path.
+[22:25:12:498988]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00506-QVAA6zecMHu/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499007]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00508-4vwGX7U38Ux/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499027]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00525-iKFn6fzyRqs/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499046]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00529-W9YAR9qcuvN/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499066]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00534-DBBESbk4Y3k/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499088]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00537-oahi4u45xMf/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499108]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00538-3CBBjsNkhqW/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499128]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00539-zUG6FL9TYeR/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499147]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00541-FnDDfrBZPhh/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499167]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00546-nS8T59Aw3sf/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499186]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00547-9h5JJxM6E5S/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499206]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00557-fRZhp6vWGw7/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499226]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00560-gjhYih4upQ9/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499245]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00567-KjZrPggnHm8/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499265]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00569-YJDUB7hWg9h/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499285]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00582-TYDavTf8oyy/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499305]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00590-qgZhhx1MpTi/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499324]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00591-JptJPosx1Z6/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499344]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00592-CthA7sQNTPK/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499366]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00598-mt9H8KcxRKD/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499386]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00606-W16Bm4ysK8v/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499405]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00612-GsQBY83r3hb/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499425]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00619-R9fYpvCUkV7/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499444]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00624-ooq3SnvC79d/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499464]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00626-XiJhRLvpKpX/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499484]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00638-iePHCSf119p/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499503]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00643-ggNAcMh8JPT/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499523]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00657-TSJmdttd2GV/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499542]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00662-aRKASs4e8j1/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499562]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00664-u5atqC7vRCY/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499582]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00668-6YtDG3FhNvx/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499601]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00669-DNWbUAJYsPy/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499621]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00680-YmWinf3mhb5/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499642]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00685-ENiCjXWB6aQ/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499663]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00688-SgkmkWjjmDJ/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499682]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00696-DsEJeNPcZtE/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499702]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00706-YHmAkqgwe2p/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499721]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00707-XVSZJAtHKdi/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499741]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00712-HZ2iMMBsBQ9/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499760]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00720-8B43pG641ff/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499780]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00723-hWDDQnSDMXb/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499799]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00732-Z2DQddYp1fn/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499819]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00733-GtM3JtRvvvR/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499838]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00738-GPyDUnjwZQy/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499858]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00741-w8GiikYuFRk/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499878]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00744-1S7LAXRdDqK/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499899]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00745-yX5efd48dLf/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499919]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00746-RTV2n6fXB2w/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499939]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00750-E1NrAhMoqvB/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499958]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00757-LVgQNuK8vtv/*.basis.glb` so unable to load templates from that path.
+[22:25:12:499978]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Stage Template> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00758-HfMobPm86Xn/*.basis.glb` so unable to load templates from that path.
+[22:25:12:502408]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/example/00861-GLAQ4DNUx5U/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:502447]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/minival/00800-TEEsavR23oF/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:502472]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/minival/00802-wcojb4TFT35/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:502492]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/minival/00803-k1cupFYWXJ6/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:502512]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/minival/00808-y9hTuugGdiq/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:502532]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00900-XRJ2muKkwAV/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:502552]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00901-aJoC8Qw6xQ5/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:502571]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00904-S9CUp5RsFY9/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:502591]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00905-9v5HzFAB1cm/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:502615]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00907-WGxjrSp71zX/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:502635]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00909-MrKys1cv4jD/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:502655]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00910-jE7Qzu3FyJD/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:502675]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00911-a8h4mZT8buN/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:502694]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00913-URu5ybF8PrH/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:502714]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00914-TxyEAAVD4iD/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:502734]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00915-ieavb8rbmA9/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:502753]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00918-NQX2SZD1TMJ/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:502773]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00921-nhtTwUrWv7v/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:502793]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00925-4QUpJVDQ1DN/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:502812]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00926-egVUByjgpHU/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:502832]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00927-kucQY8TbKkz/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:502852]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00929-azb2LDaMrGZ/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:502873]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00939-VedHjk858Vu/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:502893]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00940-oHcTqmvveM7/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:502913]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00947-fyZC1Whhj9i/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:502932]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00951-RGvKsZAErEk/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:502952]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00952-ogAZhviACbN/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:502972]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00955-5TxBa2qkcAh/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:502991]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00956-oNiVkiFKkAr/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503011]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00957-DowRMDn4MVe/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503030]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00961-dU7KLdn2Kcd/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503050]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00963-awRQoguC7TN/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503069]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00967-XwXCfkthawu/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503089]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00970-kUmc6DP2tff/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503108]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00977-1cQ7WUQgXJ4/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503130]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00978-sZJ5zo6FrEe/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503150]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00981-Rp8JNfstaew/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503170]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00985-3ZJjFFjJKqZ/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503190]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00989-t9gvgFMoH4R/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503210]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/test/00992-G3AqUkGnykx/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503230]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00006-HkseAnWCgqk/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503249]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00009-vLpv2VX547B/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503269]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00016-qk9eeNeR4vw/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503289]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00017-oEPjPNSPmzL/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503308]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00020-XYyR54sxe6b/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503328]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00022-gmuS7Wgsbrx/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503347]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00023-zepmXAdrpjR/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503367]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00025-ixTj1aTMup2/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503388]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00031-Wo6kuutE9i7/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503408]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00033-oPj9qMxrDEa/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503428]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00034-6imZUJGRUq4/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503447]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00035-3XYAD64HpDr/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503467]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00043-Jfyvj3xn2aJ/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503487]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00055-HxmXPBbFCkH/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503507]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00057-1UnKg1rAb8A/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503526]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00059-kJxT5qssH4H/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503546]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00062-ACZZiU6BXLz/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503566]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00064-gQgtJ9Stk5s/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503585]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00081-5biL7VEkByM/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503605]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00087-YY8rqV6L6rf/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503624]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00096-6HRFAUDqpTb/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503647]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00099-226REUyJh2K/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503667]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00105-xWvSkKiWQpC/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503687]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00108-oStKKWkQ1id/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503707]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00109-GTV2Y73Sn5t/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503726]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00135-HeSYRw7eMtG/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503746]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00141-iigzG1rtanx/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503766]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00143-5Kw4nGdqYtS/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503786]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00149-UuwwmrTsfBN/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503805]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00150-LcAd9dhvVwh/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503825]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00155-iLDo95ZbDJq/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503845]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00164-XfUxBGTFQQb/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503865]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00166-RaYrxWt5pR1/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503884]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00168-bHKTDQFJxTw/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503904]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00172-bB6nKqfsb1z/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503926]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00173-qZ4B7U6XE5Y/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503945]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00177-VSxVP19Cdyw/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503965]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00179-MVVzj944atG/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:503985]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00188-dQrLTxHvLXU/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504004]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00203-VoVGtfYrpuQ/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504024]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00205-NEVASPhcrxR/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504044]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00207-FRQ75PjD278/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504063]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00210-j2EJhFEQGCL/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504083]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00217-qz3829g1Lzf/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504103]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00222-g8Xrdbe9fir/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504122]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00234-nACV8wLu1u5/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504142]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00238-j6fHrce9pHR/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504161]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00241-h6nwVLpAKQz/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504183]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00245-741Fdj7NLF9/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504203]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00250-U3oQjwTuMX8/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504222]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00251-wsAYBFtQaL7/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504242]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00254-YMNvYDhK8mB/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504261]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00255-NGyoyh91xXJ/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504281]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00256-92vYG1q49FY/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504300]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00258-2Pc8W48bu21/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504321]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00261-fK2vEV32Lag/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504340]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00262-1xGrZPxG1Hz/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504360]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00263-GGBvSFddQgs/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504380]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00267-gQ3xxshDiCz/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504399]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00269-JNiWU5TZLtt/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504419]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00272-kA2nG18hCAr/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504440]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00294-PPTLa8SkUfo/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504460]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00299-bdp1XNEdvmW/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504479]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00304-X6Pct1msZv5/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504499]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00307-vDfkYo5VqEQ/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504519]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00313-PE6kVEtrxtj/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504538]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00323-yHLr6bvWsVm/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504558]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00324-DoSbsoo4EAg/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504577]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00326-u9rPN5cHWBg/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504597]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00327-xgLmjqzoAzF/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504617]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00330-WhNyDTnd9g5/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504636]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00366-fxbzYAGkrtm/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504656]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00378-DqJKU7YU7dA/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504675]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00382-S7uMvxjBVZq/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504697]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00384-ceJTwFNjqCt/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504716]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00386-b3WpMbPFB6q/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504736]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00388-pcpn6mFqFCg/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504755]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00397-ZNanfzgCdm3/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504775]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00401-H8rQCnvBgo6/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504795]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00404-QN2dRqwd84J/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504814]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00407-NPHxDe6VeCc/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504834]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00410-v7DzfFFEpsD/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504853]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00414-77mMEyxhs44/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504873]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00417-nGhNxKrgBPb/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504892]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00422-8wJuSPJ9FXG/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504912]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00434-L5QEsaVqwrY/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504932]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00440-wPLokgvCnuk/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504953]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00444-sX9xad6ULKc/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504972]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00463-URjpCob8MGw/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:504992]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00466-xAHnY3QzFUN/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505011]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00475-g7hUFVNac26/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505031]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00476-NtnvZSMK3en/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505050]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00487-erXNfWVjqZ8/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505070]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00495-CQWES1bawee/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505090]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00506-QVAA6zecMHu/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505109]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00508-4vwGX7U38Ux/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505139]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00525-iKFn6fzyRqs/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505159]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00529-W9YAR9qcuvN/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505178]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00534-DBBESbk4Y3k/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505198]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00537-oahi4u45xMf/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505219]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00538-3CBBjsNkhqW/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505238]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00539-zUG6FL9TYeR/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505274]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00541-FnDDfrBZPhh/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505293]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00546-nS8T59Aw3sf/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505312]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00547-9h5JJxM6E5S/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505332]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00557-fRZhp6vWGw7/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505351]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00560-gjhYih4upQ9/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505381]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00567-KjZrPggnHm8/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505400]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00569-YJDUB7hWg9h/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505420]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00582-TYDavTf8oyy/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505439]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00590-qgZhhx1MpTi/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505458]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00591-JptJPosx1Z6/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505477]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00592-CthA7sQNTPK/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505497]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00598-mt9H8KcxRKD/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505517]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00606-W16Bm4ysK8v/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505536]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00612-GsQBY83r3hb/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505555]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00619-R9fYpvCUkV7/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505575]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00624-ooq3SnvC79d/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505594]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00626-XiJhRLvpKpX/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505613]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00638-iePHCSf119p/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505632]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00643-ggNAcMh8JPT/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505651]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00657-TSJmdttd2GV/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505670]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00662-aRKASs4e8j1/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505690]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00664-u5atqC7vRCY/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505709]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00668-6YtDG3FhNvx/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505728]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00669-DNWbUAJYsPy/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505749]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00680-YmWinf3mhb5/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505769]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00685-ENiCjXWB6aQ/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505788]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00688-SgkmkWjjmDJ/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505807]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00696-DsEJeNPcZtE/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505827]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00706-YHmAkqgwe2p/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505846]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00707-XVSZJAtHKdi/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505865]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00712-HZ2iMMBsBQ9/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505884]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00720-8B43pG641ff/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505903]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00723-hWDDQnSDMXb/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505922]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00732-Z2DQddYp1fn/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505941]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00733-GtM3JtRvvvR/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505960]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00738-GPyDUnjwZQy/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505980]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00741-w8GiikYuFRk/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:505999]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00744-1S7LAXRdDqK/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:506020]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00745-yX5efd48dLf/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:506039]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00746-RTV2n6fXB2w/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:506059]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00750-E1NrAhMoqvB/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:506078]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00757-LVgQNuK8vtv/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:506097]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/train/00758-HfMobPm86Xn/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:506131]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/val/00800-TEEsavR23oF/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:506160]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/val/00802-wcojb4TFT35/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:506189]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/val/00803-k1cupFYWXJ6/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:506218]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/val/00808-y9hTuugGdiq/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:506246]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/val/00810-CrMo8WxCyVb/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:506274]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/val/00813-svBbv1Pavdk/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:506302]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/val/00814-p53SfW6mjZe/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:506330]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/val/00815-h1zeeAwLh9Z/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:506361]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/val/00820-mL8ThkuaVTM/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:506389]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/val/00821-eF36g7L6Z9M/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:506417]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/val/00823-7MXmsvcQjpJ/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:506445]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/val/00824-Dd4bFSTQ8gi/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:506478]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/val/00827-BAbdmeyTvMZ/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:506523]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/val/00829-QaLdnwvtxbs/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:506553]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/val/00831-yr17PDCnDDW/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:506582]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/val/00832-qyAac8rV8Zk/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:506610]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/val/00835-q3zU7Yy5E5s/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:506639]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/val/00839-zt1RVoi7PcG/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:506668]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/val/00843-DYehNKdT76V/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:506696]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/val/00844-q5QZSEeHe5g/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:506725]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/val/00847-bCPU9suPUw9/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:506755]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/val/00848-ziup5kvtCCR/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:506784]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/val/00849-a8BtkwhxdRV/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:506813]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/val/00853-5cdEh9F2hJL/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:506841]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/val/00861-GLAQ4DNUx5U/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:506870]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/val/00862-LT9Jq6dN3Ea/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:506898]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/val/00869-MHPLjHsuG27/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:506925]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/val/00871-VBzV5z6i1WS/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:506954]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/val/00873-bxsVRursffK/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:506983]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/val/00876-mv2HUxq3B53/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:507012]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/val/00877-4ok3usBNeis/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:507041]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/val/00878-XB4GS9ShBRE/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:507069]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/val/00880-Nfvxx8J5NCo/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:507097]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/val/00890-6s7QHgap2fW/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:507127]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/val/00891-cvZr5TUy5C5/*.basis.scene_instance.json` so unable to load templates from that path.
+[22:25:12:507157]:[Warning]:[Metadata] AbstractAttributesManager.h(531)::buildAttrSrcPathsFromJSONAndLoad : <Scene Instance> : No Glob path result found for `/data/ws_vln/vlnworkspace/data/embodiedscore/scenes/hm3d/val/00894-HY1NcmCgn3n/*.basis.scene_instance.json` so unable to load templates from that path.
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_vertex_array_object
+    GL_ARB_separate_shader_objects
+    GL_ARB_robustness
+    GL_ARB_texture_storage
+    GL_ARB_texture_view
+    GL_ARB_framebuffer_no_attachments
+    GL_ARB_invalidate_subdata
+    GL_ARB_texture_storage_multisample
+    GL_ARB_multi_bind
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_texture_filter_anisotropic
+    GL_KHR_debug
+    GL_KHR_parallel_shader_compile
+    GL_NV_depth_buffer_float
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+[22:25:12:700502]:[Warning]:[Metadata] SceneDatasetAttributes.cpp(107)::addNewSceneInstanceToDataset : Dataset : 'hm3d_annotated_basis' : Lighting Layout Attributes 'no_lights' specified in Scene Attributes but does not exist in dataset, so creating default.
+ep 12 id=     8: steps=175 |dpos|max=0.000000 |dmetric|max=0.00e+00 success=0.6 OK
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_vertex_array_object
+    GL_ARB_separate_shader_objects
+    GL_ARB_robustness
+    GL_ARB_texture_storage
+    GL_ARB_texture_view
+    GL_ARB_framebuffer_no_attachments
+    GL_ARB_invalidate_subdata
+    GL_ARB_texture_storage_multisample
+    GL_ARB_multi_bind
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_texture_filter_anisotropic
+    GL_KHR_debug
+    GL_KHR_parallel_shader_compile
+    GL_NV_depth_buffer_float
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+ep 13 id=     5: steps=209 |dpos|max=0.000000 |dmetric|max=0.00e+00 success=0.6 OK
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_vertex_array_object
+    GL_ARB_separate_shader_objects
+    GL_ARB_robustness
+    GL_ARB_texture_storage
+    GL_ARB_texture_view
+    GL_ARB_framebuffer_no_attachments
+    GL_ARB_invalidate_subdata
+    GL_ARB_texture_storage_multisample
+    GL_ARB_multi_bind
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_texture_filter_anisotropic
+    GL_KHR_debug
+    GL_KHR_parallel_shader_compile
+    GL_NV_depth_buffer_float
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+ep 14 id=     1: steps=200 |dpos|max=0.000000 |dmetric|max=0.00e+00 success=0.6666666666666666 OK
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_vertex_array_object
+    GL_ARB_separate_shader_objects
+    GL_ARB_robustness
+    GL_ARB_texture_storage
+    GL_ARB_texture_view
+    GL_ARB_framebuffer_no_attachments
+    GL_ARB_invalidate_subdata
+    GL_ARB_texture_storage_multisample
+    GL_ARB_multi_bind
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_texture_filter_anisotropic
+    GL_KHR_debug
+    GL_KHR_parallel_shader_compile
+    GL_NV_depth_buffer_float
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+ep 15 id=     5: steps=225 |dpos|max=0.000000 |dmetric|max=9.09e-10 success=0.6 OK
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_vertex_array_object
+    GL_ARB_separate_shader_objects
+    GL_ARB_robustness
+    GL_ARB_texture_storage
+    GL_ARB_texture_view
+    GL_ARB_framebuffer_no_attachments
+    GL_ARB_invalidate_subdata
+    GL_ARB_texture_storage_multisample
+    GL_ARB_multi_bind
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_texture_filter_anisotropic
+    GL_KHR_debug
+    GL_KHR_parallel_shader_compile
+    GL_NV_depth_buffer_float
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+ep 16 id=     1: steps= 82 |dpos|max=0.000000 |dmetric|max=0.00e+00 success=1.0 OK
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_vertex_array_object
+    GL_ARB_separate_shader_objects
+    GL_ARB_robustness
+    GL_ARB_texture_storage
+    GL_ARB_texture_view
+    GL_ARB_framebuffer_no_attachments
+    GL_ARB_invalidate_subdata
+    GL_ARB_texture_storage_multisample
+    GL_ARB_multi_bind
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_texture_filter_anisotropic
+    GL_KHR_debug
+    GL_KHR_parallel_shader_compile
+    GL_NV_depth_buffer_float
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+ep 17 id=     8: steps=241 |dpos|max=0.000000 |dmetric|max=0.00e+00 success=0.5 OK
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_vertex_array_object
+    GL_ARB_separate_shader_objects
+    GL_ARB_robustness
+    GL_ARB_texture_storage
+    GL_ARB_texture_view
+    GL_ARB_framebuffer_no_attachments
+    GL_ARB_invalidate_subdata
+    GL_ARB_texture_storage_multisample
+    GL_ARB_multi_bind
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_texture_filter_anisotropic
+    GL_KHR_debug
+    GL_KHR_parallel_shader_compile
+    GL_NV_depth_buffer_float
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+ep 18 id=     5: steps=390 |dpos|max=0.000000 |dmetric|max=0.00e+00 success=0.5 OK
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_vertex_array_object
+    GL_ARB_separate_shader_objects
+    GL_ARB_robustness
+    GL_ARB_texture_storage
+    GL_ARB_texture_view
+    GL_ARB_framebuffer_no_attachments
+    GL_ARB_invalidate_subdata
+    GL_ARB_texture_storage_multisample
+    GL_ARB_multi_bind
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_texture_filter_anisotropic
+    GL_KHR_debug
+    GL_KHR_parallel_shader_compile
+    GL_NV_depth_buffer_float
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+ep 19 id=     8: steps=166 |dpos|max=0.000000 |dmetric|max=5.55e-17 success=0.5714285714285714 OK
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_vertex_array_object
+    GL_ARB_separate_shader_objects
+    GL_ARB_robustness
+    GL_ARB_texture_storage
+    GL_ARB_texture_view
+    GL_ARB_framebuffer_no_attachments
+    GL_ARB_invalidate_subdata
+    GL_ARB_texture_storage_multisample
+    GL_ARB_multi_bind
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_texture_filter_anisotropic
+    GL_KHR_debug
+    GL_KHR_parallel_shader_compile
+    GL_NV_depth_buffer_float
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+ep 20 id=     2: steps=221 |dpos|max=0.000000 |dmetric|max=0.00e+00 success=0.6 OK
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_vertex_array_object
+    GL_ARB_separate_shader_objects
+    GL_ARB_robustness
+    GL_ARB_texture_storage
+    GL_ARB_texture_view
+    GL_ARB_framebuffer_no_attachments
+    GL_ARB_invalidate_subdata
+    GL_ARB_texture_storage_multisample
+    GL_ARB_multi_bind
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_texture_filter_anisotropic
+    GL_KHR_debug
+    GL_KHR_parallel_shader_compile
+    GL_NV_depth_buffer_float
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+ep 21 id=     6: steps=162 |dpos|max=0.000000 |dmetric|max=0.00e+00 success=0.6 OK
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_vertex_array_object
+    GL_ARB_separate_shader_objects
+    GL_ARB_robustness
+    GL_ARB_texture_storage
+    GL_ARB_texture_view
+    GL_ARB_framebuffer_no_attachments
+    GL_ARB_invalidate_subdata
+    GL_ARB_texture_storage_multisample
+    GL_ARB_multi_bind
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_texture_filter_anisotropic
+    GL_KHR_debug
+    GL_KHR_parallel_shader_compile
+    GL_NV_depth_buffer_float
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+ep 22 id=     7: steps=146 |dpos|max=0.000000 |dmetric|max=0.00e+00 success=0.5714285714285714 OK
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_vertex_array_object
+    GL_ARB_separate_shader_objects
+    GL_ARB_robustness
+    GL_ARB_texture_storage
+    GL_ARB_texture_view
+    GL_ARB_framebuffer_no_attachments
+    GL_ARB_invalidate_subdata
+    GL_ARB_texture_storage_multisample
+    GL_ARB_multi_bind
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_texture_filter_anisotropic
+    GL_KHR_debug
+    GL_KHR_parallel_shader_compile
+    GL_NV_depth_buffer_float
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+ep 23 id=     5: steps=151 |dpos|max=0.000000 |dmetric|max=0.00e+00 success=0.8 OK
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_vertex_array_object
+    GL_ARB_separate_shader_objects
+    GL_ARB_robustness
+    GL_ARB_texture_storage
+    GL_ARB_texture_view
+    GL_ARB_framebuffer_no_attachments
+    GL_ARB_invalidate_subdata
+    GL_ARB_texture_storage_multisample
+    GL_ARB_multi_bind
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_texture_filter_anisotropic
+    GL_KHR_debug
+    GL_KHR_parallel_shader_compile
+    GL_NV_depth_buffer_float
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+ep 24 id=     9: steps=282 |dpos|max=0.000000 |dmetric|max=0.00e+00 success=0.7777777777777778 OK
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_vertex_array_object
+    GL_ARB_separate_shader_objects
+    GL_ARB_robustness
+    GL_ARB_texture_storage
+    GL_ARB_texture_view
+    GL_ARB_framebuffer_no_attachments
+    GL_ARB_invalidate_subdata
+    GL_ARB_texture_storage_multisample
+    GL_ARB_multi_bind
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_texture_filter_anisotropic
+    GL_KHR_debug
+    GL_KHR_parallel_shader_compile
+    GL_NV_depth_buffer_float
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+ep 25 id=     3: steps=102 |dpos|max=0.000000 |dmetric|max=0.00e+00 success=0.875 OK
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_vertex_array_object
+    GL_ARB_separate_shader_objects
+    GL_ARB_robustness
+    GL_ARB_texture_storage
+    GL_ARB_texture_view
+    GL_ARB_framebuffer_no_attachments
+    GL_ARB_invalidate_subdata
+    GL_ARB_texture_storage_multisample
+    GL_ARB_multi_bind
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_texture_filter_anisotropic
+    GL_KHR_debug
+    GL_KHR_parallel_shader_compile
+    GL_NV_depth_buffer_float
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+ep 26 id=     9: steps=234 |dpos|max=0.000000 |dmetric|max=0.00e+00 success=0.6666666666666666 OK
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_vertex_array_object
+    GL_ARB_separate_shader_objects
+    GL_ARB_robustness
+    GL_ARB_texture_storage
+    GL_ARB_texture_view
+    GL_ARB_framebuffer_no_attachments
+    GL_ARB_invalidate_subdata
+    GL_ARB_texture_storage_multisample
+    GL_ARB_multi_bind
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_texture_filter_anisotropic
+    GL_KHR_debug
+    GL_KHR_parallel_shader_compile
+    GL_NV_depth_buffer_float
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+ep 27 id=     1: steps=169 |dpos|max=0.000000 |dmetric|max=0.00e+00 success=0.6 OK
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_vertex_array_object
+    GL_ARB_separate_shader_objects
+    GL_ARB_robustness
+    GL_ARB_texture_storage
+    GL_ARB_texture_view
+    GL_ARB_framebuffer_no_attachments
+    GL_ARB_invalidate_subdata
+    GL_ARB_texture_storage_multisample
+    GL_ARB_multi_bind
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_texture_filter_anisotropic
+    GL_KHR_debug
+    GL_KHR_parallel_shader_compile
+    GL_NV_depth_buffer_float
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+ep 28 id=     8: steps=134 |dpos|max=0.000000 |dmetric|max=0.00e+00 success=1.0 OK
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_vertex_array_object
+    GL_ARB_separate_shader_objects
+    GL_ARB_robustness
+    GL_ARB_texture_storage
+    GL_ARB_texture_view
+    GL_ARB_framebuffer_no_attachments
+    GL_ARB_invalidate_subdata
+    GL_ARB_texture_storage_multisample
+    GL_ARB_multi_bind
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_texture_filter_anisotropic
+    GL_KHR_debug
+    GL_KHR_parallel_shader_compile
+    GL_NV_depth_buffer_float
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+ep 29 id=     7: steps=242 |dpos|max=0.000000 |dmetric|max=0.00e+00 success=0.875 OK
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_vertex_array_object
+    GL_ARB_separate_shader_objects
+    GL_ARB_robustness
+    GL_ARB_texture_storage
+    GL_ARB_texture_view
+    GL_ARB_framebuffer_no_attachments
+    GL_ARB_invalidate_subdata
+    GL_ARB_texture_storage_multisample
+    GL_ARB_multi_bind
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_texture_filter_anisotropic
+    GL_KHR_debug
+    GL_KHR_parallel_shader_compile
+    GL_NV_depth_buffer_float
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+ep 30 id=     0: steps=146 |dpos|max=0.000000 |dmetric|max=0.00e+00 success=0.6 OK
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_vertex_array_object
+    GL_ARB_separate_shader_objects
+    GL_ARB_robustness
+    GL_ARB_texture_storage
+    GL_ARB_texture_view
+    GL_ARB_framebuffer_no_attachments
+    GL_ARB_invalidate_subdata
+    GL_ARB_texture_storage_multisample
+    GL_ARB_multi_bind
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_texture_filter_anisotropic
+    GL_KHR_debug
+    GL_KHR_parallel_shader_compile
+    GL_NV_depth_buffer_float
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+ep 31 id=     2: steps=148 |dpos|max=0.000000 |dmetric|max=0.00e+00 success=0.6666666666666666 OK
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_vertex_array_object
+    GL_ARB_separate_shader_objects
+    GL_ARB_robustness
+    GL_ARB_texture_storage
+    GL_ARB_texture_view
+    GL_ARB_framebuffer_no_attachments
+    GL_ARB_invalidate_subdata
+    GL_ARB_texture_storage_multisample
+    GL_ARB_multi_bind
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_texture_filter_anisotropic
+    GL_KHR_debug
+    GL_KHR_parallel_shader_compile
+    GL_NV_depth_buffer_float
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+ep 32 id=     3: steps=193 |dpos|max=0.000000 |dmetric|max=1.11e-16 success=0.7142857142857143 OK
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_vertex_array_object
+    GL_ARB_separate_shader_objects
+    GL_ARB_robustness
+    GL_ARB_texture_storage
+    GL_ARB_texture_view
+    GL_ARB_framebuffer_no_attachments
+    GL_ARB_invalidate_subdata
+    GL_ARB_texture_storage_multisample
+    GL_ARB_multi_bind
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_texture_filter_anisotropic
+    GL_KHR_debug
+    GL_KHR_parallel_shader_compile
+    GL_NV_depth_buffer_float
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+ep 33 id=     2: steps=127 |dpos|max=0.000000 |dmetric|max=9.42e-09 success=0.8571428571428571 OK
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_vertex_array_object
+    GL_ARB_separate_shader_objects
+    GL_ARB_robustness
+    GL_ARB_texture_storage
+    GL_ARB_texture_view
+    GL_ARB_framebuffer_no_attachments
+    GL_ARB_invalidate_subdata
+    GL_ARB_texture_storage_multisample
+    GL_ARB_multi_bind
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_texture_filter_anisotropic
+    GL_KHR_debug
+    GL_KHR_parallel_shader_compile
+    GL_NV_depth_buffer_float
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+ep 34 id=     8: steps=132 |dpos|max=0.000000 |dmetric|max=0.00e+00 success=0.7142857142857143 OK
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_vertex_array_object
+    GL_ARB_separate_shader_objects
+    GL_ARB_robustness
+    GL_ARB_texture_storage
+    GL_ARB_texture_view
+    GL_ARB_framebuffer_no_attachments
+    GL_ARB_invalidate_subdata
+    GL_ARB_texture_storage_multisample
+    GL_ARB_multi_bind
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_texture_filter_anisotropic
+    GL_KHR_debug
+    GL_KHR_parallel_shader_compile
+    GL_NV_depth_buffer_float
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+ep 35 id=     6: steps=134 |dpos|max=0.000000 |dmetric|max=1.86e-09 success=0.7142857142857143 OK
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_vertex_array_object
+    GL_ARB_separate_shader_objects
+    GL_ARB_robustness
+    GL_ARB_texture_storage
+    GL_ARB_texture_view
+    GL_ARB_framebuffer_no_attachments
+    GL_ARB_invalidate_subdata
+    GL_ARB_texture_storage_multisample
+    GL_ARB_multi_bind
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_texture_filter_anisotropic
+    GL_KHR_debug
+    GL_KHR_parallel_shader_compile
+    GL_NV_depth_buffer_float
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+ep 36 id=     8: steps=238 |dpos|max=0.000000 |dmetric|max=0.00e+00 success=0.5714285714285714 OK
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_vertex_array_object
+    GL_ARB_separate_shader_objects
+    GL_ARB_robustness
+    GL_ARB_texture_storage
+    GL_ARB_texture_view
+    GL_ARB_framebuffer_no_attachments
+    GL_ARB_invalidate_subdata
+    GL_ARB_texture_storage_multisample
+    GL_ARB_multi_bind
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_texture_filter_anisotropic
+    GL_KHR_debug
+    GL_KHR_parallel_shader_compile
+    GL_NV_depth_buffer_float
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+ep 37 id=     4: steps=150 |dpos|max=0.000000 |dmetric|max=0.00e+00 success=0.7142857142857143 OK
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_vertex_array_object
+    GL_ARB_separate_shader_objects
+    GL_ARB_robustness
+    GL_ARB_texture_storage
+    GL_ARB_texture_view
+    GL_ARB_framebuffer_no_attachments
+    GL_ARB_invalidate_subdata
+    GL_ARB_texture_storage_multisample
+    GL_ARB_multi_bind
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_texture_filter_anisotropic
+    GL_KHR_debug
+    GL_KHR_parallel_shader_compile
+    GL_NV_depth_buffer_float
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+ep 38 id=     3: steps=194 |dpos|max=0.000000 |dmetric|max=1.49e-08 success=0.6666666666666666 OK
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_vertex_array_object
+    GL_ARB_separate_shader_objects
+    GL_ARB_robustness
+    GL_ARB_texture_storage
+    GL_ARB_texture_view
+    GL_ARB_framebuffer_no_attachments
+    GL_ARB_invalidate_subdata
+    GL_ARB_texture_storage_multisample
+    GL_ARB_multi_bind
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_texture_filter_anisotropic
+    GL_KHR_debug
+    GL_KHR_parallel_shader_compile
+    GL_NV_depth_buffer_float
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+ep 39 id=     1: steps=111 |dpos|max=0.000000 |dmetric|max=0.00e+00 success=0.6666666666666666 OK
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_vertex_array_object
+    GL_ARB_separate_shader_objects
+    GL_ARB_robustness
+    GL_ARB_texture_storage
+    GL_ARB_texture_view
+    GL_ARB_framebuffer_no_attachments
+    GL_ARB_invalidate_subdata
+    GL_ARB_texture_storage_multisample
+    GL_ARB_multi_bind
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_texture_filter_anisotropic
+    GL_KHR_debug
+    GL_KHR_parallel_shader_compile
+    GL_NV_depth_buffer_float
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+ep 40 id=     8: steps=157 |dpos|max=0.000000 |dmetric|max=0.00e+00 success=0.6666666666666666 OK
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_vertex_array_object
+    GL_ARB_separate_shader_objects
+    GL_ARB_robustness
+    GL_ARB_texture_storage
+    GL_ARB_texture_view
+    GL_ARB_framebuffer_no_attachments
+    GL_ARB_invalidate_subdata
+    GL_ARB_texture_storage_multisample
+    GL_ARB_multi_bind
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_texture_filter_anisotropic
+    GL_KHR_debug
+    GL_KHR_parallel_shader_compile
+    GL_NV_depth_buffer_float
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+ep 41 id=     7: steps=352 |dpos|max=0.000000 |dmetric|max=0.00e+00 success=0.5 OK
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_vertex_array_object
+    GL_ARB_separate_shader_objects
+    GL_ARB_robustness
+    GL_ARB_texture_storage
+    GL_ARB_texture_view
+    GL_ARB_framebuffer_no_attachments
+    GL_ARB_invalidate_subdata
+    GL_ARB_texture_storage_multisample
+    GL_ARB_multi_bind
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_texture_filter_anisotropic
+    GL_KHR_debug
+    GL_KHR_parallel_shader_compile
+    GL_NV_depth_buffer_float
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+ep 42 id=     0: steps=126 |dpos|max=0.000000 |dmetric|max=0.00e+00 success=1.0 OK
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_vertex_array_object
+    GL_ARB_separate_shader_objects
+    GL_ARB_robustness
+    GL_ARB_texture_storage
+    GL_ARB_texture_view
+    GL_ARB_framebuffer_no_attachments
+    GL_ARB_invalidate_subdata
+    GL_ARB_texture_storage_multisample
+    GL_ARB_multi_bind
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_texture_filter_anisotropic
+    GL_KHR_debug
+    GL_KHR_parallel_shader_compile
+    GL_NV_depth_buffer_float
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+ep 43 id=     4: steps= 95 |dpos|max=0.000000 |dmetric|max=1.86e-09 success=0.6 OK
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_vertex_array_object
+    GL_ARB_separate_shader_objects
+    GL_ARB_robustness
+    GL_ARB_texture_storage
+    GL_ARB_texture_view
+    GL_ARB_framebuffer_no_attachments
+    GL_ARB_invalidate_subdata
+    GL_ARB_texture_storage_multisample
+    GL_ARB_multi_bind
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_texture_filter_anisotropic
+    GL_KHR_debug
+    GL_KHR_parallel_shader_compile
+    GL_NV_depth_buffer_float
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+ep 44 id=     1: steps=459 |dpos|max=0.000000 |dmetric|max=0.00e+00 success=0.5714285714285714 OK
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_vertex_array_object
+    GL_ARB_separate_shader_objects
+    GL_ARB_robustness
+    GL_ARB_texture_storage
+    GL_ARB_texture_view
+    GL_ARB_framebuffer_no_attachments
+    GL_ARB_invalidate_subdata
+    GL_ARB_texture_storage_multisample
+    GL_ARB_multi_bind
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_texture_filter_anisotropic
+    GL_KHR_debug
+    GL_KHR_parallel_shader_compile
+    GL_NV_depth_buffer_float
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+ep 45 id=     8: steps=266 |dpos|max=0.000000 |dmetric|max=1.25e-08 success=0.6666666666666666 OK
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_vertex_array_object
+    GL_ARB_separate_shader_objects
+    GL_ARB_robustness
+    GL_ARB_texture_storage
+    GL_ARB_texture_view
+    GL_ARB_framebuffer_no_attachments
+    GL_ARB_invalidate_subdata
+    GL_ARB_texture_storage_multisample
+    GL_ARB_multi_bind
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_texture_filter_anisotropic
+    GL_KHR_debug
+    GL_KHR_parallel_shader_compile
+    GL_NV_depth_buffer_float
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+ep 46 id=     3: steps=163 |dpos|max=0.000000 |dmetric|max=0.00e+00 success=0.6 OK
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_vertex_array_object
+    GL_ARB_separate_shader_objects
+    GL_ARB_robustness
+    GL_ARB_texture_storage
+    GL_ARB_texture_view
+    GL_ARB_framebuffer_no_attachments
+    GL_ARB_invalidate_subdata
+    GL_ARB_texture_storage_multisample
+    GL_ARB_multi_bind
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_texture_filter_anisotropic
+    GL_KHR_debug
+    GL_KHR_parallel_shader_compile
+    GL_NV_depth_buffer_float
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+ep 47 id=     0: steps=271 |dpos|max=0.000000 |dmetric|max=1.11e-16 success=0.7142857142857143 OK
+
+36 ok, 0 fail, 0 holes (truth dtg inf / no metrics) of 36; worst |dpos| 0.000000 m, |dmetric| 1.49e-08

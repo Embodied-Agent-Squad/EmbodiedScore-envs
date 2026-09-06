@@ -7,7 +7,7 @@ the workspace's env_objnav / env_ovon nodeset). Runs in the legacy conda env:
 Replays each transcript's executed actions through the old manager (the same
 index the board used — the manager addresses habitat's seed-100-shuffled
 list) and records the action list, the position after every action and the
-terminal metrics, in the parity script's oracle format.
+terminal metrics, in the replay script's oracle format.
 """
 
 from __future__ import annotations
@@ -89,7 +89,7 @@ def main() -> int:
         for a in actions:
             out = mgr.step(int(a))
             dtg_steps.append(float(mgr._env.get_metrics()["distance_to_goal"]))
-            if int(a) != 0:      # a track point per movement, as the parity script expects
+            if int(a) != 0:      # a track point per movement, as the replay script expects
                 track.append(list(map(float, sim.get_agent_state().position)))
             collided.append(bool((out.get("info") or {}).get("collided", False)))
             if out.get("terminated") or out.get("truncated"):

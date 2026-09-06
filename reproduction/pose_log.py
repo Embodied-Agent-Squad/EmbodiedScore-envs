@@ -1,9 +1,9 @@
-"""HM-EQA free-pose protocol parity: replay the explore-eqa canvas graph's
+"""HM-EQA free-pose protocol reproduction: replay the explore-eqa canvas graph's
 node log (``outputs/eval_runs/<ts>/episodes/ep*/log.jsonl``) through
 ``hmeqa-pose`` and compare the per-step agent pose, the per-episode budget
 (num_step) and floor height, and the truncation step.
 
-    EMBODIEDSCORE_DATA_ROOT=... EMBODIEDSCORE_SCENE_ROOT=... python -u scripts/parity_pose_log.py \
+    EMBODIEDSCORE_DATA_ROOT=... EMBODIEDSCORE_SCENE_ROOT=... python -u reproduction/pose_log.py \
         --run outputs/eval_runs/20260615_183412 [--benchmark hmeqa-pose --split val]
 
 The legacy action is explore-eqa's z-up "normal" frame (x, y) + yaw; the

@@ -1,0 +1,37 @@
+Renderer: NVIDIA GeForce RTX 3090/PCIe/SSE2 by NVIDIA Corporation
+OpenGL version: 4.6.0 NVIDIA 570.133.07
+Using optional features:
+    GL_ARB_vertex_array_object
+    GL_ARB_separate_shader_objects
+    GL_ARB_robustness
+    GL_ARB_texture_storage
+    GL_ARB_texture_view
+    GL_ARB_framebuffer_no_attachments
+    GL_ARB_invalidate_subdata
+    GL_ARB_texture_storage_multisample
+    GL_ARB_multi_bind
+    GL_ARB_direct_state_access
+    GL_ARB_get_texture_sub_image
+    GL_ARB_texture_filter_anisotropic
+    GL_KHR_debug
+    GL_KHR_parallel_shader_compile
+    GL_NV_depth_buffer_float
+Using driver workarounds:
+    no-forward-compatible-core-context
+    nv-egl-incorrect-gl11-function-pointers
+    no-layout-qualifiers-on-old-glsl
+    nv-zero-context-profile-mask
+    nv-implementation-color-read-format-dsa-broken
+    nv-cubemap-inconsistent-compressed-image-size
+    nv-cubemap-broken-full-compressed-image-query
+    nv-compressed-block-size-in-bits
+[22:29:38:943255]:[Warning]:[Metadata] SceneDatasetAttributes.cpp(107)::addNewSceneInstanceToDataset : Dataset : 'default' : Lighting Layout Attributes 'no_lights' specified in Scene Attributes but does not exist in dataset, so creating default.
+ep  0 id=   676: steps= 41 |dpos|max=0.000000 |dmetric|max=0.00e+00 success=1.0 OK
+ep  1 id=  1561: steps= 11 |dpos|max=0.000000 |dmetric|max=0.00e+00 success=0.0 OK
+ep  2 id=  1228: steps= 50 |dpos|max=0.000000 |dmetric|max=0.00e+00 success=1.0 OK
+ep  3 id=  1060: steps= 11 |dpos|max=0.000000 |dmetric|max=0.00e+00 success=0.0 OK
+ep  4 id=   421: steps= 64 |dpos|max=0.000000 |dmetric|max=0.00e+00 success=1.0 OK
+ep  5 id=   739: steps= 11 |dpos|max=0.000000 |dmetric|max=0.00e+00 success=0.0 OK
+tour path: truth 404 entries, ours 404 — IDENTICAL
+
+6 ok, 0 fail, 0 holes (truth dtg inf / no metrics) of 6; worst |dpos| 0.000000 m, |dmetric| 0.00e+00

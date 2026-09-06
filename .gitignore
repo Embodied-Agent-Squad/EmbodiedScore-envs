@@ -4,4 +4,4 @@ __pycache__/
 build/
 dist/
 .pytest_cache/
-# parity_reports/ is tracked: replay logs are the evidence behind PARITY.md
+# reproduction/reports/ is tracked: replay logs are the evidence behind reproduction/REPRODUCTION.md

@@ -9,7 +9,7 @@ Truth sources (``--mode``):
               (ObjectNav / OVON / EXPRESS: terminal metrics only)
   actions-log coding-agent run with live_<i>/actions.log batches (HM-EQA / MT-HM3D: per-batch
               camera_tilt_deg + terminal metrics)
-  oracle      a JSON written by scripts/oracle/*.py in the legacy env: per episode the action
+  oracle      a JSON written by reproduction/oracle/*.py in the legacy env: per episode the action
               list, the per-step track and the terminal metrics (GOAT, IVLN-CE)
 
 For every episode: reset(options={"episode": i}) (checked against the recorded
@@ -18,7 +18,7 @@ truth has them), final distance_to_goal and every metric key both sides have.
 Exit 1 if any episode exceeds the tolerances.
 
 Usage:
-    EMBODIEDSCORE_DATA_ROOT=... EMBODIEDSCORE_SCENE_ROOT=... python -u scripts/parity_replay.py \
+    EMBODIEDSCORE_DATA_ROOT=... EMBODIEDSCORE_SCENE_ROOT=... python -u reproduction/replay.py \
         --benchmark objectnav-hm3d-v1 --split val --mode transcript --run <run_dir> [--eps 0-99]
 """
 

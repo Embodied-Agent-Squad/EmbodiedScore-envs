@@ -1,0 +1,36 @@
+== vlnce-r2r_rand100
+100 ok, 0 fail, 0 holes (truth dtg inf / no metrics) of 100; worst |dpos| 0.000000 m, |dmetric| 2.38e-07
+== vlnce-rxr_rand100
+100 ok, 0 fail, 1 holes (truth dtg inf / no metrics) of 100; worst |dpos| 0.000000 m, |dmetric| 9.54e-07
+== objectnav-hm3d-v1_mip100
+100 ok, 0 fail, 0 holes (truth dtg inf / no metrics) of 100; worst |dpos| 0.000000 m, |dmetric| 1.80e-08
+== objectnav-mp3d-v1_mip100
+failed episodes: [57]
+== ovon_mip100_seen
+100 ok, 0 fail, 0 holes (truth dtg inf / no metrics) of 100; worst |dpos| 0.000000 m, |dmetric| 3.88e-08
+== ovon_mip100_seen_synonyms
+failed episodes: [23]
+== ovon_mip100_unseen
+100 ok, 0 fail, 0 holes (truth dtg inf / no metrics) of 100; worst |dpos| 0.000000 m, |dmetric| 4.77e-07
+== hmeqa_val500
+500 ok, 0 fail, 0 holes (truth dtg inf / no metrics) of 500; worst |dpos| 0.000000 m, |dmetric| 0.00e+00
+== mthm3d_mip100
+100 ok, 0 fail, 0 holes (truth dtg inf / no metrics) of 100; worst |dpos| 0.000000 m, |dmetric| 0.00e+00
+== express_mip100
+100 ok, 0 fail, 0 holes (truth dtg inf / no metrics) of 100; worst |dpos| 0.000000 m, |dmetric| 0.00e+00
+== goat_val_seen
+36 ok, 0 fail, 0 holes (truth dtg inf / no metrics) of 36; worst |dpos| 0.000000 m, |dmetric| 1.49e-08
+== goat_val_unseen_b
+36 ok, 0 fail, 0 holes (truth dtg inf / no metrics) of 36; worst |dpos| 0.000000 m, |dmetric| 1.49e-08
+== goat_val_unseen
+12 ok, 0 fail, 0 holes (truth dtg inf / no metrics) of 12; worst |dpos| 0.000000 m, |dmetric| 8.12e-09
+== ivlnce_val_seen_tour3
+2 ok, 0 fail, 0 holes (truth dtg inf / no metrics) of 2; worst |dpos| 0.000000 m, |dmetric| 0.00e+00
+== ivlnce_val_unseen_tour0_24
+24 ok, 0 fail, 0 holes (truth dtg inf / no metrics) of 24; worst |dpos| 0.000000 m, |dmetric| 0.00e+00
+== ivlnce_val_unseen_tour0
+6 ok, 0 fail, 0 holes (truth dtg inf / no metrics) of 6; worst |dpos| 0.000000 m, |dmetric| 0.00e+00
+== ivlnce_val_unseen_tour7
+6 ok, 0 fail, 0 holes (truth dtg inf / no metrics) of 6; worst |dpos| 0.000000 m, |dmetric| 0.00e+00
+== hmeqa-pose graph log
+10 ok, 0 fail
