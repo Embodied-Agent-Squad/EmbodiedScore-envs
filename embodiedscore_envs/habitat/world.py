@@ -143,13 +143,12 @@ class SimWorld:
         return np.asarray(st.position, dtype=np.float32), np.asarray(quat_to_coeffs(st.rotation), dtype=np.float64)
 
     def heading(self) -> float:
-        """Yaw in radians, habitat-lab HeadingSensor convention (0 = facing -z)."""
+        """Yaw in radians with habitat-lab's HeadingSensor convention: 0 when
+        facing -z, positive for left (counter-clockwise from above) turns."""
         self._require()
-        st = self._agent.get_state()
-        q = st.rotation
-        fwd = np.quaternion(0, 0, 0, -1)
-        v = (q * fwd * q.inverse()).imag
-        return float(math.atan2(v[0], -v[2]))
+        q = self._agent.get_state().rotation
+        v = (q * np.quaternion(0, 0, 0, -1) * q.inverse()).imag   # world-frame forward vector
+        return float(math.atan2(-v[0], -v[2]))
 
     def geodesic(self, a: Any, b: Any) -> float:
         """Navmesh geodesic distance a -> b; ``inf`` when unreachable."""
