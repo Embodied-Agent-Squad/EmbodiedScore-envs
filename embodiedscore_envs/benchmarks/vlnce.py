@@ -96,7 +96,7 @@ def _decl(dataset: str, gym_id: str, splits: tuple[str, ...], upstream: bool) ->
         episodes=lambda split, data_root=None, scene_root=None, **kw: load_episodes(dataset, split, data_root, scene_root, **kw),
         metrics=lambda env, **o: NavMetrics(env, success_distance=o.get("success_distance", SUCCESS_DISTANCE), keys=VLN_KEYS),
         depth=dspec, max_episode_steps=500, variant="upstream" if upstream else "standard",
-        description=f"VLN-CE {dataset.upper()} " + ("on its upstream rig" if upstream else "on the STANDARD body") + " (habitat-lab 0.1.7 + VLN-CE numerics)",
+        description=f"VLN-CE {dataset.upper()} " + ("on its upstream rig" if upstream else "on the STANDARD body"),
     )
 
 

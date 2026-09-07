@@ -155,8 +155,8 @@ def _decl(dataset: str, gym_id: str, splits: tuple[str, ...], upstream: bool, na
         episodes=lambda split, data_root=None, scene_root=None, **kw: load_episodes(dataset, split, data_root, scene_root),
         metrics=lambda env, **o: NavMetrics(env, success_distance=o.get("success_distance", sd), keys=OBJECTNAV_KEYS),
         depth=dspec, max_episode_steps=500, variant="upstream" if upstream else "standard",
-        description=(f"HM3D-OVON ({'Stretch rig, OVONSim numerics' if upstream else 'STANDARD body'}; success 0.25)" if ovon
-                     else f"ObjectNav {dataset} ({'LoCoBot rig' if upstream else 'STANDARD body'}; habitat-lab 0.2.4 ObjectNav-v1 numerics)"),
+        description=(f"HM3D-OVON ({'Stretch rig' if upstream else 'STANDARD body'}; success 0.25)" if ovon
+                     else f"ObjectNav {dataset} ({'LoCoBot rig' if upstream else 'STANDARD body'})"),
     )
 
 

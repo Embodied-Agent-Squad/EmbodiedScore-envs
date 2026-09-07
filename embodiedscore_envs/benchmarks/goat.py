@@ -150,8 +150,7 @@ def _decl(upstream: bool) -> Benchmark:
         metrics=lambda env, **o: SequenceNavMetrics(env, success_distance=o.get("success_distance", SUCCESS_DISTANCE)),
         depth=None if upstream else depth.STANDARD, max_episode_steps=5000, dtg_policy="every_step",
         variant="upstream" if upstream else "standard",
-        description="GOAT-Bench " + ("on the Stretch rig (goat-bench Goat-v1 numerics; navmesh climb 0.1 / cell 0.05)" if upstream
-                                     else "on the STANDARD body (goat-bench measures)"),
+        description="GOAT-Bench " + ("on the Stretch rig (navmesh climb 0.1 / cell 0.05)" if upstream else "on the STANDARD body"),
     )
 
 
