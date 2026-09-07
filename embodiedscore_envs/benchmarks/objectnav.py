@@ -1,6 +1,7 @@
 """ObjectNav (habitat-lab 0.2.4 ObjectNav-v1 task) on HM3D v1 / v2 and MP3D v1,
-and HM3D-OVON — the same body, actions and measures on the open-vocabulary
-episode files (declared here because everything but the files is shared).
+and HM3D-OVON — the same shard format and loader on the open-vocabulary
+episode files (declared here because everything but the files and the goal
+widening is shared).
 
 Data (under ``EMBODIEDSCORE_DATA_ROOT/objectnav``):
     {hm3d/v1 | hm3d/v2 | mp3d/v1}/{split}/{split}.json.gz              shell (category tables; episodes
@@ -15,21 +16,24 @@ every instance of that category in the scene, each with its view points.
 Scenes: HM3D ``hm3d/val/<id>/<short>.basis.glb`` with the annotated
 scene-dataset config (v2 episodes say ``hm3d_v0.2/{val,minival}`` — provide
 those as links to ``hm3d/val``); MP3D ``mp3d/<scan>/<scan>.glb`` bare.
-The navmesh is recomputed for the 0.18 m / 0.88 m agent on every scene load
-(habitat-lab does so because the shipped files are baked for 0.1 / 1.5).
 
-Body = benchmark/nav/objectnav/objectnav_hm3d.yaml (== objectnav_mp3d.yaml):
-0.25 m, turn 30°, tilt 30° unlimited, RGB-D 640x480 hfov 79 at 0.88 m,
-depth 0.5-5 m normalised, sliding off, 500 steps. Actions 0-5.
-Metrics = distance_to_goal (to the nearest view point) / success (0.1 m) / spl / soft_spl.
+Variants. ``objectnav-*`` / ``ovon`` (default) run on the shared STANDARD body
+(``presets.bodies.STANDARD``). ``-upstream``: ObjectNav on habitat-lab's
+``objectnav_hm3d.yaml`` LoCoBot rig (``presets.bodies.LOCOBOT``, navmesh
+recomputed for 0.18 / 0.88, depth 0.5-5 m normalised); OVON on the Stretch rig
+every released OVON experiment config uses (``objectnav_stretch_hm3d`` +
+``OVONSim-v0``: ``presets.bodies.STRETCH``, RGB only, navmesh climb 0.1 /
+cell 0.05). Actions 0-5, 500 steps in all.
 
-OVON (``EMBODIEDSCORE_DATA_ROOT/ovon/hm3d``): three val splits whose directory
-and file names differ (upstream's tarball keeps generation-time names) plus
-derived ``mip{100,60}_*`` files; ``episode_id`` is kept as authored (the OVON
-loader does not renumber); ``children_object_categories`` rides in info and
-does not widen the goal set (habitat's stock DistanceToGoal never reads it).
-success_distance stays at habitat's 0.1, not upstream OVON's 0.25 — the
-workspace nodeset's docstring records why.
+Task semantics (both variants). ObjectNav: distance_to_goal to the nearest view
+point of the category's instances, success 0.1 m, spl, soft_spl (habitat's stock
+measures). OVON: the upstream protocol — ``OVONDistanceToGoal`` widens the
+target set with the view points of every ``children_object_categories`` entry
+that exists in the shard's goal table (``ovon/measurements/nav.py``), and
+``success_distance`` is 0.25 (every released experiment config). OVON
+``episode_id`` is kept as authored (its loader does not renumber); its three
+val splits have directory / file names that differ (``_OVON_FILES``) plus the
+derived ``mip{100,60}_*`` files.
 """
 
 from __future__ import annotations
@@ -39,20 +43,15 @@ import json
 import os
 from pathlib import Path
 
-from .env import (OBJECTNAV_KEYS, Act, Benchmark, Body, CameraSpec, DepthSpec, Episode, NavMesh, NavMetrics,
-                  ObjectGoal, ObjectInstance, SceneRef, data_root, scene_root)
+from .env import (OBJECTNAV_KEYS, Benchmark, Episode, NavMetrics, ObjectGoal, ObjectInstance, SceneRef, data_root,
+                  scene_root)
+from .presets import actions, bodies, depth
 
-SUCCESS_DISTANCE = 0.1
+SUCCESS_DISTANCE = 0.1          # habitat-lab ObjectNav
+OVON_SUCCESS_DISTANCE = 0.25    # every released OVON experiment config
 _SCENE_PREFIX = "data/scene_datasets/"
 
-BODY = Body(forward_step_m=0.25, turn_deg=30.0, tilt_deg=30.0, tilt_limit_deg=None,
-            agent_height_m=0.88, agent_radius_m=0.18, allow_sliding=False,
-            rgb=CameraSpec(640, 480, 79.0, (0.0, 0.88, 0.0)), depth=CameraSpec(640, 480, 79.0, (0.0, 0.88, 0.0)),
-            navmesh=NavMesh.recompute(agent_radius=0.18, agent_height=0.88))
-ACTIONS = (Act.STOP, Act.FORWARD, Act.LEFT, Act.RIGHT, Act.LOOK_UP, Act.LOOK_DOWN)
-DEPTH = DepthSpec(0.5, 5.0, normalize=True)
-
-_VARIANTS = {"hm3d-v1": "hm3d/v1", "hm3d-v2": "hm3d/v2", "mp3d-v1": "mp3d/v1"}
+_DATASETS = {"hm3d-v1": "hm3d/v1", "hm3d-v2": "hm3d/v2", "mp3d-v1": "mp3d/v1"}
 _OVON_MIP_N = (100, 60)
 _OVON_FILES = {"val_seen": "val_seen", "val_seen_synonyms": "val_unseen_easy", "val_unseen": "val_unseen_hard",
                **{f"mip{n}_{suf}": f"mip{n}_{suf}" for n in _OVON_MIP_N for suf in ("seen", "seen_synonyms", "unseen")}}
@@ -84,12 +83,21 @@ def parse_instances(goals: list[dict]) -> tuple[ObjectInstance, ...]:
     return tuple(out)
 
 
-def _episodes_from(raw: dict, sroot: Path, start_index: int, renumber: bool = True) -> list[Episode]:
+def _episodes_from(raw: dict, sroot: Path, start_index: int, renumber: bool = True,
+                   children_widen: bool = False) -> list[Episode]:
+    """``children_widen`` = OVON's ``OVONDistanceToGoal``: the instances of every
+    ``children_object_categories`` entry present in the goal table join the goal."""
     gbc = {k: parse_instances(v) for k, v in raw.get("goals_by_category", {}).items()}
     out: list[Episode] = []
     for i, e in enumerate(raw["episodes"]):
         scene_id = e["scene_id"]
         key = f"{os.path.basename(scene_id)}_{e['object_category']}"
+        instances = gbc[key]
+        if children_widen:
+            for child in e.get("children_object_categories") or []:
+                ck = f"{os.path.basename(scene_id)}_{child}"
+                if ck in gbc:
+                    instances = instances + gbc[ck]
         info = dict(e.get("info") or {})
         info.update({"scene_id": scene_id, "object_category": e["object_category"], "goals_key": key,
                      "shortest_paths": e.get("shortest_paths"),
@@ -100,13 +108,14 @@ def _episodes_from(raw: dict, sroot: Path, start_index: int, renumber: bool = Tr
             scene=_scene_ref(scene_id, e.get("scene_dataset_config"), sroot),
             start_position=tuple(float(x) for x in e["start_position"]),
             start_rotation=tuple(float(x) for x in e["start_rotation"]),
-            goal=ObjectGoal(category=str(e["object_category"]), instances=gbc[key]),
+            goal=ObjectGoal(category=str(e["object_category"]), instances=instances),
             info=info,
         ))
     return out
 
 
-def load_split(base: Path, split: str, sroot: Path, renumber: bool = True, shell_name: str | None = None) -> list[Episode]:
+def load_split(base: Path, split: str, sroot: Path, renumber: bool = True, shell_name: str | None = None,
+               children_widen: bool = False) -> list[Episode]:
     """habitat-lab PointNavDatasetV1 loading order: the shell, then every
     ``content/*.json.gz`` shard sorted by name; without content/, the shell's episodes."""
     shell = base / split / f"{shell_name or split}.json.gz"
@@ -118,32 +127,43 @@ def load_split(base: Path, split: str, sroot: Path, renumber: bool = True, shell
     if content.is_dir():
         shards = sorted(p for p in os.listdir(content) if p.endswith(".json.gz") and not p.startswith("._"))
         for name in shards:
-            out.extend(_episodes_from(_load_json_gz(content / name), sroot, len(out), renumber))
+            out.extend(_episodes_from(_load_json_gz(content / name), sroot, len(out), renumber, children_widen))
     else:
-        out.extend(_episodes_from(raw, sroot, 0, renumber))
+        out.extend(_episodes_from(raw, sroot, 0, renumber, children_widen))
     return out
 
 
-def load_episodes(variant: str, split: str, data_root_=None, scene_root_=None) -> list[Episode]:
-    if variant == "ovon":
+def load_episodes(dataset: str, split: str, data_root_=None, scene_root_=None) -> list[Episode]:
+    if dataset == "ovon":
         return load_split(data_root(data_root_) / "ovon" / "hm3d", split, scene_root(scene_root_),
-                          renumber=False, shell_name=_OVON_FILES.get(split, split))
-    return load_split(data_root(data_root_) / "objectnav" / _VARIANTS[variant], split, scene_root(scene_root_))
+                          renumber=False, shell_name=_OVON_FILES.get(split, split), children_widen=True)
+    return load_split(data_root(data_root_) / "objectnav" / _DATASETS[dataset], split, scene_root(scene_root_))
 
 
-def _decl(variant: str, gym_id: str, splits: tuple[str, ...], name: str | None = None) -> Benchmark:
+def _decl(dataset: str, gym_id: str, splits: tuple[str, ...], upstream: bool, name: str | None = None) -> Benchmark:
+    ovon = dataset == "ovon"
+    sd = OVON_SUCCESS_DISTANCE if ovon else SUCCESS_DISTANCE
+    if upstream:
+        body, acts, dspec = (bodies.STRETCH, actions.NAV_LOOK, None) if ovon else (bodies.LOCOBOT, actions.NAV_LOOK, depth.LOCOBOT)
+    else:
+        body, acts, dspec = bodies.STANDARD, actions.STANDARD, depth.STANDARD
+    line = name or f"objectnav-{dataset}"
     return Benchmark(
-        name=name or f"objectnav-{variant}", gym_id=gym_id, body=BODY, actions=ACTIONS, splits=splits,
-        episodes=lambda split, data_root=None, scene_root=None, **kw: load_episodes(variant, split, data_root, scene_root),
-        metrics=lambda env, **o: NavMetrics(env, success_distance=o.get("success_distance", SUCCESS_DISTANCE), keys=OBJECTNAV_KEYS),
-        depth=DEPTH, max_episode_steps=500,
-        description=f"ObjectNav {variant} (habitat-lab 0.2.4 ObjectNav-v1 numerics)",
+        name=line + ("-upstream" if upstream else ""),
+        gym_id=gym_id.replace("-v0", "-Upstream-v0") if upstream else gym_id,
+        body=body, actions=acts, splits=splits,
+        episodes=lambda split, data_root=None, scene_root=None, **kw: load_episodes(dataset, split, data_root, scene_root),
+        metrics=lambda env, **o: NavMetrics(env, success_distance=o.get("success_distance", sd), keys=OBJECTNAV_KEYS),
+        depth=dspec, max_episode_steps=500, variant="upstream" if upstream else "standard",
+        description=(f"HM3D-OVON ({'Stretch rig, OVONSim numerics' if upstream else 'STANDARD body'}; success 0.25)" if ovon
+                     else f"ObjectNav {dataset} ({'LoCoBot rig' if upstream else 'STANDARD body'}; habitat-lab 0.2.4 ObjectNav-v1 numerics)"),
     )
 
 
-BENCHMARKS = (
-    _decl("hm3d-v1", "EmbodiedScore/ObjectNav-HM3Dv1-v0", ("train", "val", "val_mini")),
-    _decl("hm3d-v2", "EmbodiedScore/ObjectNav-HM3Dv2-v0", ("train", "val", "val_mini")),
-    _decl("mp3d-v1", "EmbodiedScore/ObjectNav-MP3D-v0", ("train", "val", "val_mini")),
-    _decl("ovon", "EmbodiedScore/OVON-v0", tuple(_OVON_FILES), name="ovon"),
+_LINES = (
+    ("hm3d-v1", "EmbodiedScore/ObjectNav-HM3Dv1-v0", ("train", "val", "val_mini"), None),
+    ("hm3d-v2", "EmbodiedScore/ObjectNav-HM3Dv2-v0", ("train", "val", "val_mini"), None),
+    ("mp3d-v1", "EmbodiedScore/ObjectNav-MP3D-v0", ("train", "val", "val_mini"), None),
+    ("ovon", "EmbodiedScore/OVON-v0", tuple(_OVON_FILES), "ovon"),
 )
+BENCHMARKS = tuple(_decl(d, g, sp, upstream=u, name=n) for d, g, sp, n in _LINES for u in (False, True))

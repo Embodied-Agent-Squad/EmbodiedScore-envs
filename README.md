@@ -18,19 +18,31 @@ print(info["metrics"])                           # {"distance_to_goal": ..., "su
 env.close()
 ```
 
-| benchmark (`make` name) | splits | actions | metrics |
+| line (`make` name) | splits | actions (standard) | task semantics (both variants) |
 |---|---|---|---|
-| `vlnce-r2r` · `vlnce-rxr` | train / val_seen / val_unseen | 0–3 (0.25 m, 15°) | the seven VLN-CE metrics, success 3.0 m |
-| `ivlnce` | train / val_seen / val_unseen | 0–3 | VLN-CE metrics + tour t-nDTW (`info["tour"]`) |
-| `objectnav-hm3d-v1` · `-hm3d-v2` · `-mp3d-v1` | train / val / val_mini | 0–5 (0.25 m, 30°, tilt 30°) | distance_to_goal / success 0.1 m / spl / soft_spl |
-| `ovon` | val_seen / val_seen_synonyms / val_unseen | 0–5 | same as ObjectNav |
+| `vlnce-r2r` · `vlnce-rxr` | train / val_seen / val_unseen | 0–5 | the seven VLN-CE metrics, success 3.0 m |
+| `ivlnce` | train / val_seen / val_unseen | 0–5 | VLN-CE metrics + tour t-nDTW (`info["tour"]`) |
+| `objectnav-hm3d-v1` · `-hm3d-v2` · `-mp3d-v1` | train / val / val_mini | 0–5 | distance_to_goal / success 0.1 m / spl / soft_spl |
+| `ovon` | val_seen / val_seen_synonyms / val_unseen | 0–5 | same keys; success 0.25 m, goal widened by children categories (OVON's measure) |
 | `goat` | val_seen / val_seen_synonyms / val_unseen | 0–6 (+ SUBTASK_STOP) | GOAT-Bench partial / composite metrics, 0.25 m |
-| `hmeqa` · `mthm3d` (+ `-pose`) | val / mip100 | 0–5 (tilt ±60°) / `Box[x, z, yaw]` | path_length / steps_taken; answer scored outside |
-| `express` (+ `-pose`) | val / train / all / mip100 | 0–3 / `Box` with navmesh snap | distance_to_goal (d_T) / path_length / steps_taken |
+| `hmeqa` · `mthm3d` | val / mip100 | 0–5 | path_length / steps_taken; `num_step` budget in info; answer scored outside |
+| `express` | val / train / all / mip100 | 0–5 | distance_to_goal (d_T) / path_length / steps_taken |
+
+Every line has two variants. `make(name, split)` is the **standard** variant:
+EmbodiedScore's shared body (`presets.bodies.STANDARD` — 0.25 m / 15°, tilt 30°
+clamped to ±60°, 1.5 m / 0.1 m agent, sliding on, RGB 512² + depth 256² at hfov
+90 and 1.25 m, depth 0–10 m normalised, the scene's navmesh file). `make(name,
+split, variant="upstream")` (== `make(f"{name}-upstream", split)`) is the line's
+own evaluator: VLN-CE's 224² rig, RxR-CE's LoCoBot rig with LOOK, habitat-lab's
+LoCoBot for ObjectNav, the Stretch rig (RGB only, navmesh climb 0.1 / cell 0.05)
+for OVON and GOAT, and the free-pose teleport protocols (`Box[x, z, yaw]`) of
+explore-eqa / EXPRESS for the EQA lines. Task semantics do not change between
+variants; only the body, action table, depth post-processing and — for the EQA
+lines — the action interface do.
 
 Action ids are global: `0 STOP · 1 FORWARD · 2 LEFT · 3 RIGHT · 4 LOOK_UP · 5 LOOK_DOWN · 6 SUBTASK_STOP`;
-each benchmark uses a prefix. `obs = {"rgb": uint8 HxWx3[, "depth": float32 HxWx1]}`
-with the benchmark's own rig; `info` carries the facts (position, rotation,
+each declaration uses a prefix. `obs = {"rgb": uint8 HxWx3[, "depth": float32 HxWx1]}`
+with the variant's rig; `info` carries the facts (position, rotation,
 heading, pitch, collided, distance_to_goal, stop_called, goal_index) plus
 `episode` / `goal` on reset and `metrics` from the metric wrapper.
 
@@ -39,8 +51,9 @@ heading, pitch, collided, distance_to_goal, stop_called, goal_index) plus
 ```
 embodiedscore_envs/
 ├── __init__.py                 make(name, split, **kw); the gym ids
-└── benchmarks/                 one file per benchmark — a declaration: Body, action prefix, episodes(), metrics, budget
+└── benchmarks/                 one file per line — declarations (standard + upstream): body, action prefix, episodes(), metrics, budget
     ├── vlnce.py  ivlnce.py  objectnav.py (+ ovon)  goat.py  hmeqa.py (+ mthm3d)  express.py
+    ├── presets/                bodies (STANDARD + the upstream rigs) · action tables · depth post-processing — pure data
     └── env/                    what every benchmark is built on
         ├── schema.py           Episode · Goal types (Point / Object / Image / Text / Sequence / Question) · Act · Benchmark
         ├── env.py              HabitatEnv (Discrete) · HabitatPoseEnv (Box teleport)
@@ -50,7 +63,7 @@ embodiedscore_envs/
 ```
 
 Imports point strictly downward; benchmark files never import each other
-(shared pieces live in `env/`); metric wrappers read only `info`.
+(shared pieces live in `presets/` and `env/`); metric wrappers read only `info`.
 
 ## Data
 

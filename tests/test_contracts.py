@@ -15,20 +15,23 @@ from gymnasium.utils.env_checker import check_env
 import embodiedscore_envs as es
 from embodiedscore_envs.benchmarks.env import Act
 
-# one cheap split per benchmark
+# one cheap split per line (both variants share it)
 SPLITS = {
     "vlnce-r2r": "val_unseen", "vlnce-rxr": "val_unseen", "ivlnce": "val_unseen",
     "objectnav-hm3d-v1": "val_mini", "objectnav-hm3d-v2": "val_mini", "objectnav-mp3d-v1": "val_mini",
     "ovon": "mip100_seen", "goat": "val_unseen",
-    "hmeqa": "mip100", "hmeqa-pose": "mip100", "mthm3d": "mip100", "mthm3d-pose": "mip100",
-    "express": "mip100", "express-pose": "mip100",
+    "hmeqa": "mip100", "mthm3d": "mip100", "express": "mip100",
 }
+
+
+def split_of(name: str) -> str:
+    return SPLITS[es.benchmark(name).line]
 
 
 @pytest.fixture(scope="module", params=sorted(es.BENCHMARKS))
 def stack(request):
     name = request.param
-    env = es.make(name, SPLITS[name])
+    env = es.make(name, split_of(name))
     yield name, env
     env.close()
 
@@ -37,6 +40,40 @@ def test_registry_covers_every_declaration():
     import gymnasium as gym
     for b in es.BENCHMARKS.values():
         assert b.gym_id in gym.registry
+
+
+def test_every_line_has_both_variants():
+    from embodiedscore_envs.benchmarks import resolve
+    from embodiedscore_envs.benchmarks.presets import actions, bodies, depth
+    lines = {b.line for b in es.BENCHMARKS.values()}
+    assert len(es.BENCHMARKS) == 2 * len(lines) == 22
+    for line in lines:
+        std, up = es.benchmark(line), es.benchmark(line, "upstream")
+        assert (std.variant, up.variant) == ("standard", "upstream") and std.line == up.line == line
+        assert std.body is bodies.STANDARD and std.depth is depth.STANDARD
+        assert std.actions in (actions.STANDARD, actions.GOAT)
+        assert up.gym_id.endswith("-Upstream-v0") and std.gym_id == up.gym_id.replace("-Upstream", "")
+        assert es.benchmark(f"{line}-upstream", "standard") is std
+    assert resolve("goat-upstream") == "goat-upstream" and resolve("goat-upstream", "standard") == "goat"
+    with pytest.raises(ValueError):
+        resolve("goat", "legacy")
+    with pytest.raises(KeyError):
+        es.benchmark("goat-legacy")
+
+
+def test_ovon_upstream_protocol_widens_goal_with_children():
+    """OVONDistanceToGoal's target set = the category's view points + those of
+    every children category present in the shard; both variants carry it."""
+    from embodiedscore_envs.benchmarks.env import targets_of
+    for name in ("ovon", "ovon-upstream"):
+        b = es.benchmark(name)
+        eps = b.episodes(SPLITS["ovon"])
+        widened = [e for e in eps if e.info.get("children_object_categories")]
+        assert widened, "mip100_seen has no episode with children categories"
+        e = widened[0]
+        own = {i.object_id for i in e.goal.instances if i.category == e.goal.category}
+        assert own and len(e.goal.instances) >= len(own)
+        assert targets_of(e.goal).shape[1] == 3
 
 
 def test_check_env_and_spaces(stack):
@@ -84,14 +121,15 @@ def test_episode_selection_and_seeding(stack):
     name, env = stack
     _, info = env.reset(options={"episode": 2})
     assert info["episode"]["index"] == 2
-    if name != "ivlnce":   # tours address episodes explicitly
+    if es.benchmark(name).line != "ivlnce":   # tours address episodes explicitly
         a = env.reset(seed=123)[1]["episode"]["index"]
         b = env.reset(seed=123)[1]["episode"]["index"]
         assert a == b
 
 
-def test_goal_sequence_advances():
-    env = es.make("goat", SPLITS["goat"])
+@pytest.mark.parametrize("variant", ["standard", "upstream"])
+def test_goal_sequence_advances(variant):
+    env = es.make("goat", SPLITS["goat"], variant=variant)
     try:
         _, info = env.reset(options={"episode": 0})
         n = info["metrics"]["n_subtasks"]
@@ -104,7 +142,7 @@ def test_goal_sequence_advances():
 
 
 def test_dynamic_budget_truncates_pose_env():
-    env = es.make("hmeqa-pose", SPLITS["hmeqa-pose"])
+    env = es.make("hmeqa", SPLITS["hmeqa"], variant="upstream")
     try:
         _, info = env.reset(options={"episode": 0})
         budget = info["step_budget"]

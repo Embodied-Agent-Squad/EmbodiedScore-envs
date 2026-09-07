@@ -12,12 +12,13 @@ val 409 / train 1635; ``express-bench_mip100.json`` is a derived file mapped
 back through the episode_id identity (refused on any question-text mismatch).
 Scenes: ``hm3dsem/<scene>/<scene[6:]>.basis.glb`` bare, navmesh file next to it.
 
-Body = fine_eqa.yaml: RGB-D 512x512 hfov 90 at 1.5 m, camera level; the
-workspace's discrete surface adds 0.25 m / 30° (no tilt). Depth raw (metres).
-Budget ``num_step = int(sqrt(scene_size) * 3)``; the discrete stack keeps the
-harness's 500-step TimeLimit, the pose stack truncates at num_step and snaps
-targets to the navmesh (``snap_point``, NaN -> random navigable point within
-3 m of the previous pose), as upstream main.py does.
+Variants. ``express`` (default): the discrete STANDARD body, actions 0-5, the
+harness's 500-step TimeLimit with ``num_step`` in ``info["step_budget"]``, path
+length as float64 euclid. ``express-upstream``: EXPRESS's native protocol — free-pose
+teleport on ``presets.bodies.EXPRESS`` (RGB-D 512² hfov 90 at 1.5 m, camera
+level), targets snapped to the navmesh (``snap_point``, NaN -> random navigable
+point within 3 m of the previous pose, as upstream main.py does), path length
+from per-step geodesics, truncated at ``num_step = int(sqrt(scene_size) * 3)``.
 """
 
 from __future__ import annotations
@@ -25,16 +26,10 @@ from __future__ import annotations
 import json
 import math
 
-from .env import (Act, Benchmark, Body, CameraSpec, Episode, NavMesh, NavMetrics, PointGoal, Question, SceneRef,
-                  data_root, scene_root)
+from .env import Benchmark, Episode, NavMetrics, PointGoal, Question, SceneRef, data_root, scene_root
+from .presets import actions, bodies, depth
 
 MAX_STEP_ROOM_SIZE_RATIO = 3.0
-
-BODY = Body(forward_step_m=0.25, turn_deg=30.0, tilt_deg=None, camera_pitch_deg=0.0,
-            locomotion="teleport", agent_height_m=1.5, agent_radius_m=0.1, allow_sliding=True,
-            rgb=CameraSpec(512, 512, 90.0, (0.0, 1.5, 0.0)), depth=CameraSpec(512, 512, 90.0, (0.0, 1.5, 0.0)),
-            navmesh=NavMesh.file(fallback=NavMesh.recompute(agent_radius=0.1, agent_height=1.5)))
-ACTIONS = (Act.STOP, Act.FORWARD, Act.LEFT, Act.RIGHT)
 METRIC_KEYS = ("distance_to_goal", "path_length", "steps_taken")
 
 
@@ -89,15 +84,21 @@ def load_episodes(split: str, data_root_=None, scene_root_=None) -> list[Episode
     return out
 
 
-def _decl(pose: bool) -> Benchmark:
+def _decl(upstream: bool) -> Benchmark:
+    """``upstream`` = EXPRESS's native protocol: free-pose teleport on its own rig,
+    targets snapped to the navmesh, path length from per-step geodesics,
+    truncated at ``num_step``. The default is the discrete STANDARD body."""
     return Benchmark(
-        name="express-pose" if pose else "express", gym_id=f"EmbodiedScore/EXPRESS{'-Pose' if pose else ''}-v0",
-        body=BODY, actions=ACTIONS, splits=("val", "train", "all", "mip100"),
+        name="express-upstream" if upstream else "express",
+        gym_id=f"EmbodiedScore/EXPRESS{'-Upstream' if upstream else ''}-v0",
+        body=bodies.EXPRESS if upstream else bodies.STANDARD, actions=actions.STANDARD,
+        splits=("val", "train", "all", "mip100"),
         episodes=lambda split, data_root=None, scene_root=None, **kw: load_episodes(split, data_root, scene_root),
-        metrics=lambda env, **o: NavMetrics(env, keys=METRIC_KEYS, path_length_from="step_geodesic" if pose else "euclid64"),
-        depth=None, max_episode_steps=None if pose else 500, budget=step_budget, truncate_at_budget=pose,
-        pose=pose, pose_snap=pose,
-        description="EXPRESS-Bench on HM3D-sem (" + ("free-pose protocol with navmesh snap" if pose else "discrete surface 0.25 m / 30°") + ")",
+        metrics=lambda env, **o: NavMetrics(env, keys=METRIC_KEYS, path_length_from="step_geodesic" if upstream else "euclid64"),
+        depth=None if upstream else depth.STANDARD, max_episode_steps=None if upstream else 500,
+        budget=step_budget, truncate_at_budget=upstream, pose=upstream, pose_snap=upstream,
+        variant="upstream" if upstream else "standard",
+        description="EXPRESS-Bench on HM3D-sem (" + ("free-pose protocol with navmesh snap, on its rig" if upstream else "discrete STANDARD body") + ")",
     )
 
 

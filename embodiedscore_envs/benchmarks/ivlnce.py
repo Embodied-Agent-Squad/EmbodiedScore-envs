@@ -56,8 +56,9 @@ import numpy as np
 import quaternion  # noqa: F401  (numpy-quaternion: registers np.quaternion)
 import scipy.spatial.distance
 
-from .env import (VLN_KEYS, Act, Benchmark, Body, CameraSpec, DepthSpec, Episode, FollowerError, NavMesh, NavMetrics,
-                  PointGoal, SceneRef, data_root, scene_root)
+from .env import (VLN_KEYS, Act, Benchmark, Episode, FollowerError, NavMetrics, PointGoal, SceneRef, data_root,
+                  scene_root)
+from .presets import actions, bodies, depth
 
 SUCCESS_DISTANCE = 3.0
 ORACLE_GOAL_RADIUS = 0.25          # = FORWARD_STEP_SIZE
@@ -65,10 +66,6 @@ ORACLE_STEP_ERROR_LIMIT = 1000     # per oracle phase
 PRECISE_EPISODE_START = False
 _R2R_DIR = "R2R_VLNCE_v1-3_preprocessed"
 
-BODY = Body(forward_step_m=0.25, turn_deg=15.0, agent_height_m=1.5, agent_radius_m=0.1, allow_sliding=True,
-            rgb=CameraSpec(512, 512, 90.0, (0.0, 1.25, 0.0)), depth=CameraSpec(256, 256, 90.0, (0.0, 1.25, 0.0)),
-            navmesh=NavMesh.file())
-ACTIONS = (Act.STOP, Act.FORWARD, Act.LEFT, Act.RIGHT)
 
 
 # ---- data ----------------------------------------------------------------------
@@ -574,13 +571,17 @@ class TourWrapper(gym.Wrapper):
             self._finish_oracle_start()
 
 
-BENCHMARKS = (
-    Benchmark(
-        name="ivlnce", gym_id="EmbodiedScore/IVLNCE-v0", body=BODY, actions=ACTIONS,
+def _decl(upstream: bool) -> Benchmark:
+    return Benchmark(
+        name="ivlnce-upstream" if upstream else "ivlnce",
+        gym_id="EmbodiedScore/IVLNCE-Upstream-v0" if upstream else "EmbodiedScore/IVLNCE-v0",
+        body=bodies.VLNCE if upstream else bodies.STANDARD, actions=actions.NAV if upstream else actions.STANDARD,
         splits=("train", "val_seen", "val_unseen"),
         episodes=lambda split, data_root=None, scene_root=None, **kw: load_episodes(split, data_root, scene_root),
         metrics=lambda env, **o: TourWrapper(NavMetrics(env, success_distance=o.get("success_distance", SUCCESS_DISTANCE), keys=VLN_KEYS), o.get("success_distance", SUCCESS_DISTANCE)),
-        depth=DepthSpec(0.0, 10.0, normalize=True), max_episode_steps=500,
-        description="IVLN-CE (IR2R-CE) tours on the VLN-CE std body; t-nDTW per tour",
-    ),
-)
+        depth=depth.STANDARD, max_episode_steps=500, variant="upstream" if upstream else "standard",
+        description="IVLN-CE (IR2R-CE) tours " + ("on the VLN-CE rig (224²)" if upstream else "on the STANDARD body") + "; t-nDTW per tour",
+    )
+
+
+BENCHMARKS = (_decl(False), _decl(True))

@@ -13,23 +13,20 @@ enriched_question). The start pose is ``scene_init_poses[f"{scene}_{floor}"]``
 ``_0`` regardless of the question's floor and parses choices with MemoryEQA's
 naive split — both benchmark-native quirks, kept. ``episode_id`` = index in
 the split. Scenes: ``EMBODIEDSCORE_SCENE_ROOT/hm3dsem/<scene>/<scene[6:]>.basis.glb``
-bare (no scene-dataset config), navmesh file next to it (recomputed for a
-1.5 m agent only when missing).
+bare (no scene-dataset config), navmesh file next to it.
 
-Body = explore-eqa cfg/vlm_exp.yaml: RGB-D 640x480 hfov 120 at 1.5 m, camera
-pitched -30° at start — explore-eqa pitches the *agent* (yaw ∘ tilt on the
-agent state), so the camera swings about the agent's feet: at -30° it sits
-0.75 m ahead of and 0.20 m below the nominal 1.5 m mount, and every tilt
-action moves it again (``Body.pitch_moves_camera``); the workspace's discrete surface adds 0.25 m / 30° /
-tilt 30° clamped to ±60°. Depth leaves raw (metres). Budget
-``num_step = int(sqrt(scene_size) * 3)`` with scene_size from the navmesh
-bounds (reported in ``info["step_budget"]``); the discrete stack keeps the
-harness's 500-step TimeLimit, the pose stack truncates at num_step.
-
-Two stacks per corpus: ``hmeqa`` / ``mthm3d`` (Discrete, actions 0-5) and
-``hmeqa-pose`` / ``mthm3d-pose`` (explore-eqa's native free-pose teleport,
-``Box[x, z, yaw]`` in the habitat frame — the TSDF planner's z-up "normal"
-frame is the caller's convention: normal (x, y) -> habitat (x, z=-y)).
+Variants. ``hmeqa`` / ``mthm3d`` (default): the discrete STANDARD body
+(``presets.bodies.STANDARD``), actions 0-5, the harness's 500-step TimeLimit
+with ``num_step`` reported in ``info["step_budget"]``. ``-upstream``: explore-eqa's
+native protocol — free-pose teleport (``Box[x, z, yaw]`` in the habitat frame;
+the TSDF planner's z-up "normal" frame is the caller's convention: normal
+(x, y) -> habitat (x, z=-y)) on its own rig (``presets.bodies.EXPLORE_EQA``:
+RGB-D 640x480 hfov 120 at 1.5 m, camera pitched -30° at start — explore-eqa
+pitches the *agent*, so the camera swings about its feet and every tilt moves
+it again, ``Body.pitch_moves_camera``), depth left in metres, truncated at
+``num_step``. Budget ``num_step = int(sqrt(scene_size) * 3)`` with scene_size
+from the navmesh bounds in both variants; metrics path_length / steps_taken
+(float64 euclid) in both.
 """
 
 from __future__ import annotations
@@ -38,16 +35,10 @@ import csv
 import math
 import os
 
-from .env import (Act, Benchmark, Body, CameraSpec, Episode, NavMesh, NavMetrics, Question, SceneRef, data_root,
-                  scene_root)
+from .env import Benchmark, Episode, NavMetrics, Question, SceneRef, data_root, scene_root
+from .presets import actions, bodies, depth
 
 MAX_STEP_ROOM_SIZE_RATIO = 3.0
-
-BODY = Body(forward_step_m=0.25, turn_deg=30.0, tilt_deg=30.0, tilt_limit_deg=60.0, camera_pitch_deg=-30.0,
-            pitch_moves_camera=True, locomotion="teleport", agent_height_m=1.5, agent_radius_m=0.1, allow_sliding=True,
-            rgb=CameraSpec(640, 480, 120.0, (0.0, 1.5, 0.0)), depth=CameraSpec(640, 480, 120.0, (0.0, 1.5, 0.0)),
-            navmesh=NavMesh.file(fallback=NavMesh.recompute(agent_radius=0.1, agent_height=1.5)))
-ACTIONS = (Act.STOP, Act.FORWARD, Act.LEFT, Act.RIGHT, Act.LOOK_UP, Act.LOOK_DOWN)
 METRIC_KEYS = ("path_length", "steps_taken")
 
 _CORPORA = {
@@ -121,17 +112,22 @@ def load_episodes(corpus: str, split: str, data_root_=None, scene_root_=None) ->
     return out
 
 
-def _decl(corpus: str, pose: bool) -> Benchmark:
-    name = corpus + ("-pose" if pose else "")
+def _decl(corpus: str, upstream: bool) -> Benchmark:
+    """``upstream`` = explore-eqa's native protocol: free-pose teleport on its own
+    rig, truncated at ``num_step``. The default is the discrete STANDARD body with
+    the harness's 500-step TimeLimit and ``num_step`` reported in ``info``."""
     label = {"hmeqa": "HMEQA", "mthm3d": "MTHM3D"}[corpus]
     return Benchmark(
-        name=name, gym_id=f"EmbodiedScore/{label}{'-Pose' if pose else ''}-v0", body=BODY, actions=ACTIONS,
+        name=corpus + ("-upstream" if upstream else ""),
+        gym_id=f"EmbodiedScore/{label}{'-Upstream' if upstream else ''}-v0",
+        body=bodies.EXPLORE_EQA if upstream else bodies.STANDARD, actions=actions.STANDARD,
         splits=("val", "mip100"),
         episodes=lambda split, data_root=None, scene_root=None, **kw: load_episodes(corpus, split, data_root, scene_root),
         metrics=lambda env, **o: NavMetrics(env, keys=METRIC_KEYS, path_length_from="euclid64"),
-        depth=None, max_episode_steps=None if pose else 500, budget=step_budget, truncate_at_budget=pose,
-        pose=pose, pose_snap=False,
-        description=f"{label} on HM3D-sem ({'explore-eqa free-pose protocol' if pose else 'discrete surface, 0.25 m / 30° / tilt ±60°'})",
+        depth=None if upstream else depth.STANDARD, max_episode_steps=None if upstream else 500,
+        budget=step_budget, truncate_at_budget=upstream, pose=upstream, pose_snap=False,
+        variant="upstream" if upstream else "standard",
+        description=f"{label} on HM3D-sem ({'explore-eqa free-pose protocol on its rig' if upstream else 'discrete STANDARD body'})",
     )
 
 

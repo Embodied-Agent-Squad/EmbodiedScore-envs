@@ -1,6 +1,12 @@
 """Layer L2 — the benchmark declarations, and ``make()`` that turns one into a
 Gymnasium stack. Each member module exposes a ``BENCHMARKS`` tuple; nothing
-else in the package knows their names."""
+else in the package knows their names.
+
+Every line declares two variants: ``<line>`` (the default — EmbodiedScore's shared
+body, ``presets.bodies.STANDARD``) and ``<line>-upstream`` (the line's own
+evaluator: its rig, action table, depth post-processing and, for the EQA lines,
+its free-pose protocol). Task semantics — loader, goal, success distance, budget,
+metric keys — are the line's and do not change between variants."""
 
 from __future__ import annotations
 
@@ -28,11 +34,26 @@ for _m in _MEMBERS:
 del _m, _mod, _b
 
 
-def benchmark(name: str) -> Benchmark:
+_SUFFIX = "-upstream"
+
+
+def resolve(name: str, variant: str | None = None) -> str:
+    """The declaration name for ``name`` under ``variant``: ``None`` keeps the
+    name as given, ``"standard"`` strips ``-upstream``, ``"upstream"`` appends it."""
+    if variant is None:
+        return name
+    if variant not in ("standard", "upstream"):
+        raise ValueError(f"variant must be 'standard' or 'upstream', got {variant!r}")
+    line = name[: -len(_SUFFIX)] if name.endswith(_SUFFIX) else name
+    return line + _SUFFIX if variant == "upstream" else line
+
+
+def benchmark(name: str, variant: str | None = None) -> Benchmark:
+    key = resolve(name, variant)
     try:
-        return BENCHMARKS[name]
+        return BENCHMARKS[key]
     except KeyError:
-        raise KeyError(f"unknown benchmark {name!r}; known: {sorted(BENCHMARKS)}") from None
+        raise KeyError(f"unknown benchmark {key!r}; known: {sorted(BENCHMARKS)}") from None
 
 
 def build_env(benchmark_name: str, split: str, data_root: str | None = None, scene_root: str | None = None,
@@ -53,15 +74,18 @@ def build_env(benchmark_name: str, split: str, data_root: str | None = None, sce
     return HabitatEnv(actions=actions or b.actions, **common)
 
 
-def make(name: str, split: str, *, metrics: bool = True, depth: bool = True, depth_spec: Any = None,
-         metric_overrides: dict[str, Any] | None = None, **kwargs: Any) -> gym.Env:
+def make(name: str, split: str, *, variant: str | None = None, metrics: bool = True, depth: bool = True,
+         depth_spec: Any = None, metric_overrides: dict[str, Any] | None = None, **kwargs: Any) -> gym.Env:
     """The standard stack: gym.make (PassiveEnvChecker / OrderEnforcing / TimeLimit
     when the benchmark has a static budget) -> the benchmark's metric wrapper ->
-    DepthClip -> DynamicTimeLimit (per-episode budgets). ``kwargs`` go to
-    :func:`build_env` (data_root, scene_root, body, actions, gpu_id, loader
-    options); ``depth_spec`` replaces the declared depth post-processing;
-    ``metric_overrides`` (e.g. ``success_distance``) reach the metric factory."""
-    b = benchmark(name)
+    DepthClip -> DynamicTimeLimit (per-episode budgets). ``variant`` picks the
+    declaration (``"upstream"`` == ``make(f"{name}-upstream", ...)``; ``None``
+    takes ``name`` literally, so a bare line name is its standard variant).
+    ``kwargs`` go to :func:`build_env` (data_root, scene_root, body, actions,
+    gpu_id, loader options); ``depth_spec`` replaces the declared depth
+    post-processing; ``metric_overrides`` (e.g. ``success_distance``) reach the
+    metric factory."""
+    b = benchmark(name, variant)
     env = gym.make(b.gym_id, split=split, **kwargs)
     if metrics and b.metrics is not None:
         env = b.metrics(env, **(metric_overrides or {}))
@@ -74,4 +98,4 @@ def make(name: str, split: str, *, metrics: bool = True, depth: bool = True, dep
     return env
 
 
-__all__ = ["BENCHMARKS", "benchmark", "build_env", "make"]
+__all__ = ["BENCHMARKS", "benchmark", "build_env", "make", "resolve"]

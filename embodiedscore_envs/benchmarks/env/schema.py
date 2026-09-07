@@ -172,7 +172,7 @@ class DepthSpec:
 
 @dataclass(frozen=True)
 class Benchmark:
-    name: str                                    # make() key, e.g. "objectnav-hm3d-v1"
+    name: str                                    # make() key, e.g. "objectnav-hm3d-v1" / "objectnav-hm3d-v1-upstream"
     gym_id: str                                  # e.g. "EmbodiedScore/ObjectNav-HM3Dv1-v0"
     body: Body
     actions: tuple[Act, ...]
@@ -187,6 +187,14 @@ class Benchmark:
     pose: bool = False                           # HabitatPoseEnv instead of HabitatEnv
     pose_snap: bool = False                      # pose env snaps targets to the navmesh
     description: str = ""
+    line: str = ""                               # the benchmark line both variants belong to, e.g. "objectnav-hm3d-v1"
+    variant: str = "standard"                    # "standard" (EmbodiedScore's shared body) | "upstream" (the line's own evaluator)
+
+    def __post_init__(self) -> None:
+        if self.variant not in ("standard", "upstream"):
+            raise ValueError(f"{self.name}: variant must be 'standard' or 'upstream'")
+        if not self.line:
+            object.__setattr__(self, "line", self.name[: -len("-upstream")] if self.name.endswith("-upstream") else self.name)
 
 
 # ---- data roots ----------------------------------------------------------------

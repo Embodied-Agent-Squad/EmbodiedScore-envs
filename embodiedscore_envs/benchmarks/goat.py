@@ -13,12 +13,13 @@ upstream's): ``object`` -> every instance of the category (+ children),
 ``description`` / ``image`` -> the named instance. Descriptions over 55 words
 are dropped (0 on val). ``episode_id`` is re-numbered ``str(i)`` per shard.
 
-Body = goat_stretch_hm3d.yaml with the workspace's two marked edits: 0.25 m,
-turn 30°, tilt 30° unlimited, agent 1.41 / 0.17, RGB 360x640 (portrait) hfov 42
-at 1.31 m, depth added with the same geometry in metres (0-10 m, not
-normalised), sliding off, navmesh recomputed with climb 0.1 / cell 0.05 (the
-released experiment configs, not the dataclass default), 5000 steps per
-episode and none per sub-goal. Actions 0-6. Metrics = SequenceNavMetrics(0.25).
+Variants: ``goat`` (default) runs on the shared STANDARD body; ``goat-upstream``
+on goat-bench's ``goat_stretch_hm3d.yaml`` Stretch rig (``presets.bodies.STRETCH``:
+0.25 m, turn 30°, tilt 30° unlimited, agent 1.41 / 0.17, RGB 360x640 portrait
+hfov 42 at 1.31 m, no depth sensor, sliding off, navmesh recomputed with climb
+0.1 / cell 0.05 — the released experiment configs, not the dataclass default).
+Both: 5000 steps per episode and none per sub-goal, actions 0-6, metrics =
+SequenceNavMetrics(0.25), distance_to_goal re-queried every step.
 """
 
 from __future__ import annotations
@@ -28,19 +29,13 @@ import json
 import os
 from pathlib import Path
 
-from .env import (Act, Benchmark, Body, CameraSpec, DepthSpec, Episode, GoalSequence, ImageGoal, NavMesh,
-                  ObjectGoal, ObjectInstance, SceneRef, SequenceNavMetrics, TextGoal, data_root, scene_root)
+from .env import (Benchmark, Episode, GoalSequence, ImageGoal, ObjectGoal, ObjectInstance, SceneRef,
+                  SequenceNavMetrics, TextGoal, data_root, scene_root)
+from .presets import actions, bodies, depth
 
 SUCCESS_DISTANCE = 0.25
 _SCENE_PREFIX = "data/scene_datasets/"
 _MAX_DESC_WORDS = 55
-
-BODY = Body(forward_step_m=0.25, turn_deg=30.0, tilt_deg=30.0, tilt_limit_deg=None,
-            agent_height_m=1.41, agent_radius_m=0.17, allow_sliding=False,
-            rgb=CameraSpec(360, 640, 42.0, (0.0, 1.31, 0.0)), depth=CameraSpec(360, 640, 42.0, (0.0, 1.31, 0.0)),
-            navmesh=NavMesh.recompute(agent_radius=0.17, agent_height=1.41, agent_max_climb=0.1, cell_height=0.05))
-ACTIONS = (Act.STOP, Act.FORWARD, Act.LEFT, Act.RIGHT, Act.LOOK_UP, Act.LOOK_DOWN, Act.SUBTASK_STOP)
-DEPTH = DepthSpec(0.0, 10.0, normalize=False)
 
 
 def _load_json_gz(path):
@@ -145,13 +140,19 @@ def load_episodes(split: str, data_root_=None, scene_root_=None) -> list[Episode
     return out
 
 
-BENCHMARKS = (
-    Benchmark(
-        name="goat", gym_id="EmbodiedScore/GOAT-v0", body=BODY, actions=ACTIONS,
+def _decl(upstream: bool) -> Benchmark:
+    return Benchmark(
+        name="goat-upstream" if upstream else "goat",
+        gym_id="EmbodiedScore/GOAT-Upstream-v0" if upstream else "EmbodiedScore/GOAT-v0",
+        body=bodies.STRETCH if upstream else bodies.STANDARD, actions=actions.GOAT,
         splits=("val_seen", "val_seen_synonyms", "val_unseen"),
         episodes=lambda split, data_root=None, scene_root=None, **kw: load_episodes(split, data_root, scene_root),
         metrics=lambda env, **o: SequenceNavMetrics(env, success_distance=o.get("success_distance", SUCCESS_DISTANCE)),
-        depth=DEPTH, max_episode_steps=5000, dtg_policy="every_step",
-        description="GOAT-Bench (goat-bench Goat-v1 numerics; navmesh climb 0.1 / cell 0.05)",
-    ),
-)
+        depth=None if upstream else depth.STANDARD, max_episode_steps=5000, dtg_policy="every_step",
+        variant="upstream" if upstream else "standard",
+        description="GOAT-Bench " + ("on the Stretch rig (goat-bench Goat-v1 numerics; navmesh climb 0.1 / cell 0.05)" if upstream
+                                     else "on the STANDARD body (goat-bench measures)"),
+    )
+
+
+BENCHMARKS = (_decl(False), _decl(True))
