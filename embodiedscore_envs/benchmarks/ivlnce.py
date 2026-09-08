@@ -56,7 +56,7 @@ import numpy as np
 import quaternion  # noqa: F401  (numpy-quaternion: registers np.quaternion)
 import scipy.spatial.distance
 
-from .env import (VLN_KEYS, Act, Benchmark, Episode, FollowerError, NavMetrics, PointGoal, SceneRef, data_root,
+from .env import (VLN_KEYS, Act, Benchmark, Episode, NavMetrics, PointGoal, SceneRef, data_root,
                   scene_root)
 from .presets import actions, bodies, depth
 
@@ -487,6 +487,7 @@ class TourWrapper(gym.Wrapper):
         return action
 
     def _next_action_safe(self, position_to, heading_to, teleport_on_failure: bool) -> tuple[int | None, bool]:
+        from .env import FollowerError   # habitat_sim's; resolved here so importing the line needs no simulator
         try:
             action = self._next_action(position_to, heading_to)
             if not (self._oracle_steps_in_phase < ORACLE_STEP_ERROR_LIMIT):

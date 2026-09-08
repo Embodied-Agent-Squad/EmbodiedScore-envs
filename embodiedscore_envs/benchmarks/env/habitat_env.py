@@ -1,4 +1,5 @@
-"""HabitatEnv — the one environment body (layer L1), a plain ``gymnasium.Env``.
+"""HabitatEnv — the environment body of the habitat engine (layer L1), a plain
+``gymnasium.Env``; ``isaac_env.IsaacEnv`` is its Isaac twin.
 
 What it does: hold an episode list and a Body, put the agent at an episode's
 start, execute one action per ``step`` (a movement, STOP, or SUBTASK_STOP),
@@ -17,14 +18,17 @@ observation (goals are episode data and travel in ``info``).
 
 from __future__ import annotations
 
-from typing import Any, Callable, Sequence
+from typing import TYPE_CHECKING, Any, Callable, Sequence
 
 import gymnasium as gym
 import numpy as np
 from gymnasium import spaces
 
 from .schema import Act, Episode, GoalSequence, targets_of, to_dict
-from .sim import Body, SimWorld
+from .sim import Body
+
+if TYPE_CHECKING:
+    from .sim.habitat.world import SimWorld
 
 _DISCRETE_DEFAULT = (Act.STOP, Act.FORWARD, Act.LEFT, Act.RIGHT)
 
@@ -65,6 +69,7 @@ class HabitatEnv(gym.Env):
         self._budget = budget
         self.render_mode = render_mode
         self._by_id = {e.episode_id: e for e in self.episodes}
+        from .sim.habitat.world import SimWorld   # the habitat_sim importer, loaded only for a habitat body
         self._world = SimWorld(body, gpu_id=gpu_id, seed=sim_seed)   # simulator is created on first reset
         self._episode: Episode | None = None
         self._goal_index = 0

@@ -1,5 +1,7 @@
-"""Gymnasium's env checker plus the contracts every benchmark shares.
-Needs habitat-sim, the datasets and a GPU: skipped unless the data roots are set."""
+"""Gymnasium's env checker plus the contracts every benchmark shares — the
+habitat lines here, the Isaac lines in ``test_vlnverse_contracts.py`` (they boot
+Isaac Sim and opt in separately). Needs habitat-sim, the datasets and a GPU:
+skipped unless the data roots are set."""
 
 import os
 
@@ -28,7 +30,10 @@ def split_of(name: str) -> str:
     return SPLITS[es.benchmark(name).line]
 
 
-@pytest.fixture(scope="module", params=sorted(es.BENCHMARKS))
+HABITAT = sorted(n for n, b in es.BENCHMARKS.items() if b.engine == "habitat")
+
+
+@pytest.fixture(scope="module", params=HABITAT)
 def stack(request):
     name = request.param
     env = es.make(name, split_of(name))
@@ -46,12 +51,17 @@ def test_every_line_has_both_variants():
     from embodiedscore_envs.benchmarks import resolve
     from embodiedscore_envs.benchmarks.presets import actions, bodies, depth
     lines = {b.line for b in es.BENCHMARKS.values()}
-    assert len(es.BENCHMARKS) == 2 * len(lines) == 22
+    assert len(es.BENCHMARKS) == 2 * len(lines) == 26
+    assert len(HABITAT) == 22
     for line in lines:
         std, up = es.benchmark(line), es.benchmark(line, "upstream")
         assert (std.variant, up.variant) == ("standard", "upstream") and std.line == up.line == line
-        assert std.body is bodies.STANDARD and std.depth is depth.STANDARD
-        assert std.actions in (actions.STANDARD, actions.GOAT)
+        assert std.engine == up.engine
+        if std.engine == "habitat":
+            assert std.body is bodies.STANDARD and std.actions in (actions.STANDARD, actions.GOAT)
+        else:   # the Isaac worker renders yaw-only poses: STANDARD's numbers, no LOOK
+            assert std.body is bodies.VLNVERSE_STANDARD and std.actions == actions.NAV
+        assert std.depth is depth.STANDARD
         assert up.gym_id.endswith("-Upstream-v0") and std.gym_id == up.gym_id.replace("-Upstream", "")
         assert es.benchmark(f"{line}-upstream", "standard") is std
     assert resolve("goat-upstream") == "goat-upstream" and resolve("goat-upstream", "standard") == "goat"

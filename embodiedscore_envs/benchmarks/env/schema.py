@@ -7,9 +7,11 @@
   derives ``distance_to_goal`` from :func:`targets_of`; the metric wrappers
   never look inside a goal beyond its ``kind``.
 * :class:`Episode` — one evaluation unit: where it starts, what its goal is,
-  what the dataset says about it.
+  what the dataset says about it. Poses are in the engine's own frame — the
+  frame the split files store them in: habitat lines y up with ``(x, y, z, w)``
+  quaternions, Isaac lines z up with ``(w, x, y, z)``.
 * :class:`Benchmark` — a declaration (no code of its own) that ``make()`` turns
-  into a Gymnasium stack.
+  into a Gymnasium stack; ``engine`` names the simulator it runs on.
 """
 
 from __future__ import annotations
@@ -22,10 +24,12 @@ from typing import Any, Callable, Union
 
 import numpy as np
 
-from .sim import Body, SceneRef
+from .sim import Body, IsaacBody, IsaacSceneRef, SceneRef
 
 Vec3 = tuple[float, float, float]
-Quat = tuple[float, float, float, float]     # x, y, z, w
+Quat = tuple[float, float, float, float]     # habitat: x, y, z, w — Isaac: w, x, y, z
+
+ENGINES = ("habitat", "isaac")
 
 
 class Act(IntEnum):
@@ -109,20 +113,22 @@ class Question:
 Goal = Union[PointGoal, ObjectGoal, ImageGoal, TextGoal, GoalSequence, Question]
 
 
-def targets_of(goal: Goal | None) -> np.ndarray | None:
+def targets_of(goal: Goal | None, dtype: Any = np.float32) -> np.ndarray | None:
     """The (N, 3) point set ``distance_to_goal`` is measured to, or None when
-    the goal has no place (a Question without target)."""
+    the goal has no place (a Question without target). float32 is habitat's
+    working precision; the Isaac body asks for float64 (its distance is
+    plain arithmetic, and the evaluator's NE is computed in float64)."""
     if goal is None:
         return None
     if isinstance(goal, PointGoal):
-        return np.asarray([goal.position], dtype=np.float32)
+        return np.asarray([goal.position], dtype=dtype)
     if isinstance(goal, ObjectGoal):
         pts = [vp for inst in goal.instances for vp in inst.view_points]
-        return np.asarray(pts, dtype=np.float32).reshape(-1, 3)
+        return np.asarray(pts, dtype=dtype).reshape(-1, 3)
     if isinstance(goal, (ImageGoal, TextGoal)):
-        return np.asarray(goal.instance.view_points, dtype=np.float32).reshape(-1, 3)
+        return np.asarray(goal.instance.view_points, dtype=dtype).reshape(-1, 3)
     if isinstance(goal, Question):
-        return targets_of(goal.target)
+        return targets_of(goal.target, dtype)
     if isinstance(goal, GoalSequence):
         raise TypeError("targets_of(GoalSequence): pass the current sub-goal")
     raise TypeError(f"not a goal: {goal!r}")
@@ -147,10 +153,10 @@ def to_dict(obj: Any) -> Any:
 class Episode:
     index: int                           # position in the loaded list
     episode_id: str
-    scene: SceneRef
-    start_position: Vec3
-    start_rotation: Quat                 # x, y, z, w
-    goal: Goal
+    scene: SceneRef | IsaacSceneRef
+    start_position: Vec3                 # the engine's frame (habitat y up; Isaac z up)
+    start_rotation: Quat                 # habitat x, y, z, w — Isaac w, x, y, z
+    goal: Goal | None                    # None when the split withholds it (VLNverse test / challenge)
     instruction: str | None = None       # VLN: what to follow
     reference_path: tuple[Vec3, ...] | None = None   # VLN: waypoints from the dataset
     gt_path: tuple[Vec3, ...] | None = None          # VLN: dense oracle locations (nDTW reference)
@@ -174,7 +180,7 @@ class DepthSpec:
 class Benchmark:
     name: str                                    # make() key, e.g. "objectnav-hm3d-v1" / "objectnav-hm3d-v1-upstream"
     gym_id: str                                  # e.g. "EmbodiedScore/ObjectNav-HM3Dv1-v0"
-    body: Body
+    body: Body | IsaacBody                       # the engine's Body type (checked against ``engine``)
     actions: tuple[Act, ...]
     splits: tuple[str, ...]
     episodes: Callable[..., list[Episode]]      # (split, data_root=None, scene_root=None, **kw) -> episodes
@@ -184,8 +190,10 @@ class Benchmark:
     budget: Callable[[Any, Episode], int] | None = None   # (world, episode) -> per-episode budget
     dtg_policy: str = "when_moved"               # "when_moved" (habitat-lab stock) | "every_step" (goat-bench)
     truncate_at_budget: bool = False             # DynamicTimeLimit on info["step_budget"] (pose protocols)
-    pose: bool = False                           # HabitatPoseEnv instead of HabitatEnv
+    pose: bool = False                           # habitat: HabitatPoseEnv (Box [x, z, yaw] teleport) instead of HabitatEnv
     pose_snap: bool = False                      # pose env snaps targets to the navmesh
+    polar: bool = False                          # isaac: IsaacPolarEnv (Box [angle, distance, elevation]) instead of IsaacEnv
+    engine: str = "habitat"                      # "habitat" (habitat-sim, in process) | "isaac" (Isaac Sim render worker)
     description: str = ""
     line: str = ""                               # the benchmark line both variants belong to, e.g. "objectnav-hm3d-v1"
     variant: str = "standard"                    # "standard" (EmbodiedScore's shared body) | "upstream" (the line's own evaluator)
@@ -193,6 +201,13 @@ class Benchmark:
     def __post_init__(self) -> None:
         if self.variant not in ("standard", "upstream"):
             raise ValueError(f"{self.name}: variant must be 'standard' or 'upstream'")
+        if self.engine not in ENGINES:
+            raise ValueError(f"{self.name}: engine must be one of {ENGINES}")
+        want = Body if self.engine == "habitat" else IsaacBody
+        if not isinstance(self.body, want):
+            raise TypeError(f"{self.name}: engine {self.engine!r} needs a {want.__name__}, got {type(self.body).__name__}")
+        if self.pose and self.engine != "habitat" or self.polar and self.engine != "isaac":
+            raise ValueError(f"{self.name}: pose is a habitat protocol, polar an isaac one")
         if not self.line:
             object.__setattr__(self, "line", self.name[: -len("-upstream")] if self.name.endswith("-upstream") else self.name)
 

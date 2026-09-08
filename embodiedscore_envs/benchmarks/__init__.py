@@ -3,10 +3,12 @@ Gymnasium stack. Each member module exposes a ``BENCHMARKS`` tuple; nothing
 else in the package knows their names.
 
 Every line declares two variants: ``<line>`` (the default — EmbodiedScore's shared
-body, ``presets.bodies.STANDARD``) and ``<line>-upstream`` (the line's own
-evaluator: its rig, action table, depth post-processing and, for the EQA lines,
-its free-pose protocol). Task semantics — loader, goal, success distance, budget,
-metric keys — are the line's and do not change between variants."""
+body, ``presets.bodies.STANDARD``, or its Isaac transcription for the VLNverse
+lines) and ``<line>-upstream`` (the line's own evaluator: its rig, action table,
+depth post-processing and, for the EQA and VLNverse lines, its own action
+protocol). Task semantics — loader, goal, success distance, budget, metric keys
+— are the line's and do not change between variants. ``Benchmark.engine`` picks
+the simulator: habitat-sim in process, or Isaac Sim through its render worker."""
 
 from __future__ import annotations
 
@@ -15,9 +17,9 @@ from typing import Any
 
 import gymnasium as gym
 
-from .env import Benchmark, DepthClip, DynamicTimeLimit, HabitatEnv, HabitatPoseEnv
+from .env import Benchmark, DepthClip, DynamicTimeLimit, HabitatEnv, HabitatPoseEnv, IsaacEnv, IsaacPolarEnv
 
-_MEMBERS = ("vlnce", "ivlnce", "objectnav", "goat", "hmeqa", "express")
+_MEMBERS = ("vlnce", "ivlnce", "objectnav", "goat", "hmeqa", "express", "vlnverse")
 
 BENCHMARKS: dict[str, Benchmark] = {}
 for _m in _MEMBERS:
@@ -58,16 +60,24 @@ def benchmark(name: str, variant: str | None = None) -> Benchmark:
 
 def build_env(benchmark_name: str, split: str, data_root: str | None = None, scene_root: str | None = None,
               body: Any = None, actions: Any = None, gpu_id: int = 0, sim_seed: int = 42,
-              render_mode: str | None = None, **loader_kwargs: Any) -> gym.Env:
+              render_mode: str | None = None, polar: bool | None = None, **loader_kwargs: Any) -> gym.Env:
     """The bare body for a benchmark (what the gym ids point at). ``body`` /
     ``actions`` override the declaration (a different rig or action table on
     the same episodes and measures — how the legacy nodesets' per-graph
-    sensor knobs and upstream RxR's body are served)."""
+    sensor knobs and upstream RxR's body are served); ``polar`` overrides an
+    Isaac declaration's action interface (``IsaacPolarEnv`` vs the discrete
+    body). ``sim_seed`` is habitat's; the Isaac worker takes none."""
     b = benchmark(benchmark_name)
     episodes = b.episodes(split, data_root=data_root, scene_root=scene_root, **loader_kwargs)
     if not episodes:
         raise ValueError(f"{benchmark_name}/{split}: no episodes")
-    common = dict(episodes=episodes, body=body or b.body, budget=b.budget, dtg_policy=b.dtg_policy, gpu_id=gpu_id,
+    body = body or b.body
+    if b.engine == "isaac":
+        common = dict(episodes=episodes, body=body, gpu_id=gpu_id, render_mode=render_mode)
+        if b.polar if polar is None else polar:
+            return IsaacPolarEnv(**common)
+        return IsaacEnv(actions=actions or b.actions, **common)
+    common = dict(episodes=episodes, body=body, budget=b.budget, dtg_policy=b.dtg_policy, gpu_id=gpu_id,
                   sim_seed=sim_seed, render_mode=render_mode)
     if b.pose:
         return HabitatPoseEnv(snap=b.pose_snap, **common)

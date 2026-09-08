@@ -29,6 +29,8 @@ StepsTaken), quirks included:
 A benchmark picks the keys it reports. ``SequenceNavMetrics`` is the GOAT-Bench
 accounting for a GoalSequence (per-sub-goal restart of d0 and L), transcribed
 from goat-bench's ``measures.py`` (GoatSuccess / GoatSPL / GoatSoftSPL).
+``VLNVerseMetrics`` is the VLNverse evaluator's own formula set (its
+docstring lists where it departs from the definitions above).
 """
 
 from __future__ import annotations
@@ -289,4 +291,166 @@ class SequenceNavMetrics(gym.Wrapper):
     def _annotate(self, info: dict[str, Any]) -> dict[str, Any]:
         info["metrics"] = dict(self._m)
         info["metrics_valid"] = True
+        return info
+
+
+# ---- VLNverse -------------------------------------------------------------------
+
+VLNVERSE_KEYS = ("distance_to_goal", "success", "oracle_success", "spl", "ndtw", "path_length",
+                 "steps_taken", "shortest_path_length")
+VLNVERSE_EVALUATOR_NAMES = {"distance_to_goal": "NE", "success": "success", "oracle_success": "osr", "spl": "spl",
+                            "ndtw": "ndtw", "path_length": "TL", "steps_taken": "steps",
+                            "shortest_path_length": "shortest_path_length"}
+_VLNVERSE_GT_KEYS = ("distance_to_goal", "success", "oracle_success", "spl", "ndtw", "shortest_path_length")
+
+
+class VLNVerseMetrics(gym.Wrapper):
+    """The VLNverse evaluator's formula set, transcribed from its ``VLNPEMetrics``
+    (``vlnverse/projects/internutopia_vln_extension/metrics/vln_pe_metrics.py``
+    in billzhao1030/VLNVerse at ``d444c04``), quirks included. The keys are
+    named like ``NavMetrics`` so agents can be shared; ``VLNVERSE_EVALUATOR_NAMES``
+    maps them back to the evaluator's own names. Positions are read from
+    ``info["position"]`` in the Isaac frame (z up); every formula works in xy.
+
+      key (evaluator name)     formula, as the evaluator computes it
+      ---------------------    ------------------------------------------------------------
+      distance_to_goal (NE)    ground-plane euclidean distance from the agent to the last
+                               point of ``reference_path`` (== goals.position in every split)
+      success                  NE < success_distance (3.0 m), STOP or not
+      oracle_success (osr)     min NE over the positions *after* each action < 3.0 m — the
+                               start pose is not considered
+      spl                      success * S / max(TL, S), S = ``info.geodesic_distance`` when
+                               > 0 else the polyline length of ``reference_path`` (the released
+                               splits carry -1, so it is always the polyline); 0 when TL == 0
+      ndtw                     mean over the agent's positions (start included) of
+                               exp(-d_min^2 / (2 * 3.0^2)), d_min = distance to the nearest
+                               reference-path point (a waypoint, not the segment between two)
+                               — a nearest-point similarity, not a DTW
+      path_length (TL)         sum of ground-plane euclidean displacements between consecutive
+                               positions
+      steps_taken (steps)      number of ``step()`` calls, STOP included (the evaluator counts
+                               simulator updates, warm-up included — not comparable 1:1)
+      shortest_path_length     S above
+
+    Where this differs from ``NavMetrics`` (VLN-CE / habitat-lab; Anderson et
+    al. 2018 for SPL, Ilharco et al. 2019 for nDTW):
+
+      distance_to_goal   there: geodesic on the navmesh. Here: straight line in xy.
+      success            there: STOP called and distance < 3 m. Here: STOP is not required.
+      oracle_success     there: any position on the trajectory, start included. Here: start
+                         excluded.
+      spl                there: S = geodesic start-goal distance, and spl == success when the
+                         agent never moved. Here: S = reference-path polyline; spl = 0 at TL == 0.
+      ndtw               there: exp(-DTW(agent, reference) / (|reference| * 3 m)) with DTW the
+                         dynamic-time-warping alignment cost. Here: no alignment — the per-point
+                         nearest-reference Gaussian similarity, averaged.
+      path_length        there: 3-D euclidean. Here: xy (identical on flat floors).
+
+    A third formula set exists: the zero-shot line (billzhao1030/vlnverse_emr_zero_shot,
+    ``EnvBridge.final_metrics``) uses success <= 3 m, SPL against the straight-line
+    start-goal distance, a true DTW for nDTW, path_length = commanded distance, and
+    extra keys (stop_success, colrate, success_efficiency). It is not implemented
+    here.
+
+    Test / challenge episodes have no reference path: every ground-truth-derived
+    key is -1 (the evaluator's placeholder) and ``info["metrics_valid"]`` is False.
+    """
+
+    def __init__(self, env: gym.Env, success_distance: float = 3.0, keys: Sequence[str] = VLNVERSE_KEYS) -> None:
+        super().__init__(env)
+        self._sd = float(success_distance)
+        self._keys = tuple(keys)
+        unknown = set(self._keys) - set(VLNVERSE_KEYS)
+        if unknown:
+            raise ValueError(f"unknown metric keys {sorted(unknown)}")
+        self._m: dict[str, float] = {}
+        self._valid = False
+        self._ref = np.zeros((0, 2))
+        self._goal = np.zeros(2)
+        self._shortest = 0.0
+        self._traj: list[np.ndarray] = []
+        self._prev = np.zeros(2)
+        self._L = 0.0
+        self._steps = 0
+        self._ne = math.nan
+        self._min_ne = math.inf
+
+    @property
+    def metrics(self) -> dict[str, float]:
+        return dict(self._m)
+
+    def reset(self, **kwargs):
+        obs, info = self.env.reset(**kwargs)
+        ep = info["episode"]
+        ref = ep.get("reference_path")
+        pos = np.asarray(info["position"], dtype=np.float64)[:2]
+        self._valid = bool(ref)
+        self._traj = [pos]
+        self._prev = pos
+        self._L = 0.0
+        self._steps = 0
+        self._min_ne = math.inf           # the evaluator seeds this with 999 from its config; same outcome
+        if self._valid:
+            self._ref = np.asarray(ref, dtype=np.float64)
+            geo = float(((ep.get("info") or {}).get("geodesic_distance")) or -1.0)
+            self._shortest = geo if geo > 0 else float(np.sum(np.linalg.norm(np.diff(self._ref, axis=0), axis=1)))
+            self._goal = self._ref[-1, :2]
+            # The evaluator has no NE before the first action; a value at reset is this wrapper's addition.
+            self._ne = float(np.linalg.norm(pos - self._goal))
+        else:
+            self._ne = math.nan
+        self._m = self._compute()
+        return obs, self._annotate(info)
+
+    def step(self, action):
+        obs, reward, terminated, truncated, info = self.env.step(action)
+        pos = np.asarray(info["position"], dtype=np.float64)[:2]
+        self._L += float(np.linalg.norm(pos - self._prev))
+        self._prev = pos
+        self._traj.append(pos)
+        self._steps += 1
+        if self._valid:
+            self._ne = float(np.linalg.norm(pos - self._goal))
+            self._min_ne = min(self._min_ne, self._ne)
+        self._m = self._compute()
+        return obs, reward, terminated, truncated, self._annotate(info)
+
+    # ---- formulas --------------------------------------------------------------------
+    def _compute(self) -> dict[str, float]:
+        out: dict[str, float] = {}
+        if not self._valid:
+            for k in self._keys:
+                out[k] = -1.0 if k in _VLNVERSE_GT_KEYS else (self._L if k == "path_length" else float(self._steps))
+            return out
+        success = float(self._ne < self._sd)
+        for k in self._keys:
+            if k == "distance_to_goal":
+                out[k] = self._ne
+            elif k == "success":
+                out[k] = success
+            elif k == "oracle_success":
+                out[k] = float(self._min_ne < self._sd)
+            elif k == "spl":
+                out[k] = success * self._shortest / max(self._L, self._shortest) if self._L > 0 else 0.0
+            elif k == "ndtw":
+                out[k] = self._ndtw()
+            elif k == "path_length":
+                out[k] = self._L
+            elif k == "steps_taken":
+                out[k] = float(self._steps)
+            elif k == "shortest_path_length":
+                out[k] = self._shortest
+        return out
+
+    def _ndtw(self) -> float:
+        traj = np.asarray(self._traj, dtype=np.float64)
+        ref = self._ref[:, :2]
+        if len(traj) == 0:
+            return 0.0
+        d = np.linalg.norm(traj[:, None, :] - ref[None, :, :], axis=2).min(axis=1)
+        return float(np.mean(np.exp(-(d ** 2) / (2.0 * self._sd ** 2))))
+
+    def _annotate(self, info: dict[str, Any]) -> dict[str, Any]:
+        info["metrics"] = dict(self._m)
+        info["metrics_valid"] = self._valid
         return info

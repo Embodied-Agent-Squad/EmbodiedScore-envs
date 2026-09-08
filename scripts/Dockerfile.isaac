@@ -1,0 +1,11 @@
+# Isaac Sim 5.1 + the two packages the render worker imports at module top
+# (msgpack, msgpack-numpy). Nothing else: the worker script and the data are
+# bind-mounted at run time by scripts/isaac_container.sh, never baked in.
+#
+#   docker build -t embodiedscore-isaac:5.1.0 -f scripts/Dockerfile.isaac scripts
+FROM nvcr.io/nvidia/isaac-sim:5.1.0
+USER root
+RUN /isaac-sim/python.sh -m pip install --no-cache-dir msgpack msgpack-numpy
+# The base image's ENTRYPOINT is runheadless.sh, which would take any command we
+# pass as its own arguments and start the full headless Kit app instead. Clear it.
+ENTRYPOINT []

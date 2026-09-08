@@ -8,6 +8,7 @@ from ..env import Act
 NAV = (Act.STOP, Act.FORWARD, Act.LEFT, Act.RIGHT)                    # habitat-lab action space v0 (VLN-CE R2R)
 NAV_LOOK = NAV + (Act.LOOK_UP, Act.LOOK_DOWN)                          # action space v1 (ObjectNav, OVON, RxR-CE, EQA surfaces)
 GOAT = NAV_LOOK + (Act.SUBTASK_STOP,)                                  # goat-bench: v1 plus the sub-task stop
-STANDARD = NAV_LOOK                                                    # EmbodiedScore's shared table
+STANDARD = NAV_LOOK                                                    # EmbodiedScore's shared table (habitat lines; the Isaac worker
+                                                                       # renders yaw-only poses, so VLNverse's standard table is NAV)
 
 __all__ = ["NAV", "NAV_LOOK", "GOAT", "STANDARD"]

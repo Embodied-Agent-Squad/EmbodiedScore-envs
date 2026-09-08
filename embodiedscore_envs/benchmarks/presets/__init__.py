@@ -4,7 +4,8 @@ depth post-processing the benchmark declarations are assembled from.
 ``bodies.STANDARD`` / ``actions.STANDARD`` / ``depth.STANDARD`` are EmbodiedScore's
 shared protocol — every benchmark's default variant runs on them. The other
 constants are the upstream evaluators' own rigs, used by the ``-upstream``
-variants. Members of ``benchmarks/`` import from here; this package imports only
+variants. Isaac lines cannot run a habitat ``Body``: ``bodies.VLNVERSE_STANDARD``
+is the STANDARD protocol's numbers on an ``IsaacBody``. Members of ``benchmarks/`` import from here; this package imports only
 from ``benchmarks.env``.
 """
 

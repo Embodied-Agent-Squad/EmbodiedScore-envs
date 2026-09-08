@@ -26,11 +26,25 @@ EXPLORE_EQA  explore-eqa ``cfg/vlm_exp.yaml`` (HM-EQA; MemoryEQA's MT-HM3D reuse
           locomotion; tilt 30° clamped to ±60°.
 EXPRESS   EXPRESS-Bench ``fine_eqa.yaml``: RGB-D 512² hfov 90 at 1.5 m, camera
           level, free-pose teleport locomotion, no tilt.
+
+Isaac engine (VLNverse; the agent is a camera on an occupancy grid — no
+navmesh, no agent cylinder, no tilt: the render worker draws yaw-only poses):
+
+VLNVERSE_STANDARD  the STANDARD numbers Isaac can express: 0.25 m / 15°, camera
+          1.25 m above the floor, RGB 512² + depth 256² at hfov 90 (depth is the
+          RGB camera's frame resampled at pixel centres), collision by occupancy
+          snapping with a 0.1 m threshold in place of the navmesh. Decided 2026-09-08.
+VLNVERSE  the zero-shot line's kinematic agent (billzhao1030/vlnverse_emr_zero_shot,
+          carried through the AgentCanvas ``env_vlnverse`` nodeset): 0.25 m / 15°,
+          camera 1.2 m, RGB-D 1024² at hfov 90 (focal 10 mm on a 20 mm aperture),
+          occupancy collision 0.1 m (the line ships it switched off; the nodeset
+          switched it on). The original evaluator moved a Unitree H1 in
+          InternUtopia "flash" mode with a 256² camera — not reproduced.
 """
 
 from __future__ import annotations
 
-from ..env import Body, CameraSpec, NavMesh
+from ..env import Body, CameraSpec, IsaacBody, IsaacCameraSpec, NavMesh
 
 STANDARD = Body(forward_step_m=0.25, turn_deg=15.0, tilt_deg=30.0, tilt_limit_deg=60.0,
                 agent_height_m=1.5, agent_radius_m=0.1, allow_sliding=True,
@@ -67,4 +81,13 @@ EXPRESS = Body(forward_step_m=0.25, turn_deg=30.0, tilt_deg=None, camera_pitch_d
                rgb=CameraSpec(512, 512, 90.0, (0.0, 1.5, 0.0)), depth=CameraSpec(512, 512, 90.0, (0.0, 1.5, 0.0)),
                navmesh=NavMesh.file())
 
-__all__ = ["STANDARD", "VLNCE", "RXR_CE", "LOCOBOT", "STRETCH", "EXPLORE_EQA", "EXPRESS"]
+VLNVERSE_STANDARD = IsaacBody(forward_step_m=0.25, turn_deg=15.0, camera_height_m=1.25,
+                              collision="occupancy", collision_threshold_m=0.1,
+                              rgb=IsaacCameraSpec(512, 512, 90.0), depth=IsaacCameraSpec(256, 256, 90.0))
+
+VLNVERSE = IsaacBody(forward_step_m=0.25, turn_deg=15.0, camera_height_m=1.2,
+                     collision="occupancy", collision_threshold_m=0.1,
+                     rgb=IsaacCameraSpec(1024, 1024, 90.0), depth=IsaacCameraSpec(1024, 1024, 90.0))
+
+__all__ = ["STANDARD", "VLNCE", "RXR_CE", "LOCOBOT", "STRETCH", "EXPLORE_EQA", "EXPRESS",
+           "VLNVERSE_STANDARD", "VLNVERSE"]
