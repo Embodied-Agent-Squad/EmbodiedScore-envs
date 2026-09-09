@@ -29,11 +29,17 @@ GPU_FLAGS="${ISAAC_GPU_FLAGS:---gpus all}"
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)"
 
 mounts=(-v "$REPO:$REPO")
-for d in "${EMBODIEDSCORE_DATA_ROOT:-}" "${EMBODIEDSCORE_SCENE_ROOT:-}"; do
-  [ -n "$d" ] && [ -d "$d" ] || continue
-  mounts+=(-v "$d:$d")
-  real="$(readlink -f "$d")"                 # a symlinked root: mount its target too
+mount_real() {                              # mount a path and, when it is a symlink, its target too —
+  local d="$1" real                         # a symlink into an unmounted tree resolves to NOTHING inside the
+  [ -n "$d" ] && [ -e "$d" ] || return 0    # container, and Isaac then renders an empty stage (black frames,
+  mounts+=(-v "$d:$d")                      # depth 20 m everywhere) instead of failing
+  real="$(readlink -f "$d")"
   [ "$real" != "$d" ] && mounts+=(-v "$real:$real")
+  return 0
+}
+for d in "${EMBODIEDSCORE_DATA_ROOT:-}" "${EMBODIEDSCORE_SCENE_ROOT:-}"; do
+  mount_real "$d"
+  [ -n "$d" ] && [ -L "$d/vlnverse" ] && mount_real "$d/vlnverse"   # the corpus dir of a symlink farm
 done
 
 for sub in kit ov pip glcache computecache logs data; do mkdir -p "$CACHE/$sub"; done

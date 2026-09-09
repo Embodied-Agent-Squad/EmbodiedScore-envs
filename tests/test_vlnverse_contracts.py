@@ -38,6 +38,10 @@ def test_reset_facts_and_spaces(env):
     # the STANDARD body: depth 256² next to RGB 512², post-processed to [0, 1] like every standard line
     assert obs["depth"].dtype == np.float32 and obs["depth"].shape == (b.body.depth.height, b.body.depth.width, 1)
     assert np.isfinite(obs["depth"]).all() and obs["depth"].min() >= 0.0 and obs["depth"].max() <= 1.0
+    # a stage that failed to load renders black RGB and a constant no-hit depth (2026-09-08:
+    # a scene root symlinked into an unmounted tree) — the frame must show a scene
+    assert obs["rgb"].max() > 0 and obs["rgb"].mean() > 5.0, "black RGB frame: did the USD stage load?"
+    assert obs["depth"].std() > 0.01, "constant depth: did the USD stage load?"
     for k in ("position", "rotation", "heading", "pitch", "collided", "distance_to_goal", "stop_called", "goal_index",
               "episode", "goal", "metrics"):
         assert k in info, k

@@ -200,6 +200,14 @@ class IsaacWorld:
         scene_prim_path = '/World/scene'
 
         log(f'load_scene({scene_id}): {scene_usd_path}')
+        if not os.path.isfile(scene_usd_path):
+            # add_reference_to_stage on a missing file yields an EMPTY stage that
+            # renders black frames with 20 m depth everywhere — refuse instead.
+            # (Typical cause: the path is a symlink whose target is not mounted
+            # inside the Isaac container.)
+            raise FileNotFoundError(
+                f'load_scene({scene_id}): USD stage not found from inside the Isaac process: '
+                f'{scene_usd_path} (is its real location mounted in the container?)')
         if self.current_scene_id is not None and self.world is not None:
             stage = self.world.scene.stage
             if stage.GetPrimAtPath(scene_prim_path):
