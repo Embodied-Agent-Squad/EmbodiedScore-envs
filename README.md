@@ -30,7 +30,9 @@ env.close()
 | `hmeqa` · `mthm3d` | val / mip100 | 0–5 | path_length / steps_taken; `num_step` budget in info; answer scored outside | explore-eqa / MemoryEQA on habitat-sim 0.3.3 |
 | `express` | val / train / all / mip100 | 0–5 | distance_to_goal (d_T) / path_length / steps_taken | EXPRESS-Bench on habitat-sim 0.3.3 |
 | `vlnverse-fine` · `vlnverse-coarse` | train / val / val_unseen / test / challenge | 0–3 | VLNverse's own formulas (§ Metrics), success 3.0 m, budget 500 | VLNverse evaluator (InternUtopia) — formulas only; see § Fidelity |
-| `libero-spatial` · `-object` · `-goal` · `-10` · `-90` | all / mini | — (Box) | success / steps_taken / ticks, the BDDL predicate check | LIBERO on robosuite 1.4.1 |
+| `libero-spatial` · `-object` · `-goal` · `-10` · `-90` | all / mini | — (pose / OSC) | success / steps_taken / ticks — the BDDL predicate check | LIBERO on robosuite 1.4.1 |
+| `libero-pro-spatial` · `-object` · `-goal` · `-10` | all / mini | — (pose / OSC) | same keys; the suite's ten tasks perturbed four ways | LIBERO-PRO (arXiv:2510.03827) |
+| `libero-plus-camera` · `-noise` · `-robot` · `-language` · `-layout` · `-light` · `-background` | all / mini | — (pose / OSC) | same keys; one perturbation kind over all four suites | LIBERO-Plus (arXiv:2510.13626) |
 | `robotwin-clean` · `robotwin-randomized` | all / mini | — (Box) | success / steps_taken / ticks, the task's own `check_success` | RoboTwin 2.0 on SAPIEN 3 |
 
 The last column is provenance only — which evaluator each line's numbers were
@@ -72,7 +74,8 @@ embodiedscore_envs/
 ├── __init__.py                 make(name, split, **kw); the gym ids
 └── benchmarks/                 one file per line — declarations (standard + upstream): engine, body, action prefix, episodes(), metrics, budget
     ├── vlnce.py  ivlnce.py  objectnav.py (+ ovon)  goat.py  hmeqa.py (+ mthm3d)  express.py  vlnverse.py
-    │   libero.py  robotwin.py
+    ├── libero.py  libero_pro.py  libero_plus.py     the three manipulation benchmarks on the one LIBERO engine
+    │   robotwin.py
     ├── presets/                bodies (STANDARD + the upstream rigs, habitat and Isaac) · action tables · depth post-processing — pure data
     └── env/                    what every benchmark is built on
         ├── schema.py           Episode · Goal types (Point / Object / Image / Text / Sequence / Question / Manip) · Act · Benchmark
@@ -130,6 +133,46 @@ same reason the VLNverse lines carry a polar macro action: a language agent
 cannot emit 20 Hz deltas. Frames are turned upright (robosuite renders them
 upside down; every LIBERO consumer flips them). Object poses are in `info`
 (privileged) and never in the observation.
+
+## The LIBERO-PRO and LIBERO-Plus lines (robustness)
+
+Two 2025 benchmarks ask the same question of the same simulator — does a policy
+that scores >90% on LIBERO understand the task, or has it memorised it? Both
+perturb LIBERO's four evaluation suites and keep everything else: the Panda, the
+OSC_POSE controller, the BDDL success predicate. They are therefore lines on the
+`libero` engine, not engines of their own — same `LiberoWorld`, same
+`LiberoEnv` / `LiberoPoseEnv`, same `ManipMetrics`, same two variants. Each
+ships its own `libero` package, so each needs its own interpreter
+(INSTALL-libero.md § LIBERO-PRO, § LIBERO-Plus).
+
+| | `libero-pro-*` | `libero-plus-*` |
+|---|---|---|
+| paper / repo | [arXiv:2510.03827](https://arxiv.org/abs/2510.03827) · Zxy-MLlab/LIBERO-PRO `eafdb80` (a fork of LIBERO) | [arXiv:2510.13626](https://arxiv.org/abs/2510.13626) · sylvestf/LIBERO-plus `4976dc3` (a drop-in replacement) |
+| the line is | a base suite: `-spatial` `-object` `-goal` `-10` | a perturbation kind: `-camera` `-noise` `-robot` `-language` `-layout` `-light` `-background` |
+| perturbations | object (target and receptacle become other categories) · position (two objects trade regions) · semantic (the instruction paraphrased) · task (the goal predicate replaced) | camera viewpoint · sensor noise · robot initial state · language · object layout · light · background texture |
+| tasks per line | 10 base tasks × 4 dimensions = 40 | 1599 / 1601 / 1550 / 1537 / 1525 / 1142 / 1076 = 10 030 |
+| where it lives | perturbed BDDL + init files (the HuggingFace release `zhouxueyang/LIBERO-Pro`, unpacked into the fork) | BDDL files for background / light / layout; camera, robot, language and noise are encoded in the task NAME and decoded by the fork's `env_wrapper.py` |
+| trials per task | 50 init states, as LIBERO | 1 (`num_trials_per_task = 1`) |
+| `all` / `mini` | every init state (2000) / states 0–9 (400) | every task, init state 0 / the first 10 tasks of each base suite (40) |
+| tick cap | the base suite's, per line | the base suite's, per episode (`info["max_ticks"]`) — a line spans all four |
+
+`episode_id` names the perturbation: `libero_spatial_swap/3/7` on LIBERO-PRO
+(the fork's own suite folder), `libero_spatial/608/0` on LIBERO-Plus (the row of
+its `task_classification.json`). Neither needed a hook in `LiberoBody` or
+`LiberoWorld`: each fork applies its perturbations inside the same
+`OffScreenRenderEnv` the World already builds.
+
+One deviation each, both in the instruction and both for the same reason — the
+LIBERO registry derives a task's language from its *filename*
+(`grab_language_from_filename`), which the perturbation does not update. On
+LIBERO-PRO the loader reads the BDDL's own `(:language ...)` field, where
+`perturbation.py` writes the paraphrase (the registry would report the
+unperturbed sentence and erase the `semantic` dimension). On LIBERO-Plus it
+strips the encoded suffix, which the registry leaves in the sentence
+("… place it on the plate view 0 0 100 2 352 initstate 0") — not an instruction,
+and a leak of the perturbation to the agent; the language line keeps the fork's
+own paraphrase, which it reads from a real BDDL. Both are in the module
+docstrings.
 
 ## The RoboTwin lines (bimanual manipulation)
 
@@ -232,13 +275,16 @@ frames are not bit-identical between renders of one state; the gym ids register
 3. Isaac Sim 5.1 — VLNverse lines only: [INSTALL-isaac.md](INSTALL-isaac.md) (pip, workstation
    bundle, or the container launcher in `scripts/`); point `EMBODIEDSCORE_ISAAC_PYTHON` at its python.
 4. LIBERO (robosuite 1.4.1 + MuJoCo) — the `libero-*` lines only, in their own env:
-   [INSTALL-libero.md](INSTALL-libero.md).
+   [INSTALL-libero.md](INSTALL-libero.md). LIBERO-PRO and LIBERO-Plus each ship their own
+   `libero` package, so each gets an env of its own (§ LIBERO-PRO, § LIBERO-Plus there):
+   `ac-libero` · `ac-libero-pro` · `ac-libero-plus`.
 5. RoboTwin 2.0 (SAPIEN 3 + curobo) — the `robotwin-*` lines only, in their own env:
    [INSTALL-robotwin.md](INSTALL-robotwin.md).
 6. `pytest tests` with the data roots set (a GPU and the datasets are needed); the Isaac
    contracts additionally opt in with `EMBODIEDSCORE_RUN_ISAAC_TESTS=1`, the LIBERO ones with
-   `EMBODIEDSCORE_RUN_LIBERO_TESTS=1`, the RoboTwin ones with
-   `EMBODIEDSCORE_RUN_ROBOTWIN_TESTS=1`.
+   `EMBODIEDSCORE_RUN_LIBERO_TESTS=1`, `EMBODIEDSCORE_RUN_LIBERO_PRO_TESTS=1` and
+   `EMBODIEDSCORE_RUN_LIBERO_PLUS_TESTS=1` — each in the env that has its own `libero` — the
+   RoboTwin ones with `EMBODIEDSCORE_RUN_ROBOTWIN_TESTS=1`.
 
 Python 3.10–3.12, Linux, NVIDIA driver for headless EGL (and Vulkan for the
 RoboTwin lines).

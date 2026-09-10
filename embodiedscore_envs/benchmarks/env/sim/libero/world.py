@@ -60,14 +60,21 @@ def _patch_render_context() -> None:
 
 
 def load_init_states(scene: LiberoSceneRef) -> np.ndarray:
-    """The task's (N, state) init states — torch pickles in the libero release."""
+    """The task's (N, state) init states — torch pickles in the libero release.
+
+    A task with a single init state may store it as a flat vector rather than
+    a (1, state) matrix: LIBERO-Plus's ``libero_newobj`` files do, and its
+    ``Benchmark.get_task_init_states`` reshapes them to ``(1, -1)`` before
+    indexing (``libero/libero/benchmark/__init__.py``, sylvestf/LIBERO-plus at
+    ``4976dc3``). Same reshape here, so a 1-D file is one init state."""
     import torch
 
     try:
         states = torch.load(scene.init_states_file, weights_only=False)
     except TypeError:     # torch < 1.13 has no weights_only
         states = torch.load(scene.init_states_file)
-    return np.asarray(states)
+    array = np.asarray(states)
+    return array.reshape(1, -1) if array.ndim == 1 else array
 
 
 def _xyzw_to_wxyz(q: np.ndarray) -> np.ndarray:

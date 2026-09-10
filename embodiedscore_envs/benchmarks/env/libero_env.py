@@ -36,6 +36,13 @@ until the agent's own stop or the budget, and ``info["success"]`` /
 would have scored. ``truncated`` fires at the tick cap (settle ticks excluded, as OpenVLA's
 ``max_steps + num_steps_wait`` loop counts). ``reward`` is 0.0.
 
+The tick cap is the declaration's ``ticks``, unless the episode carries its
+own in ``info["max_ticks"]``: LIBERO's cap is per *suite* (OpenVLA's
+``TASK_MAX_STEPS``), so a line whose episodes come from more than one base
+suite — the LIBERO-Plus lines, one perturbation kind across all four — has
+to carry it per episode. A line drawn from a single suite never sets the key
+and every episode uses the declaration's.
+
 Facts are in robosuite's world frame: metres, z up, ``eef_rotation`` as
 ``(w, x, y, z)``.
 """
@@ -81,6 +88,7 @@ class LiberoEnv(gym.Env):
         self.episodes: tuple[Episode, ...] = tuple(episodes)
         self.body = body
         self.max_ticks = int(max_ticks) if max_ticks is not None else None
+        self._episode_ticks: int | None = self.max_ticks    # this episode's cap (info["max_ticks"] when it carries one)
         self.terminate_on_success = bool(terminate_on_success)
         self.render_mode = render_mode
         self._by_id = {e.episode_id: e for e in self.episodes}
@@ -127,14 +135,23 @@ class LiberoEnv(gym.Env):
             return self._by_id[str(options["episode_id"])]
         return self.episodes[int(self.np_random.integers(len(self.episodes)))]
 
+    @staticmethod
+    def episode_ticks(episode: Episode, default: int | None) -> int | None:
+        """This episode's tick cap: ``info["max_ticks"]`` when the loader set
+        one (a line whose episodes span several LIBERO suites), else the
+        declaration's."""
+        cap = episode.info.get("max_ticks")
+        return default if cap is None else int(cap)
+
     def _horizon(self) -> int:
-        cap = self.max_ticks if self.max_ticks is not None else 1000
+        cap = self._episode_ticks if self._episode_ticks is not None else 1000
         return cap + self.body.settle_ticks + 10
 
     # ---- gym API -----------------------------------------------------------------------
     def reset(self, *, seed: int | None = None, options: dict[str, Any] | None = None):
         super().reset(seed=seed)
         ep = self._select(options)
+        self._episode_ticks = self.episode_ticks(ep, self.max_ticks)
         self._world.load_scene(ep.scene, horizon=self._horizon())
         states = self._init_states.get(ep.scene.bddl_file)
         if states is None:
@@ -169,7 +186,7 @@ class LiberoEnv(gym.Env):
         return self._done or self._truncated()
 
     def _truncated(self) -> bool:
-        return self.max_ticks is not None and self._ticks - self._settle >= self.max_ticks
+        return self._episode_ticks is not None and self._ticks - self._settle >= self._episode_ticks
 
     def render(self):
         if self.render_mode == "rgb_array":
