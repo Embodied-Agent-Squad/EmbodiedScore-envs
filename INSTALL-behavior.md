@@ -189,12 +189,29 @@ env.close()
 EOF
 ```
 
-Timings seen here (RTX 3090, cold caches): `import omnigibson` ~5 s; Isaac Sim
-app ready ~27 s; the first load of a house several minutes (USD parsing is
-CPU-bound and single-scene); a same-scene task change is much cheaper
-(`env.update_task`); a same-task instance change is instant. The challenge's
-own note (`docs/challenge/evaluation.md`, RTX 4090) is 150-300 s per scene load
+Timings measured here (RTX 3090, driver 570.133.07), and the gap between the
+first run and the rest is large enough to plan around:
+
+| | cold `OMNIGIBSON_APPDATA_PATH` | warm |
+|---|---|---|
+| `import omnigibson` | ~5 s | ~5 s |
+| Isaac Sim app ready | **434 s** (it syncs ~800 extension files from NVIDIA's registry and compiles shaders) | **27 s** |
+| a house imported | +250 s | +100 s |
+| a loaded, reset episode | ~12 min | **~2.8 min** |
+
+So point `OMNIGIBSON_APPDATA_PATH` at a fast local disk and keep it: the second
+boot is 16x faster than the first. A same-scene task change is much cheaper
+still (`env.update_task`) and a same-task instance change is instant, which is
+why the line is ordered task-major with the tasks grouped by house. Stepping
+runs at roughly 2-3 ticks/s here with three 256² cameras and two other Isaac
+processes sharing the GPU; the challenge's own note
+(`docs/challenge/evaluation.md`, an idle RTX 4090) is 150-300 s per scene load
 and 20-25 FPS at 224².
+
+One more thing to expect: after `og.clear()` the process **segfaults during
+interpreter shutdown**. The run itself is complete at that point — the port's
+own scripted episode calls `os._exit()` once it has printed its result, and the
+env server is terminated by the runner, so neither is affected.
 
 ## 7. Runtime knobs
 
