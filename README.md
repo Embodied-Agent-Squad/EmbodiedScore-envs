@@ -111,7 +111,7 @@ Success is the simulator's own predicate check; `ManipMetrics` reports `success`
 
 | | `<line>` (standard) | `<line>-upstream` |
 |---|---|---|
-| body | `LiberoPoseEnv`: one step = one absolute end-effector target `[x, y, z, ax, ay, az, gripper]` (world frame, metres, axis-angle), driven in a closed loop of bounded OSC deltas (≤ 2 cm / 0.05 rad of goal shift per tick, 1 cm / 0.1 rad tolerance, ≤ 200 ticks); a target at `inf` is a 60-tick gripper hold | `LiberoEnv`: one step = one 20 Hz tick, the action is the OSC_POSE input in [−1, 1] (unit = 5 cm / 0.5 rad), as LIBERO's evaluators drive it |
+| body | `LiberoPoseEnv`: one step = one absolute end-effector target `[x, y, z, ax, ay, az, gripper]` (world frame, metres, axis-angle), driven in a closed loop of bounded OSC deltas (≤ 2 cm / 0.05 rad of goal shift per tick, 1.5 cm / 0.1 rad tolerance, ≤ 200 ticks or a stall); a target at `inf` is a 60-tick gripper hold | `LiberoEnv`: one step = one 20 Hz tick, the action is the OSC_POSE input in [−1, 1] (unit = 5 cm / 0.5 rad), as LIBERO's evaluators drive it |
 | rig | 256² agentview + wrist (`bodies.LIBERO_STANDARD`) | 128² (`bodies.LIBERO`, LIBERO's `img_h`/`img_w`) |
 | budget | 100 macro steps (gym TimeLimit) + a tick guard of 10× the upstream cap | OpenVLA's per-suite tick cap: 220 / 280 / 300 / 520 / 400 |
 | termination | the agent's own stop or the budget; `success` latches the first tick the goal held | LIBERO's: done on success |

@@ -19,8 +19,11 @@ Two protocols on the same facts:
   action is an ABSOLUTE end-effector target ``[x, y, z, ax, ay, az, gripper]``
   (world frame, metres, axis-angle, gripper as above); one ``step`` runs a
   closed loop that feeds OSC bounded deltas (at most 2 cm / 0.05 rad of goal
-  shift per tick) until the pose is within tolerance or ``max_ticks_per_move``
-  is spent. ``info["converged"]`` says which. A target whose position is
+  shift per tick) until the pose is within tolerance (1.5 cm / 0.1 rad), ``max_ticks_per_move``
+  is spent, or the position error has stalled (no 2 mm gain over 25 ticks — a
+  target out of reach or blocked by the table; without this a failed move
+  burned the full cap, and eleven of them the whole tick guard, 2026-09-10).
+  ``info["converged"]`` says which, ``info["stalled"]`` whether it gave up. A target whose position is
   ``inf`` is a HOLD: ``GRIPPER_HOLD_TICKS`` zero-motion ticks with the gripper
   command — how a grasp or a release is executed (fingers need ~60 ticks to
   close on an object); ``hold_action(gripper)`` builds one.
@@ -53,9 +56,11 @@ OSC_MAX_POS_M = 0.05        # robosuite osc_pose.json output_max: a unit input s
 OSC_MAX_ROT_RAD = 0.5       # ... and 0.5 rad
 STEP_POS_M = 0.02           # bounded goal advance per tick in the pose loop (2 cm: the OSC tracks ~half of it; 5 mm made a 25 cm move miss a 100-tick cap)
 STEP_ROT_RAD = 0.05         # ... and ~3°
-POS_TOL_M = 0.01
+POS_TOL_M = 0.015           # the OSC's steady-state error at the far side of the table is 1.0-1.4 cm (measured 2026-09-10); 1 cm never converged there
 ROT_TOL_RAD = 0.10
 MAX_TICKS_PER_MOVE = 200
+STALL_TICKS = 25            # give up a move whose position error has not improved by STALL_GAIN_M over this many ticks
+STALL_GAIN_M = 0.002
 GRIPPER_HOLD_TICKS = 60
 
 
@@ -224,8 +229,9 @@ class LiberoPoseEnv(LiberoEnv):
         if not np.all(np.isfinite(a[:3])):
             return self._hold(grip)
         target_pos, target_rot = a[:3], Rotation.from_rotvec(a[3:6]).as_matrix()
-        converged, ended, n = False, False, 0
+        converged, ended, stalled, n = False, False, False, 0
         pos_err = rot_err = float("nan")
+        best_err, best_at = float("inf"), 0
         while n < self.max_ticks_per_move:
             pos, rot = self._world.eef_pose()
             d_pos = target_pos - pos
@@ -233,6 +239,12 @@ class LiberoPoseEnv(LiberoEnv):
             pos_err, rot_err = float(np.linalg.norm(d_pos)), float(np.linalg.norm(d_rot))
             if pos_err < self.pos_tol_m and rot_err < self.rot_tol_rad:
                 converged = True
+                break
+            err = pos_err + 0.1 * rot_err          # 0.1 rad counts as 1 cm
+            if err < best_err - STALL_GAIN_M:
+                best_err, best_at = err, n
+            elif n - best_at >= STALL_TICKS:
+                stalled = True
                 break
             if pos_err > STEP_POS_M:
                 d_pos = d_pos * (STEP_POS_M / pos_err)
@@ -247,7 +259,8 @@ class LiberoPoseEnv(LiberoEnv):
             pos, _ = self._world.eef_pose()
             pos_err = float(np.linalg.norm(target_pos - pos))
         obs = self._observe()
-        info = self._facts(converged=converged, move_ticks=n, position_error_m=pos_err, rotation_error_rad=rot_err)
+        info = self._facts(converged=converged, stalled=stalled, move_ticks=n, position_error_m=pos_err,
+                           rotation_error_rad=rot_err)
         return obs, 0.0, self._done, self._truncated(), info
 
     @staticmethod
@@ -263,5 +276,5 @@ class LiberoPoseEnv(LiberoEnv):
             if self._tick(cmd):
                 break
         obs = self._observe()
-        return obs, 0.0, self._done, self._truncated(), self._facts(converged=True, move_ticks=n, position_error_m=0.0,
-                                                                    rotation_error_rad=0.0)
+        return obs, 0.0, self._done, self._truncated(), self._facts(converged=True, stalled=False, move_ticks=n,
+                                                                    position_error_m=0.0, rotation_error_rad=0.0)

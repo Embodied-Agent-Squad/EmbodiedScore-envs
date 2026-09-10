@@ -72,7 +72,7 @@ def test_reset_step_hold_facts(stack):
     w, x, y, z = info["eef_rotation"]
     rot = Rotation.from_quat([x, y, z, w]).as_rotvec()
     obs, r, term, trunc, info = stack.step(np.concatenate([pos + [0.0, 0.0, -0.05], rot, [-1.0]]))
-    assert r == 0.0 and not term and not trunc and info["converged"] and info["position_error_m"] < 0.011
+    assert r == 0.0 and not term and not trunc and info["converged"] and info["position_error_m"] < 0.016
     assert info["metrics"]["steps_taken"] == 1 and info["metrics"]["success"] == 0.0
     obs, r, term, trunc, info = stack.step(LiberoPoseEnv.hold_action(+1))
     assert info["gripper_open"] < 10 and info["metrics"]["steps_taken"] == 2
