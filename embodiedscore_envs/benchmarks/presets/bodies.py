@@ -78,12 +78,26 @@ ROBOCASA_STANDARD  robot0_agentview_center 256² + wrist 256², frames upright,
 ROBOCASA  RoboCasa's own rig (``robocasa/utils/env_utils.py`` ``create_env``:
           robot0_agentview_left + robot0_agentview_right + robot0_eye_in_hand at
           128²) — the left view as obs["rgb"], the right one as obs["aux"].
+
+CALVIN engine (a Franka Panda on the play table under pybullet IK + joint
+position control at 30 Hz — the benchmark's physics, not a body knob; a body
+fixes the two cameras' raster size and the settle ticks, which CALVIN's
+evaluator has none of):
+
+CALVIN_STANDARD  static 256² + gripper 256², 0 settle ticks. Decided
+          2026-09-10, matching LIBERO_STANDARD and ROBOCASA_STANDARD.
+CALVIN    CALVIN's own rig (``calvin_env/conf/cameras/cameras/{static,gripper}.yaml``,
+          identical in every released dataset's ``merged_config.yaml``): the
+          static camera 200x200 at fov 10, the gripper camera 84x84 at fov 75.
+          Both cameras' geometry is the release's either way — only the raster
+          size differs (both have ``aspect: 1``).
 """
 
 from __future__ import annotations
 
-from ..env import (Body, CameraSpec, IsaacBody, IsaacCameraSpec, LiberoBody, LiberoCameraSpec, NavMesh,
-                   RobocasaBody, RobocasaCameraSpec, RobotwinBody, RobotwinRandomization)
+from ..env import (Body, CalvinBody, CalvinCameraSpec, CameraSpec, IsaacBody, IsaacCameraSpec, LiberoBody,
+                   LiberoCameraSpec, NavMesh, RobocasaBody, RobocasaCameraSpec, RobotwinBody,
+                   RobotwinRandomization)
 from ..env.sim.robocasa.body import LEFT_CAMERA, RIGHT_CAMERA
 from ..env.sim.robotwin import D435, LARGE_D435
 
@@ -160,7 +174,12 @@ ROBOCASA = RobocasaBody(rgb=RobocasaCameraSpec(128, 128), wrist=RobocasaCameraSp
                         aux=RobocasaCameraSpec(128, 128), rgb_camera=LEFT_CAMERA, aux_camera=RIGHT_CAMERA,
                         settle_ticks=10)
 
+CALVIN_STANDARD = CalvinBody(rgb=CalvinCameraSpec(256, 256), wrist=CalvinCameraSpec(256, 256), settle_ticks=0)
+
+CALVIN = CalvinBody(rgb=CalvinCameraSpec(200, 200), wrist=CalvinCameraSpec(84, 84), settle_ticks=0)
+
 __all__ = ["STANDARD", "VLNCE", "RXR_CE", "LOCOBOT", "STRETCH", "EXPLORE_EQA", "EXPRESS",
            "VLNVERSE_STANDARD", "VLNVERSE", "LIBERO_STANDARD", "LIBERO",
            "CLEAN", "RANDOMIZED", "ROBOTWIN", "ROBOTWIN_RANDOMIZED", "ROBOTWIN_STANDARD",
-           "ROBOTWIN_STANDARD_RANDOMIZED", "ROBOCASA_STANDARD", "ROBOCASA"]
+           "ROBOTWIN_STANDARD_RANDOMIZED", "ROBOCASA_STANDARD", "ROBOCASA",
+           "CALVIN_STANDARD", "CALVIN"]

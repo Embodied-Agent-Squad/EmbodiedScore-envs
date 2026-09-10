@@ -10,7 +10,9 @@
   what the dataset says about it. Poses are in the engine's own frame — the
   frame the split files store them in: habitat lines y up with ``(x, y, z, w)``
   quaternions, Isaac lines z up with ``(w, x, y, z)``. A manipulation episode
-  (LIBERO) has no start pose — its start is an init state, indexed in ``info``.
+  (LIBERO) has no start pose — its start is an init state, indexed in ``info``;
+  a CALVIN episode's start is the state its symbolic initial condition builds,
+  carried in ``info`` too.
 * :class:`Benchmark` — a declaration (no code of its own) that ``make()`` turns
   into a Gymnasium stack; ``engine`` names the simulator it runs on.
 """
@@ -25,13 +27,13 @@ from typing import Any, Callable, Union
 
 import numpy as np
 
-from .sim import (Body, IsaacBody, IsaacSceneRef, LiberoBody, LiberoSceneRef, RobocasaBody, RobocasaSceneRef, RobotwinBody, RobotwinSceneRef,
-                  SceneRef)
+from .sim import (Body, CalvinBody, CalvinSceneRef, IsaacBody, IsaacSceneRef, LiberoBody, LiberoSceneRef,
+                  RobocasaBody, RobocasaSceneRef, RobotwinBody, RobotwinSceneRef, SceneRef)
 
 Vec3 = tuple[float, float, float]
 Quat = tuple[float, float, float, float]     # habitat: x, y, z, w — Isaac: w, x, y, z
 
-ENGINES = ("habitat", "isaac", "libero", "robotwin", "robocasa")
+ENGINES = ("habitat", "isaac", "libero", "robotwin", "robocasa", "calvin")
 
 
 class Act(IntEnum):
@@ -95,7 +97,12 @@ class TextGoal:
 
 @dataclass(frozen=True)
 class GoalSequence:
-    """Ordered sub-goals closed one by one with SUBTASK_STOP (GOAT)."""
+    """Ordered sub-goals, reached one at a time. *Who* closes a sub-goal is
+    the line's rule, not the type's: GOAT's the agent declares with
+    SUBTASK_STOP, CALVIN's the task oracle closes automatically the tick its
+    predicate holds (``benchmarks/calvin.py`` argues the case). The sub-goals
+    are the line's own goal type — nav goals on GOAT, ``ManipGoal`` on
+    CALVIN."""
     goals: tuple["Goal", ...]
     kind: str = field(default="sequence", init=False)
 
@@ -169,7 +176,7 @@ def to_dict(obj: Any) -> Any:
 class Episode:
     index: int                           # position in the loaded list
     episode_id: str
-    scene: SceneRef | IsaacSceneRef | LiberoSceneRef | RobotwinSceneRef | RobocasaSceneRef
+    scene: SceneRef | IsaacSceneRef | LiberoSceneRef | RobotwinSceneRef | RobocasaSceneRef | CalvinSceneRef
     start_position: Vec3 | None          # the engine's frame (habitat y up; Isaac z up); None on a manipulation line
     start_rotation: Quat | None          # habitat x, y, z, w — Isaac w, x, y, z; None on a manipulation line
     goal: Goal | None                    # None when the split withholds it (VLNverse test / challenge)
@@ -196,7 +203,7 @@ class DepthSpec:
 class Benchmark:
     name: str                                    # make() key, e.g. "objectnav-hm3d-v1" / "objectnav-hm3d-v1-upstream"
     gym_id: str                                  # e.g. "EmbodiedScore/ObjectNav-HM3Dv1-v0"
-    body: Body | IsaacBody | LiberoBody | RobotwinBody | RobocasaBody   # the engine's Body type (checked against ``engine``)
+    body: Body | IsaacBody | LiberoBody | RobotwinBody | RobocasaBody | CalvinBody   # the engine's Body type (checked against ``engine``)
     actions: tuple[Act, ...]
     splits: tuple[str, ...]
     episodes: Callable[..., list[Episode]]      # (split, data_root=None, scene_root=None, **kw) -> episodes
@@ -212,7 +219,7 @@ class Benchmark:
     macro: bool = False                          # manipulation engines: the pose protocol (absolute end-effector targets, closed loop) instead of the upstream per-tick one
     ticks: int | None = None                     # libero: the control-tick cap (truncation); the macro protocol's guard, the per-tick protocol's budget. None on robotwin — its cap is per task, through ``budget``
     tick_scale: float = 1.0                      # robocasa: with ``ticks`` None the cap is this multiple of the episode's own horizon (RoboCasa's is per task)
-    engine: str = "habitat"                      # "habitat" (habitat-sim, in process) | "isaac" (Isaac Sim render worker) | "libero" / "robocasa" (robosuite / MuJoCo, in process) | "robotwin" (SAPIEN 3, in process)
+    engine: str = "habitat"                      # "habitat" (habitat-sim, in process) | "isaac" (Isaac Sim render worker) | "libero" / "robocasa" (robosuite / MuJoCo, in process) | "robotwin" (SAPIEN 3, in process) | "calvin" (pybullet, in process)
     description: str = ""
     line: str = ""                               # the benchmark line both variants belong to, e.g. "objectnav-hm3d-v1"
     variant: str = "standard"                    # "standard" (EmbodiedScore's shared body) | "upstream" (the line's own evaluator)
@@ -223,13 +230,13 @@ class Benchmark:
         if self.engine not in ENGINES:
             raise ValueError(f"{self.name}: engine must be one of {ENGINES}")
         want = {"habitat": Body, "isaac": IsaacBody, "libero": LiberoBody, "robotwin": RobotwinBody,
-                "robocasa": RobocasaBody}[self.engine]
+                "robocasa": RobocasaBody, "calvin": CalvinBody}[self.engine]
         if not isinstance(self.body, want):
             raise TypeError(f"{self.name}: engine {self.engine!r} needs a {want.__name__}, got {type(self.body).__name__}")
         if (self.pose and self.engine != "habitat" or self.polar and self.engine != "isaac"
-                or self.macro and self.engine not in ("libero", "robotwin", "robocasa")):
+                or self.macro and self.engine not in ("libero", "robotwin", "robocasa", "calvin")):
             raise ValueError(f"{self.name}: pose is a habitat protocol, polar an isaac one, "
-                             "macro a manipulation one (libero / robotwin / robocasa)")
+                             "macro a manipulation one (libero / robotwin / robocasa / calvin)")
         if not self.line:
             object.__setattr__(self, "line", self.name[: -len("-upstream")] if self.name.endswith("-upstream") else self.name)
 

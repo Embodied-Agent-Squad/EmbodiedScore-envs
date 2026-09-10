@@ -7,7 +7,8 @@ no habitat-lab — with the legacy stacks' numerics reproduced to the last digit
 (evidence archived on the `archive/reproduction` branch),
 [VLNverse](https://arxiv.org/abs/2512.19021) on Isaac Sim 5.1 through an
 out-of-process render worker, and the manipulation lines — LIBERO and
-RoboCasa / RoboCasa365 — on robosuite / MuJoCo in process.
+RoboCasa / RoboCasa365 on robosuite / MuJoCo, RoboTwin on SAPIEN 3 and CALVIN
+on pybullet — in process.
 
 ```python
 import embodiedscore_envs as es
@@ -37,11 +38,13 @@ env.close()
 | `robotwin-clean` · `robotwin-randomized` | all / mini | — (Box) | success / steps_taken / ticks, the task's own `check_success` | RoboTwin 2.0 on SAPIEN 3 |
 | `robocasa365-atomic-seen` · `-composite-seen` · `-composite-unseen` | all / mini | — (pose + base / 12-D) | success / steps_taken / ticks, RoboCasa's own `_check_success` | RoboCasa365 on robosuite 1.5 |
 | `robocasa-pnp` · `-doors` · `-drawers` · `-levers` · `-knobs` · `-insertion` · `-buttons` · `-navigate` | all / mini | — (pose + base / 12-D) | same | RoboCasa v0.2 on robosuite 1.5 |
+| `calvin-d` | all / mini | — (pose / 7-D relative) | chain_length (avg_seq_len) and success_1..5 (chain_sr) over 5 chained instructions | CALVIN on pybullet |
 
 The last column is provenance only — which evaluator each line's numbers were
 reproduced against (evidence on the `archive/reproduction` branch). The habitat
 lines run on habitat-sim 0.3.3; the VLNverse lines on Isaac Sim 5.1; the LIBERO
-lines on robosuite / MuJoCo; the RoboTwin lines on SAPIEN 3 (`Benchmark.engine`).
+lines on robosuite / MuJoCo; the RoboTwin lines on SAPIEN 3; the CALVIN line on
+pybullet (`Benchmark.engine`).
 
 Every line has two variants. `make(name, split)` is the **standard** variant:
 EmbodiedScore's shared body (`presets.bodies.STANDARD` — 0.25 m / 15°, tilt 30°
@@ -78,7 +81,7 @@ embodiedscore_envs/
 └── benchmarks/                 one file per line — declarations (standard + upstream): engine, body, action prefix, episodes(), metrics, budget
     ├── vlnce.py  ivlnce.py  objectnav.py (+ ovon)  goat.py  hmeqa.py (+ mthm3d)  express.py  vlnverse.py
     ├── libero.py  libero_pro.py  libero_plus.py     the three manipulation benchmarks on the one LIBERO engine
-    │   robotwin.py  robocasa.py
+    │   robotwin.py  robocasa.py  calvin.py
     ├── presets/                bodies (STANDARD + the upstream rigs, habitat and Isaac) · action tables · depth post-processing — pure data
     └── env/                    what every benchmark is built on
         ├── schema.py           Episode · Goal types (Point / Object / Image / Text / Sequence / Question / Manip) · Act · Benchmark
@@ -87,14 +90,16 @@ embodiedscore_envs/
         ├── libero_env.py       LiberoEnv (Box: per-tick OSC delta) · LiberoPoseEnv (Box: absolute end-effector target, closed loop)
         ├── robotwin_env.py     RobotwinEnv (Box: RoboTwin's own joint / end-effector action) · RobotwinPoseEnv (Box: an absolute end-effector target PER ARM, closed loop)
         ├── robocasa_env.py     RobocasaEnv (Box: RoboCasa's per-tick 12-D action) · RobocasaPoseEnv (Box: base move | absolute end-effector target | gripper hold)
-        ├── metrics.py          NavMetrics (one formula set) · SequenceNavMetrics (GOAT) · VLNVerseMetrics · ManipMetrics (LIBERO, RoboTwin, RoboCasa)
+        ├── calvin_env.py       CalvinEnv (Box: CALVIN's per-tick relative command) · CalvinPoseEnv (Box: absolute end-effector target) — both drive the 5-instruction CHAIN, closed by the task oracle
+        ├── metrics.py          NavMetrics (one formula set) · SequenceNavMetrics (GOAT) · VLNVerseMetrics · ManipMetrics (LIBERO, RoboTwin, RoboCasa) · ChainMetrics (CALVIN)
         ├── wrappers.py         DepthClip · DynamicTimeLimit
         └── sim/                one facade per engine; the engines never import each other
             ├── habitat/        the only place that imports habitat_sim (lazily): Body · SceneRef · SimWorld
             ├── isaac/          IsaacBody · IsaacSceneRef · IsaacWorld; worker.py runs under Isaac's python, backend.py drives it
             ├── libero/         LiberoBody · LiberoSceneRef · LiberoWorld — the only place that imports libero / robosuite (lazily)
             ├── robotwin/       RobotwinBody · RobotwinSceneRef · RobotwinWorld — the only place that imports RoboTwin / sapien (lazily)
-            └── robocasa/       RobocasaBody · RobocasaSceneRef · RobocasaWorld — the only place that imports robocasa / robosuite (lazily)
+            ├── robocasa/       RobocasaBody · RobocasaSceneRef · RobocasaWorld — the only place that imports robocasa / robosuite (lazily)
+            └── calvin/         CalvinBody · CalvinSceneRef · CalvinWorld — the only place that imports calvin_env / pybullet (lazily)
 ```
 
 Imports point strictly downward; benchmark files never import each other
@@ -118,7 +123,9 @@ inside the `libero` package (INSTALL-libero.md); the RoboTwin lines read
 neither root. Nor do the RoboCasa lines: a
 kitchen is generated from a layout id and a style id, and the meshes and
 textures it draws from are downloaded into the `robocasa` checkout
-(INSTALL-robocasa.md).
+(INSTALL-robocasa.md). The CALVIN line reads exactly one file from
+`EMBODIEDSCORE_DATA_ROOT` — `calvin/calvin_debug_dataset/validation/.hydra/merged_config.yaml`,
+the environment config its own evaluator builds from (INSTALL-calvin.md).
 
 ## The LIBERO lines (manipulation)
 
@@ -256,6 +263,66 @@ are in `info` (`info["language"]` is the instruction RoboCasa words for the
 objects it sampled — only known after a reset, so it also replaces the
 declaration's placeholder in `info["episode"]["instruction"]`).
 
+## The CALVIN line (a chain of language instructions)
+
+`calvin-d` is CALVIN (Mees et al., RA-L 2022,
+[arXiv:2112.03227](https://arxiv.org/abs/2112.03227); repo `fa03f01`,
+`calvin_env` `1431a46`): a Franka Panda on a play table in **pybullet**, 34
+language-conditioned tasks, and the only line here whose episode is not one
+task but a **chain of five**.
+
+**Why one line.** The published rows are ABC→D and ABCD→D, but those name the
+*training* split: the evaluation is the same in both — environment D, and the
+same 1000 sequences. `make_env` builds the table from `<dataset>/validation`,
+which is D in every release; the initial states are computed from each
+sequence's symbolic condition rather than read from the dataset; and
+`get_sequences(1000)` takes no dataset at all. A zero-shot agent has no
+training split, so a second line would be the same benchmark twice.
+
+**The episode.** `get_sequences(1000)`
+(`calvin_models/calvin_agent/evaluation/multistep_sequences.py`:350) plans 1000
+`(initial condition, five task names)` pairs from 192 symbolic conditions under
+fixed seeds. There is no sequence file — the list is generated, and
+`benchmarks/calvin.py` transcribes the generator (serial instead of upstream's
+process pool, same per-condition seeding, verified to give the identical 1000
+pairs). Splits: `all` (the 1000) and `mini` (the first 100). Generating them
+costs ~2 minutes once and is cached under the data root.
+
+**The chain, and who closes it.** The goal is a `GoalSequence` of five
+`ManipGoal`s, and its sub-goals are closed **automatically by CALVIN's task
+oracle** — not by the agent with `SUBTASK_STOP`, as GOAT's are. That is
+CALVIN's own protocol: `rollout` polls
+`Tasks.get_task_info_for_set(start_info, current_info, {subtask})` every tick
+and returns the moment it holds, `evaluate_sequence` then reveals the next
+instruction, and the chain ends at the first failure or at five. A task is a
+*change* between two scene states, so the oracle's reference snapshot restarts
+with every sub-task. `info["subtask_closed"]` marks the step one closed, and
+`info["instruction"]` / `info["goal_index"]` then already name the next — the
+agent sees one instruction at a time, as CALVIN's policies do.
+
+**Metrics** are CALVIN's, through `ChainMetrics`: per episode `chain_length`
+(0–5, the evaluator's `success_counter`) and `success_1 … success_5`
+(`chain_length >= i`). Their means over the split are exactly the evaluator's
+*average successful sequence length* and *success rates for i instructions in a
+row*.
+
+| | `calvin-d` (standard) | `calvin-d-upstream` |
+|---|---|---|
+| body | `CalvinPoseEnv`: one step is one **absolute end-effector target** `[x, y, z, ax, ay, az, gripper]` held until the TCP arrives (1 cm / 0.1 rad tolerance, ≤ 120 ticks, stall-abort), or a **gripper hold** — a target at `inf`, 20 ticks. No bounded-delta loop is needed: `Robot.apply_action` takes an absolute pose natively | `CalvinEnv`: one step = one 30 Hz tick, the action is CALVIN's own 7-D relative command `[dx, dy, dz, dax, day, daz, gripper]`, a unit being 2 cm / 0.05 rad of target-pose shift |
+| rig | static 256² + gripper 256² (`bodies.CALVIN_STANDARD`) | the release's own: static 200×200 at fov 10, gripper 84×84 at fov 75 (`bodies.CALVIN`) |
+| budget | **20 macro moves per sub-task**, tick guard 10 × `EP_LEN`; the episode ceiling is 5 × 20 = 100 (gym TimeLimit) | **`EP_LEN` = 360 ticks per sub-task** (`evaluate_policy.py`:38); ceiling 5 × 360 |
+| termination | `terminated` = the chain completed (5/5); `truncated` = a sub-task spent its budget, which ends the chain | the same, on the tick budget |
+
+The budget unit differs between the variants for the same reason as on the
+LIBERO lines — but on both it stays **per sub-task**, because that is what
+makes a chain a chain: an instruction not solved in its own budget fails and
+the chain ends there. A shared pool would let an agent spend the whole episode
+on the first instruction.
+
+The gripper sign is inverted relative to the robosuite engines: CALVIN's
+`+1` **opens**. The package's macro convention (`+` closes) is kept at the
+action, and `sim/calvin/world.py` translates.
+
 ## Metrics of the VLNverse lines
 
 `VLNVerseMetrics` implements the VLNverse evaluator's formulas (`VLNPEMetrics`,
@@ -339,12 +406,16 @@ frames are not bit-identical between renders of one state; the gym ids register
 6. RoboCasa (robosuite 1.5 + MuJoCo) — the `robocasa*-*` lines only, in *two* more envs
    (the two releases pin incompatible numpy / mujoco / python and share a distribution
    name): [INSTALL-robocasa.md](INSTALL-robocasa.md).
-7. `pytest tests` with the data roots set (a GPU and the datasets are needed); the Isaac
+7. CALVIN (`calvin_env` on pybullet) — the `calvin-d` line only, in its own env `ac-calvin`:
+   [INSTALL-calvin.md](INSTALL-calvin.md). Neither torch nor `tacto` nor `calvin_models` is
+   needed; the only data is one 7 KB config out of the 1.3 GB debug release.
+8. `pytest tests` with the data roots set (a GPU and the datasets are needed); the Isaac
    contracts additionally opt in with `EMBODIEDSCORE_RUN_ISAAC_TESTS=1`, the LIBERO ones with
    `EMBODIEDSCORE_RUN_LIBERO_TESTS=1`, `EMBODIEDSCORE_RUN_LIBERO_PRO_TESTS=1` and
    `EMBODIEDSCORE_RUN_LIBERO_PLUS_TESTS=1` — each in the env that has its own `libero` — the
    RoboTwin ones with `EMBODIEDSCORE_RUN_ROBOTWIN_TESTS=1`, the RoboCasa ones with
-   `EMBODIEDSCORE_RUN_ROBOCASA_TESTS=1`.
+   `EMBODIEDSCORE_RUN_ROBOCASA_TESTS=1`, the CALVIN ones with
+   `EMBODIEDSCORE_RUN_CALVIN_TESTS=1`.
 
-Python 3.10–3.12, Linux, NVIDIA driver for headless EGL (and Vulkan for the
-RoboTwin lines).
+Python 3.10–3.12, Linux, NVIDIA driver for headless EGL (pybullet's own EGL
+plugin for the CALVIN line, and Vulkan for the RoboTwin lines).

@@ -1,7 +1,7 @@
 """Gymnasium's env checker plus the contracts every benchmark shares — the
 habitat lines here, the Isaac lines in ``test_vlnverse_contracts.py`` (they boot
 Isaac Sim and opt in separately), the LIBERO lines in ``test_libero_contracts.py``, the RoboCasa lines in
-``test_robocasa_contracts.py``. Needs habitat-sim, the datasets and a GPU:
+``test_robocasa_contracts.py``, the CALVIN lines in ``test_calvin_contracts.py``. Needs habitat-sim, the datasets and a GPU:
 skipped unless the data roots are set."""
 
 import os
@@ -52,7 +52,7 @@ def test_every_line_has_both_variants():
     from embodiedscore_envs.benchmarks import resolve
     from embodiedscore_envs.benchmarks.presets import actions, bodies, depth
     lines = {b.line for b in es.BENCHMARKS.values()}
-    assert len(es.BENCHMARKS) == 2 * len(lines) == 84
+    assert len(es.BENCHMARKS) == 2 * len(lines) == 86
     assert len(HABITAT) == 22
     for line in lines:
         std, up = es.benchmark(line), es.benchmark(line, "upstream")
@@ -69,8 +69,10 @@ def test_every_line_has_both_variants():
         elif std.engine == "robotwin":   # likewise (test_robotwin_contracts.py has the rest)
             assert std.depth is None and std.macro
             assert std.body in (bodies.ROBOTWIN_STANDARD, bodies.ROBOTWIN_STANDARD_RANDOMIZED)
-        else:   # robocasa: likewise (test_robocasa_contracts.py has the rest)
-            assert std.engine == "robocasa" and std.body is bodies.ROBOCASA_STANDARD and std.depth is None
+        elif std.engine == "robocasa":   # likewise (test_robocasa_contracts.py has the rest)
+            assert std.body is bodies.ROBOCASA_STANDARD and std.depth is None and std.macro
+        else:   # calvin: likewise (test_calvin_contracts.py has the rest)
+            assert std.engine == "calvin" and std.body is bodies.CALVIN_STANDARD and std.depth is None
         assert up.gym_id.endswith("-Upstream-v0") and std.gym_id == up.gym_id.replace("-Upstream", "")
         assert es.benchmark(f"{line}-upstream", "standard") is std
     assert resolve("goat-upstream") == "goat-upstream" and resolve("goat-upstream", "standard") == "goat"

@@ -30,7 +30,9 @@ A benchmark picks the keys it reports. ``SequenceNavMetrics`` is the GOAT-Bench
 accounting for a GoalSequence (per-sub-goal restart of d0 and L), transcribed
 from goat-bench's ``measures.py`` (GoatSuccess / GoatSPL / GoatSoftSPL).
 ``VLNVerseMetrics`` is the VLNverse evaluator's own formula set (its
-docstring lists where it departs from the definitions above).
+docstring lists where it departs from the definitions above). ``ManipMetrics``
+is the manipulation lines' success rate; ``ChainMetrics`` is CALVIN's
+long-horizon accounting over a chain of sub-tasks.
 """
 
 from __future__ import annotations
@@ -482,6 +484,73 @@ class ManipMetrics(gym.Wrapper):
     def reset(self, **kwargs):
         obs, info = self.env.reset(**kwargs)
         self._steps, self._success = 0, 0.0
+        return obs, self._write(info)
+
+    def step(self, action):
+        obs, reward, terminated, truncated, info = self.env.step(action)
+        self._steps += 1
+        return obs, reward, terminated, truncated, self._write(info)
+
+
+CHAIN_KEYS = ("success", "chain_length", "success_1", "success_2", "success_3", "success_4", "success_5",
+              "n_subtasks", "subtasks_completed", "steps_taken", "ticks")
+
+
+class ChainMetrics(gym.Wrapper):
+    """CALVIN's long-horizon accounting — ``ManipMetrics`` for an episode
+    that is a *chain* of sub-tasks rather than one task.
+
+    CALVIN scores an episode with a single number: how many of the five
+    chained instructions were solved consecutively before the first failure
+    (``evaluate_policy.evaluate_sequence``:144 returns ``success_counter``),
+    and reports two aggregates over the 1000 episodes
+    (``evaluation/utils.py`` ``count_success``:77, ``print_and_save``:87):
+
+        avg_seq_len   np.mean(results)                 "Average successful sequence length"
+        chain_sr[i]   fraction of episodes with result >= i, for i = 1..5
+                      "Success rates for i instructions in a row"
+
+    Both are means of per-episode facts, so this wrapper reports the facts
+    and the run's aggregation takes the mean:
+
+        chain_length          the episode's result, 0..5 — its mean IS avg_seq_len
+        success_1..success_5  1.0 when chain_length >= i — their means ARE chain_sr[1..5]
+        success               == success_1, so every manipulation line has the key
+        n_subtasks            the chain's length (5)
+        subtasks_completed    == chain_length, under the package's sub-goal name
+        steps_taken           step() calls (macro moves on the standard protocol,
+                              control ticks on CALVIN's own)
+        ticks                 the body's control-tick count
+
+    Like every wrapper here it reads only ``info``: ``chain_length`` is the
+    body's fact, advanced there by CALVIN's task oracle."""
+
+    def __init__(self, env: gym.Env, keys: Sequence[str] = CHAIN_KEYS) -> None:
+        super().__init__(env)
+        self.keys = tuple(keys)
+        unknown = set(self.keys) - set(CHAIN_KEYS)
+        if unknown:
+            raise ValueError(f"unknown metric keys {sorted(unknown)}")
+        self._steps = 0
+
+    def _write(self, info: dict[str, Any]) -> dict[str, Any]:
+        chain = int(info.get("chain_length", 0))
+        m: dict[str, Any] = {
+            "success": float(chain >= 1),
+            "chain_length": chain,
+            "n_subtasks": int(info.get("n_goals", 0)),
+            "subtasks_completed": chain,
+            "steps_taken": self._steps,
+            "ticks": int(info.get("ticks", 0)),
+        }
+        for i in range(1, 6):
+            m[f"success_{i}"] = float(chain >= i)
+        info["metrics"] = {k: m[k] for k in self.keys}
+        return info
+
+    def reset(self, **kwargs):
+        obs, info = self.env.reset(**kwargs)
+        self._steps = 0
         return obs, self._write(info)
 
     def step(self, action):
