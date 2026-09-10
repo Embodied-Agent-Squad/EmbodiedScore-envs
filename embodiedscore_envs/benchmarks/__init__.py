@@ -8,7 +8,9 @@ lines) and ``<line>-upstream`` (the line's own evaluator: its rig, action table,
 depth post-processing and, for the EQA and VLNverse lines, its own action
 protocol). Task semantics — loader, goal, success distance, budget, metric keys
 — are the line's and do not change between variants. ``Benchmark.engine`` picks
-the simulator: habitat-sim in process, or Isaac Sim through its render worker."""
+the simulator: habitat-sim in process, Isaac Sim through its render worker, or
+robosuite / MuJoCo in process (the LIBERO manipulation lines, whose two variants
+differ in protocol — see ``libero.py`` for the one deviation from the rule above)."""
 
 from __future__ import annotations
 
@@ -17,9 +19,10 @@ from typing import Any
 
 import gymnasium as gym
 
-from .env import Benchmark, DepthClip, DynamicTimeLimit, HabitatEnv, HabitatPoseEnv, IsaacEnv, IsaacPolarEnv
+from .env import (Benchmark, DepthClip, DynamicTimeLimit, HabitatEnv, HabitatPoseEnv, IsaacEnv, IsaacPolarEnv, LiberoEnv,
+                  LiberoPoseEnv)
 
-_MEMBERS = ("vlnce", "ivlnce", "objectnav", "goat", "hmeqa", "express", "vlnverse")
+_MEMBERS = ("vlnce", "ivlnce", "objectnav", "goat", "hmeqa", "express", "vlnverse", "libero")
 
 BENCHMARKS: dict[str, Benchmark] = {}
 for _m in _MEMBERS:
@@ -66,12 +69,16 @@ def build_env(benchmark_name: str, split: str, data_root: str | None = None, sce
     the same episodes and measures — how the legacy nodesets' per-graph
     sensor knobs and upstream RxR's body are served); ``polar`` overrides an
     Isaac declaration's action interface (``IsaacPolarEnv`` vs the discrete
-    body). ``sim_seed`` is habitat's; the Isaac worker takes none."""
+    body). ``sim_seed`` is habitat's; the Isaac worker takes none, MuJoCo is
+    deterministic given the init state."""
     b = benchmark(benchmark_name)
     episodes = b.episodes(split, data_root=data_root, scene_root=scene_root, **loader_kwargs)
     if not episodes:
         raise ValueError(f"{benchmark_name}/{split}: no episodes")
     body = body or b.body
+    if b.engine == "libero":
+        common = dict(episodes=episodes, body=body, max_ticks=b.ticks, gpu_id=gpu_id, render_mode=render_mode)
+        return LiberoPoseEnv(**common) if b.macro else LiberoEnv(**common)
     if b.engine == "isaac":
         common = dict(episodes=episodes, body=body, gpu_id=gpu_id, render_mode=render_mode)
         if b.polar if polar is None else polar:

@@ -1,5 +1,5 @@
 """Layer L1 — what every benchmark is built on: the environment bodies (one
-per engine), the episode / goal vocabulary, the metric and observation
+per engine: habitat, isaac, libero), the episode / goal vocabulary, the metric and observation
 wrappers, and the simulator facades underneath (``env.sim``).
 
 ``SimWorld`` / ``Follower`` / ``FollowerError`` are the habitat_sim importers
@@ -11,13 +11,14 @@ from __future__ import annotations
 
 from .habitat_env import HabitatEnv, HabitatPoseEnv
 from .isaac_env import IsaacEnv, IsaacPolarEnv
-from .metrics import (NAV_KEYS, OBJECTNAV_KEYS, VLN_KEYS, VLNVERSE_EVALUATOR_NAMES, VLNVERSE_KEYS, NavMetrics,
-                      SequenceNavMetrics, VLNVerseMetrics)
-from .schema import (ENGINES, Act, Benchmark, DepthSpec, Episode, Goal, GoalSequence, ImageGoal, ObjectGoal,
+from .libero_env import LiberoEnv, LiberoPoseEnv
+from .metrics import (MANIP_KEYS, NAV_KEYS, OBJECTNAV_KEYS, VLN_KEYS, VLNVERSE_EVALUATOR_NAMES, VLNVERSE_KEYS,
+                      ManipMetrics, NavMetrics, SequenceNavMetrics, VLNVerseMetrics)
+from .schema import (ENGINES, Act, Benchmark, DepthSpec, Episode, Goal, GoalSequence, ImageGoal, ManipGoal, ObjectGoal,
                      ObjectInstance, PointGoal, Question, TextGoal, action_prefix, data_root, scene_root,
                      targets_of, to_dict)
-from .sim import (Body, CameraSpec, IsaacBody, IsaacCameraSpec, IsaacSceneRef, IsaacSettings, IsaacWorld, NavMesh,
-                  SceneRef)
+from .sim import (Body, CameraSpec, IsaacBody, IsaacCameraSpec, IsaacSceneRef, IsaacSettings, IsaacWorld, LiberoBody,
+                  LiberoCameraSpec, LiberoSceneRef, LiberoWorld, NavMesh, SceneRef)
 from .wrappers import DepthClip, DynamicTimeLimit
 
 _SIM_LAZY = ("SimWorld", "Follower", "FollowerError")
@@ -31,13 +32,14 @@ def __getattr__(name: str):
 
 
 __all__ = [
-    "HabitatEnv", "HabitatPoseEnv", "IsaacEnv", "IsaacPolarEnv",
-    "NavMetrics", "SequenceNavMetrics", "VLNVerseMetrics", "NAV_KEYS", "VLN_KEYS", "OBJECTNAV_KEYS", "VLNVERSE_KEYS",
-    "VLNVERSE_EVALUATOR_NAMES",
-    "ENGINES", "Act", "Benchmark", "DepthSpec", "Episode", "Goal", "GoalSequence", "ImageGoal", "ObjectGoal",
+    "HabitatEnv", "HabitatPoseEnv", "IsaacEnv", "IsaacPolarEnv", "LiberoEnv", "LiberoPoseEnv",
+    "NavMetrics", "SequenceNavMetrics", "VLNVerseMetrics", "ManipMetrics", "NAV_KEYS", "VLN_KEYS", "OBJECTNAV_KEYS",
+    "VLNVERSE_KEYS", "VLNVERSE_EVALUATOR_NAMES", "MANIP_KEYS",
+    "ENGINES", "Act", "Benchmark", "DepthSpec", "Episode", "Goal", "GoalSequence", "ImageGoal", "ManipGoal", "ObjectGoal",
     "ObjectInstance", "PointGoal", "Question", "TextGoal", "action_prefix", "data_root", "scene_root", "targets_of",
     "to_dict",
     "Body", "CameraSpec", "NavMesh", "SceneRef", "SimWorld", "Follower", "FollowerError",
     "IsaacBody", "IsaacCameraSpec", "IsaacSceneRef", "IsaacSettings", "IsaacWorld",
+    "LiberoBody", "LiberoCameraSpec", "LiberoSceneRef", "LiberoWorld",
     "DepthClip", "DynamicTimeLimit",
 ]

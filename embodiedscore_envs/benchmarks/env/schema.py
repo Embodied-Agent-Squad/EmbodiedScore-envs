@@ -9,7 +9,8 @@
 * :class:`Episode` — one evaluation unit: where it starts, what its goal is,
   what the dataset says about it. Poses are in the engine's own frame — the
   frame the split files store them in: habitat lines y up with ``(x, y, z, w)``
-  quaternions, Isaac lines z up with ``(w, x, y, z)``.
+  quaternions, Isaac lines z up with ``(w, x, y, z)``. A manipulation episode
+  (LIBERO) has no start pose — its start is an init state, indexed in ``info``.
 * :class:`Benchmark` — a declaration (no code of its own) that ``make()`` turns
   into a Gymnasium stack; ``engine`` names the simulator it runs on.
 """
@@ -24,12 +25,12 @@ from typing import Any, Callable, Union
 
 import numpy as np
 
-from .sim import Body, IsaacBody, IsaacSceneRef, SceneRef
+from .sim import Body, IsaacBody, IsaacSceneRef, LiberoBody, LiberoSceneRef, SceneRef
 
 Vec3 = tuple[float, float, float]
 Quat = tuple[float, float, float, float]     # habitat: x, y, z, w — Isaac: w, x, y, z
 
-ENGINES = ("habitat", "isaac")
+ENGINES = ("habitat", "isaac", "libero")
 
 
 class Act(IntEnum):
@@ -110,7 +111,16 @@ class Question:
     kind: str = field(default="question", init=False)
 
 
-Goal = Union[PointGoal, ObjectGoal, ImageGoal, TextGoal, GoalSequence, Question]
+@dataclass(frozen=True)
+class ManipGoal:
+    """Make the scene satisfy a set of predicates (LIBERO): the BDDL goal
+    state, e.g. ``(("On", "akita_black_bowl_1", "plate_1"),)``. Success is the
+    simulator's own check; the goal has no place, so ``targets_of`` is None."""
+    predicates: tuple[tuple[str, ...], ...]
+    kind: str = field(default="manip", init=False)
+
+
+Goal = Union[PointGoal, ObjectGoal, ImageGoal, TextGoal, GoalSequence, Question, ManipGoal]
 
 
 def targets_of(goal: Goal | None, dtype: Any = np.float32) -> np.ndarray | None:
@@ -129,6 +139,8 @@ def targets_of(goal: Goal | None, dtype: Any = np.float32) -> np.ndarray | None:
         return np.asarray(goal.instance.view_points, dtype=dtype).reshape(-1, 3)
     if isinstance(goal, Question):
         return targets_of(goal.target, dtype)
+    if isinstance(goal, ManipGoal):
+        return None
     if isinstance(goal, GoalSequence):
         raise TypeError("targets_of(GoalSequence): pass the current sub-goal")
     raise TypeError(f"not a goal: {goal!r}")
@@ -153,9 +165,9 @@ def to_dict(obj: Any) -> Any:
 class Episode:
     index: int                           # position in the loaded list
     episode_id: str
-    scene: SceneRef | IsaacSceneRef
-    start_position: Vec3                 # the engine's frame (habitat y up; Isaac z up)
-    start_rotation: Quat                 # habitat x, y, z, w — Isaac w, x, y, z
+    scene: SceneRef | IsaacSceneRef | LiberoSceneRef
+    start_position: Vec3 | None          # the engine's frame (habitat y up; Isaac z up); None on a manipulation line
+    start_rotation: Quat | None          # habitat x, y, z, w — Isaac w, x, y, z; None on a manipulation line
     goal: Goal | None                    # None when the split withholds it (VLNverse test / challenge)
     instruction: str | None = None       # VLN: what to follow
     reference_path: tuple[Vec3, ...] | None = None   # VLN: waypoints from the dataset
@@ -180,7 +192,7 @@ class DepthSpec:
 class Benchmark:
     name: str                                    # make() key, e.g. "objectnav-hm3d-v1" / "objectnav-hm3d-v1-upstream"
     gym_id: str                                  # e.g. "EmbodiedScore/ObjectNav-HM3Dv1-v0"
-    body: Body | IsaacBody                       # the engine's Body type (checked against ``engine``)
+    body: Body | IsaacBody | LiberoBody          # the engine's Body type (checked against ``engine``)
     actions: tuple[Act, ...]
     splits: tuple[str, ...]
     episodes: Callable[..., list[Episode]]      # (split, data_root=None, scene_root=None, **kw) -> episodes
@@ -193,7 +205,9 @@ class Benchmark:
     pose: bool = False                           # habitat: HabitatPoseEnv (Box [x, z, yaw] teleport) instead of HabitatEnv
     pose_snap: bool = False                      # pose env snaps targets to the navmesh
     polar: bool = False                          # isaac: IsaacPolarEnv (Box [angle, distance, elevation]) instead of IsaacEnv
-    engine: str = "habitat"                      # "habitat" (habitat-sim, in process) | "isaac" (Isaac Sim render worker)
+    macro: bool = False                          # libero: LiberoPoseEnv (absolute end-effector targets, closed loop) instead of LiberoEnv (per-tick OSC)
+    ticks: int | None = None                     # libero: the control-tick cap (truncation); the macro protocol's guard, the per-tick protocol's budget
+    engine: str = "habitat"                      # "habitat" (habitat-sim, in process) | "isaac" (Isaac Sim render worker) | "libero" (robosuite / MuJoCo, in process)
     description: str = ""
     line: str = ""                               # the benchmark line both variants belong to, e.g. "objectnav-hm3d-v1"
     variant: str = "standard"                    # "standard" (EmbodiedScore's shared body) | "upstream" (the line's own evaluator)
@@ -203,11 +217,11 @@ class Benchmark:
             raise ValueError(f"{self.name}: variant must be 'standard' or 'upstream'")
         if self.engine not in ENGINES:
             raise ValueError(f"{self.name}: engine must be one of {ENGINES}")
-        want = Body if self.engine == "habitat" else IsaacBody
+        want = {"habitat": Body, "isaac": IsaacBody, "libero": LiberoBody}[self.engine]
         if not isinstance(self.body, want):
             raise TypeError(f"{self.name}: engine {self.engine!r} needs a {want.__name__}, got {type(self.body).__name__}")
-        if self.pose and self.engine != "habitat" or self.polar and self.engine != "isaac":
-            raise ValueError(f"{self.name}: pose is a habitat protocol, polar an isaac one")
+        if self.pose and self.engine != "habitat" or self.polar and self.engine != "isaac" or self.macro and self.engine != "libero":
+            raise ValueError(f"{self.name}: pose is a habitat protocol, polar an isaac one, macro a libero one")
         if not self.line:
             object.__setattr__(self, "line", self.name[: -len("-upstream")] if self.name.endswith("-upstream") else self.name)
 

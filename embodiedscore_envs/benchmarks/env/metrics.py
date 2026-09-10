@@ -46,6 +46,7 @@ NAV_KEYS = ("distance_to_goal", "success", "spl", "soft_spl", "ndtw", "path_leng
             "oracle_success", "steps_taken")
 VLN_KEYS = ("distance_to_goal", "success", "spl", "ndtw", "path_length", "oracle_success", "steps_taken")
 OBJECTNAV_KEYS = ("distance_to_goal", "success", "spl", "soft_spl")
+MANIP_KEYS = ("success", "steps_taken", "ticks")
 
 
 def _euclid(a, b) -> float:
@@ -454,3 +455,36 @@ class VLNVerseMetrics(gym.Wrapper):
         info["metrics"] = dict(self._m)
         info["metrics_valid"] = self._valid
         return info
+
+
+class ManipMetrics(gym.Wrapper):
+    """The manipulation lines' accounting (LIBERO): ``success`` is the
+    simulator's own goal check — the body's ``info["success"]``, 1.0 from
+    the step it first holds (the episode terminates there, so there is no
+    separate oracle key); ``steps_taken`` counts ``step()`` calls (macro
+    moves on the standard protocol, control ticks on LIBERO's own);
+    ``ticks`` is the body's control-tick count. LIBERO reports success rate
+    and nothing else; nothing else is computed here."""
+
+    def __init__(self, env: gym.Env, keys: Sequence[str] = MANIP_KEYS) -> None:
+        super().__init__(env)
+        self.keys = tuple(keys)
+        self._steps = 0
+        self._success = 0.0
+
+    def _write(self, info: dict[str, Any]) -> dict[str, Any]:
+        if info.get("success"):
+            self._success = 1.0
+        m = {"success": self._success, "steps_taken": self._steps, "ticks": int(info.get("ticks", 0))}
+        info["metrics"] = {k: m[k] for k in self.keys}
+        return info
+
+    def reset(self, **kwargs):
+        obs, info = self.env.reset(**kwargs)
+        self._steps, self._success = 0, 0.0
+        return obs, self._write(info)
+
+    def step(self, action):
+        obs, reward, terminated, truncated, info = self.env.step(action)
+        self._steps += 1
+        return obs, reward, terminated, truncated, self._write(info)

@@ -40,11 +40,21 @@ VLNVERSE  the zero-shot line's kinematic agent (billzhao1030/vlnverse_emr_zero_s
           occupancy collision 0.1 m (the line ships it switched off; the nodeset
           switched it on). The original evaluator moved a Unitree H1 in
           InternUtopia "flash" mode with a 256² camera — not reproduced.
+
+LIBERO engine (a Franka Panda under robosuite's OSC_POSE controller — the
+benchmark's physics, not a body knob; a body fixes the camera rig and the
+settle ticks after a reset):
+
+LIBERO_STANDARD  agentview 256² + wrist 256², frames upright, 10 settle ticks.
+          Decided 2026-09-10 (256² is what the AgentCanvas env_libero nodeset served).
+LIBERO    LIBERO's own evaluator rig (``libero/configs/data/default.yaml``:
+          img_h / img_w 128) as OpenVLA's ``run_libero_eval.py`` runs it:
+          agentview 128² + wrist 128², upright, 10 settle ticks (its num_steps_wait).
 """
 
 from __future__ import annotations
 
-from ..env import Body, CameraSpec, IsaacBody, IsaacCameraSpec, NavMesh
+from ..env import Body, CameraSpec, IsaacBody, IsaacCameraSpec, LiberoBody, LiberoCameraSpec, NavMesh
 
 STANDARD = Body(forward_step_m=0.25, turn_deg=15.0, tilt_deg=30.0, tilt_limit_deg=60.0,
                 agent_height_m=1.5, agent_radius_m=0.1, allow_sliding=True,
@@ -89,5 +99,9 @@ VLNVERSE = IsaacBody(forward_step_m=0.25, turn_deg=15.0, camera_height_m=1.2,
                      collision="occupancy", collision_threshold_m=0.1,
                      rgb=IsaacCameraSpec(1024, 1024, 90.0), depth=IsaacCameraSpec(1024, 1024, 90.0))
 
+LIBERO_STANDARD = LiberoBody(rgb=LiberoCameraSpec(256, 256), wrist=LiberoCameraSpec(256, 256), settle_ticks=10)
+
+LIBERO = LiberoBody(rgb=LiberoCameraSpec(128, 128), wrist=LiberoCameraSpec(128, 128), settle_ticks=10)
+
 __all__ = ["STANDARD", "VLNCE", "RXR_CE", "LOCOBOT", "STRETCH", "EXPLORE_EQA", "EXPRESS",
-           "VLNVERSE_STANDARD", "VLNVERSE"]
+           "VLNVERSE_STANDARD", "VLNVERSE", "LIBERO_STANDARD", "LIBERO"]

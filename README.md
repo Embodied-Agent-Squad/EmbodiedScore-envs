@@ -69,22 +69,24 @@ in the engine's frame — the one the split files use: habitat lines y up with
 embodiedscore_envs/
 ├── __init__.py                 make(name, split, **kw); the gym ids
 └── benchmarks/                 one file per line — declarations (standard + upstream): engine, body, action prefix, episodes(), metrics, budget
-    ├── vlnce.py  ivlnce.py  objectnav.py (+ ovon)  goat.py  hmeqa.py (+ mthm3d)  express.py  vlnverse.py
+    ├── vlnce.py  ivlnce.py  objectnav.py (+ ovon)  goat.py  hmeqa.py (+ mthm3d)  express.py  vlnverse.py  libero.py
     ├── presets/                bodies (STANDARD + the upstream rigs, habitat and Isaac) · action tables · depth post-processing — pure data
     └── env/                    what every benchmark is built on
-        ├── schema.py           Episode · Goal types (Point / Object / Image / Text / Sequence / Question) · Act · Benchmark
+        ├── schema.py           Episode · Goal types (Point / Object / Image / Text / Sequence / Question / Manip) · Act · Benchmark
         ├── habitat_env.py      HabitatEnv (Discrete) · HabitatPoseEnv (Box teleport)
         ├── isaac_env.py        IsaacEnv (Discrete) · IsaacPolarEnv (Box rotate-then-advance)
-        ├── metrics.py          NavMetrics (one formula set) · SequenceNavMetrics (GOAT) · VLNVerseMetrics
+        ├── libero_env.py       LiberoEnv (Box: per-tick OSC delta) · LiberoPoseEnv (Box: absolute end-effector target, closed loop)
+        ├── metrics.py          NavMetrics (one formula set) · SequenceNavMetrics (GOAT) · VLNVerseMetrics · ManipMetrics (LIBERO)
         ├── wrappers.py         DepthClip · DynamicTimeLimit
         └── sim/                one facade per engine; the engines never import each other
             ├── habitat/        the only place that imports habitat_sim (lazily): Body · SceneRef · SimWorld
-            └── isaac/          IsaacBody · IsaacSceneRef · IsaacWorld; worker.py runs under Isaac's python, backend.py drives it
+            ├── isaac/          IsaacBody · IsaacSceneRef · IsaacWorld; worker.py runs under Isaac's python, backend.py drives it
+            └── libero/         LiberoBody · LiberoSceneRef · LiberoWorld — the only place that imports libero / robosuite (lazily)
 ```
 
 Imports point strictly downward; benchmark files never import each other
 (shared pieces live in `presets/` and `env/`); metric wrappers read only `info`.
-`import embodiedscore_envs` needs neither simulator — a line asks for its engine
+`import embodiedscore_envs` needs no simulator — a line asks for its engine
 when it is built.
 
 ## Data
@@ -95,7 +97,31 @@ when it is built.
 `hm3d_v0.2/`, `hm3dsem/`, `vlnverse/`); the exact files each loader reads are
 in its module docstring. Both can be overridden per call:
 `es.make(name, split, data_root=..., scene_root=...)`. The VLNverse release is
-fetched by `scripts/download_vlnverse_data.py` (INSTALL-isaac.md § 5).
+fetched by `scripts/download_vlnverse_data.py` (INSTALL-isaac.md § 5). The
+LIBERO lines read nothing from either root: the BDDL files and init states ship
+inside the `libero` package (INSTALL-libero.md).
+
+## The LIBERO lines (manipulation)
+
+`libero-spatial` / `-object` / `-goal` / `-10` / `-90`: a Franka Panda under
+robosuite's OSC_POSE controller, one BDDL task per episode family, 50 init states
+per task (`benchmarks/libero.py`). Splits `all` and `mini` (init states 0–9).
+Success is the simulator's own predicate check; `ManipMetrics` reports `success`,
+`steps_taken`, `ticks` and nothing else, as LIBERO does.
+
+| | `<line>` (standard) | `<line>-upstream` |
+|---|---|---|
+| body | `LiberoPoseEnv`: one step = one absolute end-effector target `[x, y, z, ax, ay, az, gripper]` (world frame, metres, axis-angle), driven in a closed loop of bounded OSC deltas (≤ 2 cm / 0.05 rad of goal shift per tick, 1 cm / 0.1 rad tolerance, ≤ 200 ticks); a target at `inf` is a 60-tick gripper hold | `LiberoEnv`: one step = one 20 Hz tick, the action is the OSC_POSE input in [−1, 1] (unit = 5 cm / 0.5 rad), as LIBERO's evaluators drive it |
+| rig | 256² agentview + wrist (`bodies.LIBERO_STANDARD`) | 128² (`bodies.LIBERO`, LIBERO's `img_h`/`img_w`) |
+| budget | 100 macro steps (gym TimeLimit) + a tick guard of 10× the upstream cap | OpenVLA's per-suite tick cap: 220 / 280 / 300 / 520 / 400 |
+| termination | the agent's own stop or the budget; `success` latches the first tick the goal held | LIBERO's: done on success |
+
+The budget unit differs between the variants (macro moves vs ticks) — the one
+place the "task semantics do not change between variants" rule is bent, for the
+same reason the VLNverse lines carry a polar macro action: a language agent
+cannot emit 20 Hz deltas. Frames are turned upright (robosuite renders them
+upside down; every LIBERO consumer flips them). Object poses are in `info`
+(privileged) and never in the observation.
 
 ## Metrics of the VLNverse lines
 
@@ -139,6 +165,12 @@ zero-shot line's protocol (billzhao1030/vlnverse_emr_zero_shot), which the
 between renders of one pose (facts and depth are); the gym ids register
 `nondeterministic=True`.
 
+The LIBERO lines reproduce LIBERO's physics as is (robosuite 1.4.1, the
+controller config and the init states are the release's; MuJoCo is deterministic
+given the state — facts and proprioception repeat exactly). Its offscreen EGL
+frames are not bit-identical between renders of one state; the gym ids register
+`nondeterministic=True` too.
+
 ## Install
 
 1. habitat-sim 0.3.3 from EmbodiedScore-habitat (`./build.sh --env <env> --verify`) — habitat lines.
@@ -149,7 +181,10 @@ between renders of one pose (facts and depth are); the gym ids register
    `NavMetrics` warns once if the fallback is in use.
 3. Isaac Sim 5.1 — VLNverse lines only: [INSTALL-isaac.md](INSTALL-isaac.md) (pip, workstation
    bundle, or the container launcher in `scripts/`); point `EMBODIEDSCORE_ISAAC_PYTHON` at its python.
-4. `pytest tests` with the data roots set (a GPU and the datasets are needed); the Isaac
-   contracts additionally opt in with `EMBODIEDSCORE_RUN_ISAAC_TESTS=1`.
+4. LIBERO (robosuite 1.4.1 + MuJoCo) — the `libero-*` lines only, in their own env:
+   [INSTALL-libero.md](INSTALL-libero.md).
+5. `pytest tests` with the data roots set (a GPU and the datasets are needed); the Isaac
+   contracts additionally opt in with `EMBODIEDSCORE_RUN_ISAAC_TESTS=1`, the LIBERO ones with
+   `EMBODIEDSCORE_RUN_LIBERO_TESTS=1`.
 
 Python 3.10–3.12, Linux, NVIDIA driver for headless EGL.
