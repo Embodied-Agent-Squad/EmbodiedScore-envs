@@ -50,11 +50,22 @@ LIBERO_STANDARD  agentview 256² + wrist 256², frames upright, 10 settle ticks.
 LIBERO    LIBERO's own evaluator rig (``libero/configs/data/default.yaml``:
           img_h / img_w 128) as OpenVLA's ``run_libero_eval.py`` runs it:
           agentview 128² + wrist 128², upright, 10 settle ticks (its num_steps_wait).
+
+RoboCasa engine (a Franka Panda on an Omron mobile base under robosuite's
+HYBRID_MOBILE_BASE controller — the benchmark's physics, not a body knob):
+
+ROBOCASA_STANDARD  robot0_agentview_center 256² + wrist 256², frames upright,
+          10 settle ticks. Decided 2026-09-10, matching LIBERO_STANDARD.
+ROBOCASA  RoboCasa's own rig (``robocasa/utils/env_utils.py`` ``create_env``:
+          robot0_agentview_left + robot0_agentview_right + robot0_eye_in_hand at
+          128²) — the left view as obs["rgb"], the right one as obs["aux"].
 """
 
 from __future__ import annotations
 
-from ..env import Body, CameraSpec, IsaacBody, IsaacCameraSpec, LiberoBody, LiberoCameraSpec, NavMesh
+from ..env import (Body, CameraSpec, IsaacBody, IsaacCameraSpec, LiberoBody, LiberoCameraSpec, NavMesh,
+                   RobocasaBody, RobocasaCameraSpec)
+from ..env.sim.robocasa.body import LEFT_CAMERA, RIGHT_CAMERA
 
 STANDARD = Body(forward_step_m=0.25, turn_deg=15.0, tilt_deg=30.0, tilt_limit_deg=60.0,
                 agent_height_m=1.5, agent_radius_m=0.1, allow_sliding=True,
@@ -103,5 +114,12 @@ LIBERO_STANDARD = LiberoBody(rgb=LiberoCameraSpec(256, 256), wrist=LiberoCameraS
 
 LIBERO = LiberoBody(rgb=LiberoCameraSpec(128, 128), wrist=LiberoCameraSpec(128, 128), settle_ticks=10)
 
+ROBOCASA_STANDARD = RobocasaBody(rgb=RobocasaCameraSpec(256, 256), wrist=RobocasaCameraSpec(256, 256),
+                                 aux=None, settle_ticks=10)
+
+ROBOCASA = RobocasaBody(rgb=RobocasaCameraSpec(128, 128), wrist=RobocasaCameraSpec(128, 128),
+                        aux=RobocasaCameraSpec(128, 128), rgb_camera=LEFT_CAMERA, aux_camera=RIGHT_CAMERA,
+                        settle_ticks=10)
+
 __all__ = ["STANDARD", "VLNCE", "RXR_CE", "LOCOBOT", "STRETCH", "EXPLORE_EQA", "EXPRESS",
-           "VLNVERSE_STANDARD", "VLNVERSE", "LIBERO_STANDARD", "LIBERO"]
+           "VLNVERSE_STANDARD", "VLNVERSE", "LIBERO_STANDARD", "LIBERO", "ROBOCASA_STANDARD", "ROBOCASA"]

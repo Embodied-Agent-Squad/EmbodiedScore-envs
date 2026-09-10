@@ -1,6 +1,7 @@
 """Gymnasium's env checker plus the contracts every benchmark shares — the
 habitat lines here, the Isaac lines in ``test_vlnverse_contracts.py`` (they boot
-Isaac Sim and opt in separately), the LIBERO lines in ``test_libero_contracts.py``. Needs habitat-sim, the datasets and a GPU:
+Isaac Sim and opt in separately), the LIBERO lines in ``test_libero_contracts.py``, the RoboCasa lines in
+``test_robocasa_contracts.py``. Needs habitat-sim, the datasets and a GPU:
 skipped unless the data roots are set."""
 
 import os
@@ -51,7 +52,7 @@ def test_every_line_has_both_variants():
     from embodiedscore_envs.benchmarks import resolve
     from embodiedscore_envs.benchmarks.presets import actions, bodies, depth
     lines = {b.line for b in es.BENCHMARKS.values()}
-    assert len(es.BENCHMARKS) == 2 * len(lines) == 36
+    assert len(es.BENCHMARKS) == 2 * len(lines) == 58
     assert len(HABITAT) == 22
     for line in lines:
         std, up = es.benchmark(line), es.benchmark(line, "upstream")
@@ -63,8 +64,10 @@ def test_every_line_has_both_variants():
         elif std.engine == "isaac":   # the Isaac worker renders yaw-only poses: STANDARD's numbers, no LOOK
             assert std.body is bodies.VLNVERSE_STANDARD and std.actions == actions.NAV
             assert std.depth is depth.STANDARD
-        else:   # libero: no depth camera, no action table (test_libero_contracts.py has the rest)
+        elif std.engine == "libero":   # no depth camera, no action table (test_libero_contracts.py has the rest)
             assert std.body is bodies.LIBERO_STANDARD and std.depth is None
+        else:   # robocasa: likewise (test_robocasa_contracts.py has the rest)
+            assert std.body is bodies.ROBOCASA_STANDARD and std.depth is None
         assert up.gym_id.endswith("-Upstream-v0") and std.gym_id == up.gym_id.replace("-Upstream", "")
         assert es.benchmark(f"{line}-upstream", "standard") is std
     assert resolve("goat-upstream") == "goat-upstream" and resolve("goat-upstream", "standard") == "goat"
