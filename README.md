@@ -30,11 +30,13 @@ env.close()
 | `hmeqa` · `mthm3d` | val / mip100 | 0–5 | path_length / steps_taken; `num_step` budget in info; answer scored outside | explore-eqa / MemoryEQA on habitat-sim 0.3.3 |
 | `express` | val / train / all / mip100 | 0–5 | distance_to_goal (d_T) / path_length / steps_taken | EXPRESS-Bench on habitat-sim 0.3.3 |
 | `vlnverse-fine` · `vlnverse-coarse` | train / val / val_unseen / test / challenge | 0–3 | VLNverse's own formulas (§ Metrics), success 3.0 m, budget 500 | VLNverse evaluator (InternUtopia) — formulas only; see § Fidelity |
+| `libero-spatial` · `-object` · `-goal` · `-10` · `-90` | all / mini | — (Box) | success / steps_taken / ticks, the BDDL predicate check | LIBERO on robosuite 1.4.1 |
+| `robotwin-clean` · `robotwin-randomized` | all / mini | — (Box) | success / steps_taken / ticks, the task's own `check_success` | RoboTwin 2.0 on SAPIEN 3 |
 
 The last column is provenance only — which evaluator each line's numbers were
 reproduced against (evidence on the `archive/reproduction` branch). The habitat
-lines run on habitat-sim 0.3.3; the VLNverse lines on Isaac Sim 5.1
-(`Benchmark.engine`).
+lines run on habitat-sim 0.3.3; the VLNverse lines on Isaac Sim 5.1; the LIBERO
+lines on robosuite / MuJoCo; the RoboTwin lines on SAPIEN 3 (`Benchmark.engine`).
 
 Every line has two variants. `make(name, split)` is the **standard** variant:
 EmbodiedScore's shared body (`presets.bodies.STANDARD` — 0.25 m / 15°, tilt 30°
@@ -69,19 +71,22 @@ in the engine's frame — the one the split files use: habitat lines y up with
 embodiedscore_envs/
 ├── __init__.py                 make(name, split, **kw); the gym ids
 └── benchmarks/                 one file per line — declarations (standard + upstream): engine, body, action prefix, episodes(), metrics, budget
-    ├── vlnce.py  ivlnce.py  objectnav.py (+ ovon)  goat.py  hmeqa.py (+ mthm3d)  express.py  vlnverse.py  libero.py
+    ├── vlnce.py  ivlnce.py  objectnav.py (+ ovon)  goat.py  hmeqa.py (+ mthm3d)  express.py  vlnverse.py
+    │   libero.py  robotwin.py
     ├── presets/                bodies (STANDARD + the upstream rigs, habitat and Isaac) · action tables · depth post-processing — pure data
     └── env/                    what every benchmark is built on
         ├── schema.py           Episode · Goal types (Point / Object / Image / Text / Sequence / Question / Manip) · Act · Benchmark
         ├── habitat_env.py      HabitatEnv (Discrete) · HabitatPoseEnv (Box teleport)
         ├── isaac_env.py        IsaacEnv (Discrete) · IsaacPolarEnv (Box rotate-then-advance)
         ├── libero_env.py       LiberoEnv (Box: per-tick OSC delta) · LiberoPoseEnv (Box: absolute end-effector target, closed loop)
-        ├── metrics.py          NavMetrics (one formula set) · SequenceNavMetrics (GOAT) · VLNVerseMetrics · ManipMetrics (LIBERO)
+        ├── robotwin_env.py     RobotwinEnv (Box: RoboTwin's own joint / end-effector action) · RobotwinPoseEnv (Box: an absolute end-effector target PER ARM, closed loop)
+        ├── metrics.py          NavMetrics (one formula set) · SequenceNavMetrics (GOAT) · VLNVerseMetrics · ManipMetrics (LIBERO, RoboTwin)
         ├── wrappers.py         DepthClip · DynamicTimeLimit
         └── sim/                one facade per engine; the engines never import each other
             ├── habitat/        the only place that imports habitat_sim (lazily): Body · SceneRef · SimWorld
             ├── isaac/          IsaacBody · IsaacSceneRef · IsaacWorld; worker.py runs under Isaac's python, backend.py drives it
-            └── libero/         LiberoBody · LiberoSceneRef · LiberoWorld — the only place that imports libero / robosuite (lazily)
+            ├── libero/         LiberoBody · LiberoSceneRef · LiberoWorld — the only place that imports libero / robosuite (lazily)
+            └── robotwin/       RobotwinBody · RobotwinSceneRef · RobotwinWorld — the only place that imports RoboTwin / sapien (lazily)
 ```
 
 Imports point strictly downward; benchmark files never import each other
@@ -91,7 +96,9 @@ when it is built.
 
 ## Data
 
-`EMBODIEDSCORE_DATA_ROOT` holds one directory per corpus (`vlnce/`, `ivlnce/`,
+`EMBODIEDSCORE_ROBOTWIN_ROOT` points at the RoboTwin checkout (the RoboTwin
+lines read their tasks, configs, language and meshes from inside it —
+INSTALL-robotwin.md). `EMBODIEDSCORE_DATA_ROOT` holds one directory per corpus (`vlnce/`, `ivlnce/`,
 `objectnav/`, `ovon/`, `goat_bench/`, `hmeqa/`, `mt_hm3d/`, `express_bench/`,
 `vlnverse/`) and `EMBODIEDSCORE_SCENE_ROOT` the scenes (`mp3d/`, `hm3d/`,
 `hm3d_v0.2/`, `hm3dsem/`, `vlnverse/`); the exact files each loader reads are
@@ -99,7 +106,8 @@ in its module docstring. Both can be overridden per call:
 `es.make(name, split, data_root=..., scene_root=...)`. The VLNverse release is
 fetched by `scripts/download_vlnverse_data.py` (INSTALL-isaac.md § 5). The
 LIBERO lines read nothing from either root: the BDDL files and init states ship
-inside the `libero` package (INSTALL-libero.md).
+inside the `libero` package (INSTALL-libero.md); the RoboTwin lines read
+neither root.
 
 ## The LIBERO lines (manipulation)
 
@@ -122,6 +130,38 @@ same reason the VLNverse lines carry a polar macro action: a language agent
 cannot emit 20 Hz deltas. Frames are turned upright (robosuite renders them
 upside down; every LIBERO consumer flips them). Object poses are in `info`
 (privileged) and never in the observation.
+
+## The RoboTwin lines (bimanual manipulation)
+
+`robotwin-clean` / `robotwin-randomized`: [RoboTwin 2.0](https://arxiv.org/abs/2506.18088)
+(ICML 2026) on SAPIEN 3 — a dual-arm tabletop robot (`aloha-agilex`: two 6-DoF
+arms, one parallel gripper each) over the benchmark's 50 tasks, each with its own
+`check_success` predicate written in the task's module. The two lines are
+RoboTwin's two shipped task configs, which is the axis its own evaluation is
+parameterised on (`--task-config demo_clean | demo_randomized`) and the axis
+RoboTwin 2.0 reports separately along; the 50 tasks are episode families inside a
+line, because RoboTwin's own eval config lists all 50 flat and its leaderboard is
+a per-task success rate averaged over them.
+
+Episodes are task × scene seed. RoboTwin's evaluator walks upward from seed
+100000 and keeps the first 100 seeds per task whose scene settles; here each
+episode owns a 50-seed window of that same range and takes the first settled
+seed in it, so an episode index means one scene on every run
+(`benchmarks/robotwin.py`). Splits `all` (100 windows × 50 tasks = 5000) and
+`mini` (2 windows × 50 tasks = 100). `ManipMetrics` reports `success`,
+`steps_taken` and `ticks`, as RoboTwin reports success rate and nothing else.
+
+| | `<line>` (standard) | `<line>-upstream` |
+|---|---|---|
+| body | `RobotwinPoseEnv`: one step = an absolute end-effector target PER ARM, `[x, y, z, ax, ay, az, gripper] × 2` (world frame, metres, axis-angle); an arm whose position is `inf` HOLDS its pose and only its gripper command applies, which is how a one-armed move is written | `RobotwinEnv`: one step = one `take_action` call with RoboTwin's own flat joint vector `[left arm, left gripper, right arm, right gripper]`, as its evaluator drives it |
+| rig | head + one wrist camera per arm at `Large_D435`, 640×480 (`bodies.ROBOTWIN_STANDARD`) | the same rig at `D435`, 320×240 — what both task configs name (`bodies.ROBOTWIN`) |
+| budget | 100 macro steps (gym TimeLimit) + the task's own action cap underneath | the task's own cap, 400–1700 by task (`_eval_step_limit.yml`) |
+| termination | the agent's own stop or the budget; `success` latches the first action the goal held | RoboTwin's: done on success or the cap |
+
+The budget unit differs between the variants, as on the LIBERO lines and for the
+same reason. Unlike LIBERO, one macro move costs about ONE upstream tick rather
+than a hundred: a RoboTwin action is already a planned motion, not a 20 Hz
+delta. Actor poses are in `info` (privileged) and never in the observation.
 
 ## Metrics of the VLNverse lines
 
@@ -165,6 +205,16 @@ zero-shot line's protocol (billzhao1030/vlnverse_emr_zero_shot), which the
 between renders of one pose (facts and depth are); the gym ids register
 `nondeterministic=True`.
 
+The RoboTwin lines reproduce RoboTwin's physics as is (SAPIEN 3 at its 1/250 s
+step, the shipped embodiment, task configs and per-task step caps; the curobo
+planner its embodiment config names). Two things differ from upstream and are
+declared: the episode-to-seed mapping (per-episode seed windows instead of a
+shared queue, so an episode index is reproducible) and the instruction (the
+task's `full_description` rather than a per-episode template, which only
+RoboTwin's scripted expert can fill in). Its Vulkan ray-traced frames are not
+bit-identical between renders of one state, so its gym ids register
+`nondeterministic=True` too.
+
 The LIBERO lines reproduce LIBERO's physics as is (robosuite 1.4.1, the
 controller config and the init states are the release's; MuJoCo is deterministic
 given the state — facts and proprioception repeat exactly). Its offscreen EGL
@@ -183,8 +233,12 @@ frames are not bit-identical between renders of one state; the gym ids register
    bundle, or the container launcher in `scripts/`); point `EMBODIEDSCORE_ISAAC_PYTHON` at its python.
 4. LIBERO (robosuite 1.4.1 + MuJoCo) — the `libero-*` lines only, in their own env:
    [INSTALL-libero.md](INSTALL-libero.md).
-5. `pytest tests` with the data roots set (a GPU and the datasets are needed); the Isaac
+5. RoboTwin 2.0 (SAPIEN 3 + curobo) — the `robotwin-*` lines only, in their own env:
+   [INSTALL-robotwin.md](INSTALL-robotwin.md).
+6. `pytest tests` with the data roots set (a GPU and the datasets are needed); the Isaac
    contracts additionally opt in with `EMBODIEDSCORE_RUN_ISAAC_TESTS=1`, the LIBERO ones with
-   `EMBODIEDSCORE_RUN_LIBERO_TESTS=1`.
+   `EMBODIEDSCORE_RUN_LIBERO_TESTS=1`, the RoboTwin ones with
+   `EMBODIEDSCORE_RUN_ROBOTWIN_TESTS=1`.
 
-Python 3.10–3.12, Linux, NVIDIA driver for headless EGL.
+Python 3.10–3.12, Linux, NVIDIA driver for headless EGL (and Vulkan for the
+RoboTwin lines).

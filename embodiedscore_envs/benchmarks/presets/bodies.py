@@ -50,11 +50,32 @@ LIBERO_STANDARD  agentview 256² + wrist 256², frames upright, 10 settle ticks.
 LIBERO    LIBERO's own evaluator rig (``libero/configs/data/default.yaml``:
           img_h / img_w 128) as OpenVLA's ``run_libero_eval.py`` runs it:
           agentview 128² + wrist 128², upright, 10 settle ticks (its num_steps_wait).
+
+RoboTwin engine (a dual-arm tabletop robot under SAPIEN 3 with planned motion
+— the benchmark's physics, not a body knob; a body fixes the embodiment, the
+camera rig, the settle steps and the domain randomisation. RoboTwin's own
+settling is 2500 physics steps inside its stability check, so ``settle_ticks``
+adds nothing by default):
+
+CLEAN / RANDOMIZED  the ``domain_randomization`` blocks of
+          ``env_cfg/task_config/demo_clean.yml`` and ``demo_randomized.yml``,
+          verbatim.
+ROBOTWIN / ROBOTWIN_RANDOMIZED  RoboTwin's own evaluation rig: the
+          ``aloha-agilex`` embodiment with head and wrist cameras of type D435
+          (320x240, fovy 37 — ``env_cfg/task_config/_camera_config.yml``), which
+          is what both shipped task configs name, under their respective
+          randomisation.
+ROBOTWIN_STANDARD / ROBOTWIN_STANDARD_RANDOMIZED  the same rig at RoboTwin's own
+          larger camera type, ``Large_D435`` (640x480, the same fovy 37), so the
+          macro protocol's agent reads the scene at the resolution the rest of
+          EmbodiedScore's standard bodies serve. Decided 2026-09-10.
 """
 
 from __future__ import annotations
 
-from ..env import Body, CameraSpec, IsaacBody, IsaacCameraSpec, LiberoBody, LiberoCameraSpec, NavMesh
+from ..env import (Body, CameraSpec, IsaacBody, IsaacCameraSpec, LiberoBody, LiberoCameraSpec, NavMesh,
+                   RobotwinBody, RobotwinRandomization)
+from ..env.sim.robotwin import D435, LARGE_D435
 
 STANDARD = Body(forward_step_m=0.25, turn_deg=15.0, tilt_deg=30.0, tilt_limit_deg=60.0,
                 agent_height_m=1.5, agent_radius_m=0.1, allow_sliding=True,
@@ -103,5 +124,26 @@ LIBERO_STANDARD = LiberoBody(rgb=LiberoCameraSpec(256, 256), wrist=LiberoCameraS
 
 LIBERO = LiberoBody(rgb=LiberoCameraSpec(128, 128), wrist=LiberoCameraSpec(128, 128), settle_ticks=10)
 
+# env_cfg/task_config/demo_clean.yml `domain_randomization`, verbatim.
+CLEAN = RobotwinRandomization(random_background=False, cluttered_table=False, clean_background_rate=1.0,
+                              random_head_camera_dis=0.0, random_table_height=0.0, random_light=False,
+                              crazy_random_light_rate=0.0)
+
+# env_cfg/task_config/demo_randomized.yml `domain_randomization`, verbatim.
+RANDOMIZED = RobotwinRandomization(random_background=True, cluttered_table=True, clean_background_rate=0.02,
+                                   random_head_camera_dis=0.0, random_table_height=0.03, random_light=True,
+                                   crazy_random_light_rate=0.02)
+
+ROBOTWIN = RobotwinBody(embodiment="aloha-agilex", head=D435, wrist=D435, randomization=CLEAN)
+
+ROBOTWIN_RANDOMIZED = RobotwinBody(embodiment="aloha-agilex", head=D435, wrist=D435, randomization=RANDOMIZED)
+
+ROBOTWIN_STANDARD = RobotwinBody(embodiment="aloha-agilex", head=LARGE_D435, wrist=LARGE_D435, randomization=CLEAN)
+
+ROBOTWIN_STANDARD_RANDOMIZED = RobotwinBody(embodiment="aloha-agilex", head=LARGE_D435, wrist=LARGE_D435,
+                                            randomization=RANDOMIZED)
+
 __all__ = ["STANDARD", "VLNCE", "RXR_CE", "LOCOBOT", "STRETCH", "EXPLORE_EQA", "EXPRESS",
-           "VLNVERSE_STANDARD", "VLNVERSE", "LIBERO_STANDARD", "LIBERO"]
+           "VLNVERSE_STANDARD", "VLNVERSE", "LIBERO_STANDARD", "LIBERO",
+           "CLEAN", "RANDOMIZED", "ROBOTWIN", "ROBOTWIN_RANDOMIZED", "ROBOTWIN_STANDARD",
+           "ROBOTWIN_STANDARD_RANDOMIZED"]
