@@ -156,14 +156,26 @@ The 2025 demonstration corpus (`behavior-1k/2025-challenge-demos`, ~2 TB) is
 
 ```bash
 pip install -e /data/ws_vln/coding-agents-wt/behavior/thirdparty/EmbodiedScore-envs
-pytest tests/test_behavior_contracts.py        # declarations + the loader; no simulator
+
+# declarations + the loader, no simulator
+OMNIGIBSON_DATA_PATH=$BH/datasets pytest tests/test_behavior_contracts.py
+
+# ... and the simulator tier as well (boots Isaac, loads a house, minutes)
+OMNIGIBSON_DATA_PATH=$BH/datasets EMBODIEDSCORE_RUN_BEHAVIOR_TESTS=1 \
+    pytest tests/test_behavior_contracts.py
 ```
+
+The tests read the data root from **`OMNIGIBSON_DATA_PATH`** — the `behavior_root`
+loader argument is for `es.make()` and experiment files, and the tests do not
+pass it. Without the variable the loader tier skips.
 
 The declaration tier runs anywhere. The loader tier needs the
 `2025-challenge-task-instances` metadata under `OMNIGIBSON_DATA_PATH`; the BDDL
 tier needs the `bddl` package, which is pip-installable on its own
 (`pip install -e $BH/B1K/bddl3`, or `pip install bddl` for 3.6.0 from PyPI —
-the monorepo's 3.7.0 was never published).
+the monorepo's 3.7.0 was never published). The simulator tier additionally
+needs `EMBODIEDSCORE_RUN_BEHAVIOR_TESTS=1`; it shares one environment across
+the whole file, because Isaac boots once per process.
 
 ## 6. Verify
 

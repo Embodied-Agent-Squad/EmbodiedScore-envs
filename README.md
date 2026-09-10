@@ -365,7 +365,7 @@ terms it normalises by the mean of that task's 200 human demonstrations
 
 | | `behavior-1k` (standard) | `behavior-1k-upstream` |
 |---|---|---|
-| body | `BehaviorPoseEnv`: one step is one **base move** `[dx, dy, dyaw]` in the base's own frame (a proportional loop on the holonomic velocity controller, parking to 5 cm / 0.05 rad in ≤ 300 ticks), an **absolute end-effector target per arm** `[x, y, z, ax, ay, az, gripper]` (world frame, metres, axis-angle; an arm at `inf` holds, as on the RoboTwin lines) driven for ≤ 120 ticks to 2 cm / 0.15 rad, or a **gripper hold** — both arms at `inf` with no base move, 30 ticks | `BehaviorEnv`: one step = one 30 Hz tick, the action is the challenge's own 23-D vector `[base 3 | torso 4 | left arm 7 | left gripper 1 | right arm 7 | right gripper 1]` — absolute joint angles for the torso and both arms, a base velocity, a finger target per gripper (`ACTION_QPOS_INDICES["R1Pro"]`, `R1_CONTROLLER_CONFIG`) |
+| body | `BehaviorPoseEnv`: one step is one **base move** `[dx, dy, dyaw]` in the base's own frame (a proportional loop on the holonomic velocity controller, parking to 5 cm / 0.05 rad in ≤ 300 ticks), an **absolute end-effector target per arm** `[x, y, z, ax, ay, az, gripper]` (world frame, metres, axis-angle; an arm at `inf` holds, as on the RoboTwin lines) driven in a closed loop of bounded goal advances (≤ 2 cm / 0.05 rad of goal shift per tick, as on the LIBERO and RoboCasa lines), 2 cm / 0.15 rad tolerance, ≤ 250 ticks (no stall abort — see `behavior_env.py`), or a **gripper hold** — both arms at `inf` with no base move, 30 ticks | `BehaviorEnv`: one step = one 30 Hz tick, the action is the challenge's own 23-D vector `[base 3 | torso 4 | left arm 7 | left gripper 1 | right arm 7 | right gripper 1]` — absolute joint angles for the torso and both arms, a base velocity, a finger target per gripper (`ACTION_QPOS_INDICES["R1Pro"]`, `R1_CONTROLLER_CONFIG`) |
 | controllers | the challenge's, with the two arms swapped to `InverseKinematicsController` in `absolute_pose` mode — one of the four substitutions `docs/challenge/evaluation.md` § "Configure Robot Action Space" documents for participants, applied through the hook the evaluator itself uses | the challenge's, verbatim |
 | rig | head + both wrists at 256² (`bodies.BEHAVIOR_STANDARD`) | the challenge's `RGBLowResWrapper`: the same three cameras at 224², head aperture 40 mm (`bodies.BEHAVIOR`) |
 | budget | 150 macro steps (gym TimeLimit) | — (the tick cap alone) |
@@ -375,13 +375,10 @@ terms it normalises by the mean of that task's 200 human demonstrations
 **Known limitation of the macro protocol: it does not command the torso.** The
 R1 Pro's four trunk joints are in the challenge's own action space and they
 decide where the arms can reach at all; the macro protocol holds them at the
-posture the instance loaded with. Measured 2026-09-10 on ``turning_on_radio``,
-the closed loop asymptotes 0.131 m short of the radio's toggle button from a
-0.40 m base park (0.031 m from a 0.55 m park) and then improves by under a
-millimetre per 250 ticks — the arm's kinematic limit with the torso fixed, not
-a tracking failure. Giving the protocol an absolute torso target, or solving
-for one inside the closed loop, is the outstanding work. The per-tick variant
-commands the torso already: it is the challenge's own 23-D action.
+posture the instance loaded with, so each arm can only reach the shell around
+that posture. Giving the protocol an absolute torso target, or solving for one
+inside the closed loop, is the outstanding work. The per-tick variant commands
+the torso already: it is the challenge's own 23-D action.
 
 Only the unit the *agent's* budget counts bends between the variants; the
 simulator's tick cap is BEHAVIOR's own on both. A zero action vector is not a

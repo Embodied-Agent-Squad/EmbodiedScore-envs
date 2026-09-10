@@ -37,8 +37,9 @@ Two protocols on the same facts:
                    displacement in its own frame, both arms holding
       pose move    at least one arm's target position finite — an ABSOLUTE
                    end-effector target ``[x, y, z, ax, ay, az]`` (world frame,
-                   metres, axis-angle) per arm, driven in a closed loop; an
-                   arm at ``inf`` HOLDS and only its gripper command applies
+                   metres, axis-angle) per arm, driven in a closed loop of
+                   bounded goal advances; an arm at ``inf`` HOLDS and only its
+                   gripper command applies
       gripper hold both arms at ``inf`` and no base move — ``hold_ticks``
                    zero-motion ticks with the gripper commands, exactly as
                    ``LiberoPoseEnv`` reads an ``inf`` target (fingers need
@@ -49,25 +50,20 @@ Two protocols on the same facts:
   Arm targets reach the robot through the ``InverseKinematicsController`` in
   ``mode: "absolute_pose"`` the challenge documents as a permitted action-space
   substitution (``docs/challenge/evaluation.md`` § "Configure Robot Action
-  Space"), so the world converts each world-frame target into the robot base
-  frame the controller reads. ``info["converged"]`` says whether the move
-  landed.
+  Space"), and the world re-expresses each target in the frame that controller
+  reads. ``info["converged"]`` says whether the move landed; a BEHAVIOR target
+  is often simply out of reach from where the base happens to stand.
 
 **What the macro protocol does not command: the torso.** The R1 Pro's four
 trunk joints are part of the challenge's own action space (``[base 3 | torso 4
 | ...]``) and they pitch the whole upper body, so they set where the arms can
 reach at all. This protocol holds them at whatever posture the instance loaded
 with, which fixes each arm's reachable set to one shell around a fixed torso.
-Measured 2026-09-10 on ``turning_on_radio``: with the base parked 0.40 m from
-the radio's toggle button, the left arm's closed loop asymptotes 0.131 m short
-of it and then improves by under a millimetre per 250 ticks — the IK solver is
-returning the nearest reachable configuration, not failing to track. From a
-0.55 m park the same loop reached 0.031 m. Both are the arm's kinematic limit
-with the torso where it is. A line that needs to reach low shelves or high
-cupboards needs the torso; extending the action with an absolute torso target
-(or letting the closed loop solve for one) is the outstanding work on this
-protocol. ``BehaviorEnv``, the per-tick variant, commands the torso already —
-it is the challenge's own 23-D action.
+A line that needs to reach low shelves or high cupboards needs the torso;
+extending the action with an absolute torso target, or letting the closed loop
+solve for one, is the outstanding work on this protocol. ``BehaviorEnv``, the
+per-tick variant, commands the torso already — it is the challenge's own 23-D
+action.
 
 ``terminated`` is BEHAVIOR's own success (every goal predicate of some
 grounding satisfied) when ``terminate_on_success`` is set — the challenge's
@@ -104,6 +100,12 @@ P_BASE = slice(14, 17)
 
 POS_TOL_M = 0.02               # a macro arm move counts as reached inside this
 ROT_TOL_RAD = 0.15             # ... and this
+STEP_POS_M = 0.02              # bounded goal advance per tick, as the LIBERO and RoboCasa pose loops have.
+STEP_ROT_RAD = 0.05            # OmniGibson's IK is a ONE-STEP Jacobian solve (ik_controller.compute_control ->
+                               # compute_ik_qpos): handed a goal far from the current pose it returns a joint
+                               # target far from the current configuration, and the arm integrates that away
+                               # from the goal instead of toward it. Measured 2026-09-11 on turning_on_radio:
+                               # a 5 cm goal commanded outright drove the end effector 1.35 m away in 13 ticks.
 MAX_TICKS_PER_MOVE = 250       # 30 Hz ticks one arm move may spend (8.3 s of simulated time; measured
                                # 2026-09-10: a reach across this robot's workspace does not settle inside 4 s)
 GRIPPER_HOLD_TICKS = 30        # ... a gripper hold (1 s: the fingers close and the assisted grasp latches)
@@ -128,6 +130,30 @@ def _floor(vec: np.ndarray, minimum: float) -> np.ndarray:
     if norm <= 1e-9 or norm >= minimum:
         return vec
     return np.clip(vec * (minimum / norm), -1.0, 1.0)
+
+
+def _advance(here: np.ndarray, there: np.ndarray, step: float) -> np.ndarray:
+    """A point at most ``step`` metres from ``here`` on the way to ``there``."""
+    delta = np.asarray(there, dtype=np.float64) - np.asarray(here, dtype=np.float64)
+    distance = float(np.linalg.norm(delta))
+    return np.asarray(there, dtype=np.float64) if distance <= step else here + delta * (step / distance)
+
+
+def _advance_rotation(here_wxyz: np.ndarray, there_wxyz: np.ndarray, step: float) -> np.ndarray:
+    """An orientation at most ``step`` radians from ``here_wxyz`` toward ``there_wxyz``."""
+    from scipy.spatial.transform import Rotation
+
+    def _r(q):
+        w, x, y, z = np.asarray(q, dtype=np.float64).reshape(4)
+        return Rotation.from_quat([x, y, z, w])
+
+    a, b = _r(here_wxyz), _r(there_wxyz)
+    delta = (b * a.inv()).as_rotvec()
+    angle = float(np.linalg.norm(delta))
+    if angle <= step:
+        return np.asarray(there_wxyz, dtype=np.float64).reshape(4)
+    x, y, z, w = (Rotation.from_rotvec(delta * (step / angle)) * a).as_quat()
+    return np.array([w, x, y, z], dtype=np.float64)
 
 
 def _rot_error(a_wxyz: np.ndarray, b_wxyz: np.ndarray) -> float:
@@ -396,21 +422,37 @@ class BehaviorPoseEnv(BehaviorEnv):
         return cmd
 
     def _reach(self, targets: dict[str, tuple[np.ndarray, np.ndarray]], grips: dict[str, float]):
-        """Closed loop on the ``absolute_pose`` IK controllers: each tick the
-        world-frame target is re-expressed in the frame the controller reads
+        """Closed loop on the ``absolute_pose`` IK controllers, until every
+        driven arm is inside tolerance of its FINAL target.
+
+Each tick commands a goal at most ``STEP_POS_M`` /
+        ``STEP_ROT_RAD`` from where the end effector is now, not the final
+        target itself. That bound is what makes the loop stable: OmniGibson's
+        IK is a one-step Jacobian solve, so a goal far from the current pose
+        returns a joint target far from the current configuration and the arm
+        integrates away from the goal. The LIBERO and RoboCasa pose loops bound
+        their goal advance the same way.
+
+        There is deliberately NO stall abort here, unlike the LIBERO loop. One
+        was tried on 2026-09-11 and reverted: this arm's reach has a large
+        initial transient — the end effector swings well past the target before
+        the IK settles — so a 25-tick no-improvement window fires during the
+        swing and leaves the arm mid-flight. With it the contract move ended
+        1.46 m out; without it the same move converges. A target the arm cannot
+        reach therefore costs the full ``MAX_TICKS_PER_MOVE``.
+
+        The bounded goal is then re-expressed in the frame the controller reads
         (``ik_controller.py`` ``_update_goal`` L264-268 — see
         ``world.to_controller_frame``, which never assumes which link that
-        frame hangs off) and commanded, until every driven arm is inside
-        tolerance."""
+        frame hangs off)."""
         want = {arm: (np.asarray(p, dtype=np.float64).reshape(3), rotvec_to_quat(r)) for arm, (p, r) in targets.items()}
         slices = self._world.action_slices
         converged, ended, n = False, False, 0
         pos_err = rot_err = float("nan")
         while n < self.max_ticks_per_move:
-            errors = {}
-            for arm, (target_pos, target_quat) in want.items():
-                pos, quat = self._world.eef_pose(arm)
-                errors[arm] = (float(np.linalg.norm(target_pos - pos)), _rot_error(target_quat, quat))
+            here = {arm: self._world.eef_pose(arm) for arm in want}
+            errors = {arm: (float(np.linalg.norm(want[arm][0] - here[arm][0])),
+                            _rot_error(want[arm][1], here[arm][1])) for arm in want}
             pos_err = max(e[0] for e in errors.values())
             rot_err = max(e[1] for e in errors.values())
             if pos_err < self.pos_tol_m and rot_err < self.rot_tol_rad:
@@ -418,7 +460,16 @@ class BehaviorPoseEnv(BehaviorEnv):
                 break
             cmd = self._command(grips)
             for arm, (target_pos, target_quat) in want.items():
-                local_pos, local_quat = self._world.to_controller_frame(arm, target_pos, target_quat)
+                # The goal is a bounded step from where the end effector is NOW, so the IK is
+                # never handed an error larger than STEP_POS_M and the arm tracks it. Walking a
+                # fixed path from the start pose instead was tried and is worse: the goal then
+                # runs ahead of an arm that lags, and the +5 cm contract move ended 1.18 m out
+                # (2026-09-11) where this form lands it. The LIBERO loop measures from the
+                # current pose for the same reason.
+                pos, quat = here[arm]
+                step_pos = _advance(pos, target_pos, STEP_POS_M)
+                step_quat = _advance_rotation(quat, target_quat, STEP_ROT_RAD)
+                local_pos, local_quat = self._world.to_controller_frame(arm, step_pos, step_quat)
                 cmd[slices[f"arm_{arm}"]] = np.concatenate([local_pos, quat_to_rotvec(local_quat)])
             n += 1
             if self._tick(cmd):

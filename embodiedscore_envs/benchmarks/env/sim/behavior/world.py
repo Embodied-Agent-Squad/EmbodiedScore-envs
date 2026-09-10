@@ -223,21 +223,26 @@ class BehaviorWorld:
         """The arm substitution ``docs/challenge/evaluation.md`` § "Configure
         Robot Action Space" documents: an absolute end-effector pose per arm.
         ``absolute_pose`` requires both command limits to be None
-        (``ik_controller.py`` L140-142). The keys are exactly the ones
-        ``InverseKinematicsController.__init__`` (L40-62) accepts — it takes no
-        ``motor_type``, unlike the ``JointController`` it replaces — and
-        ``pos_kp`` keeps the challenge's own arm gain of 150."""
+        (``ik_controller.py`` L140-142). Everything else is OmniGibson's own IK
+        config for this robot's arms verbatim (``manipulation_robot.py``
+        ``_default_arm_ik_controller_configs`` L1313-1336) — which is the
+        point: only ``mode`` differs from what OmniGibson would build itself.
+
+        In particular it does NOT set ``pos_kp``. An earlier version carried the
+        challenge's ``pos_kp: 150`` across from the ``JointController`` this
+        replaces, which was an invention: OmniGibson leaves the gain unset for
+        an IK controller and its default of 50 applies. Measuring 2026-09-11
+        settled it — the arm diverged the same way at 150 and at 50, so the
+        gain was never the cause (that is the unbounded goal, see
+        ``behavior_env.STEP_POS_M``). The gain is gone because it was not ours
+        to choose, not because it was the bug."""
         return {
             f"arm_{arm}": {
                 "name": "InverseKinematicsController",
                 "mode": "absolute_pose",
                 "command_input_limits": None,
                 "command_output_limits": None,
-                "pos_kp": 150,
                 "use_impedances": False,
-                # OmniGibson's own IK config for this robot's arms (manipulation_robot.py
-                # _default_arm_ik_controller_configs L1313-1336); without it the solution
-                # chatters and the end effector oscillates around the target instead of settling.
                 "smoothing_filter_size": 2,
             }
             for arm in ARMS
@@ -394,6 +399,16 @@ class BehaviorWorld:
                 self._env.scene.write_task_metadata(key=key, data=state)
             else:
                 self.task.object_scope[key].load_state(state, serialized=False)
+        # Put the arms, torso and grippers back where the challenge starts them.
+        # The instance file carries the robot's BASE pose and nothing else, and the
+        # state captured just below becomes the episode's initial state — so without
+        # this an episode would inherit whatever configuration the previous one left
+        # the arms in, and no two runs of a split would agree. A fresh process is
+        # already at this posture: it is the robot config's own reset_joint_pos,
+        # ROBOT_RESET_JOINT_POS["R1Pro"] with the trunk filled in (og_teleop_utils.py
+        # generate_robot_config L1524-1532). robot.reset() keeps the base joints, so
+        # the pose just set survives (holonomic_base_robot.py L250-259).
+        self.robot.reset()
         for _ in range(SETTLE_PHYSICS_STEPS):
             og.sim.step_physics()
             for entity in self.task.object_scope.values():
