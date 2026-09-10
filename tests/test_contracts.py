@@ -51,7 +51,7 @@ def test_every_line_has_both_variants():
     from embodiedscore_envs.benchmarks import resolve
     from embodiedscore_envs.benchmarks.presets import actions, bodies, depth
     lines = {b.line for b in es.BENCHMARKS.values()}
-    assert len(es.BENCHMARKS) == 2 * len(lines) == 36
+    assert len(es.BENCHMARKS) == 2 * len(lines) == 58
     assert len(HABITAT) == 22
     for line in lines:
         std, up = es.benchmark(line), es.benchmark(line, "upstream")

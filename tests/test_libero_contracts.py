@@ -12,7 +12,9 @@ from embodiedscore_envs.benchmarks import libero as L
 from embodiedscore_envs.benchmarks.env import LiberoEnv, LiberoPoseEnv, ManipGoal, targets_of
 from embodiedscore_envs.benchmarks.presets import bodies
 
-LINES = sorted({b.line for b in es.BENCHMARKS.values() if b.engine == "libero"})
+# The base LIBERO lines only — the LIBERO-PRO / LIBERO-Plus lines run on the same
+# engine and have their own contract files (test_libero_pro / _plus_contracts.py).
+LINES = sorted({f"libero-{word}" for word in L.SUITES})
 
 
 def test_declarations():

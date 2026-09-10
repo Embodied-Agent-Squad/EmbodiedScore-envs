@@ -22,7 +22,8 @@ import gymnasium as gym
 from .env import (Benchmark, DepthClip, DynamicTimeLimit, HabitatEnv, HabitatPoseEnv, IsaacEnv, IsaacPolarEnv, LiberoEnv,
                   LiberoPoseEnv)
 
-_MEMBERS = ("vlnce", "ivlnce", "objectnav", "goat", "hmeqa", "express", "vlnverse", "libero")
+_MEMBERS = ("vlnce", "ivlnce", "objectnav", "goat", "hmeqa", "express", "vlnverse", "libero", "libero_pro",
+            "libero_plus")
 
 BENCHMARKS: dict[str, Benchmark] = {}
 for _m in _MEMBERS:
