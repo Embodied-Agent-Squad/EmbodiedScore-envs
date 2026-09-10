@@ -124,7 +124,7 @@ def _patch_del(module: Any) -> None:
     cls._embodiedscore_del_patched = True
 
 
-def task_oracle(scene: CalvinSceneRef | None = None) -> Any:
+def task_oracle() -> Any:
     """CALVIN's ``Tasks`` oracle, instantiated from the task table of the
     installed ``calvin_env`` (``conf/tasks/new_playtable_tasks.yaml``)."""
     import calvin_env
@@ -204,7 +204,7 @@ class CalvinWorld:
         #  hydra, and claiming the process-wide one from inside an env server would be rude.)
         self._env = hydra.utils.instantiate(conf.env, show_gui=False, use_vr=False, use_scene_info=True)
         self._config = scene.config_file
-        self._oracle = task_oracle(scene)
+        self._oracle = task_oracle()
 
     def close(self) -> None:
         if self._env is not None:
