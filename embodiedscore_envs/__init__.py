@@ -14,7 +14,7 @@ chain line on pybullet in process.
 
 Gymnasium ids (``gym.make(id, split=...)`` gives the bare body) are registered
 on import, one per benchmark declaration in ``embodiedscore_envs.benchmarks``.
-The Isaac, LIBERO, RoboTwin, RoboCasa and CALVIN lines register ``nondeterministic=True``: the
+The Isaac, LIBERO, RoboTwin, RoboCasa, CALVIN and BEHAVIOR lines register ``nondeterministic=True``: the
 episode, the poses and every fact in ``info`` are reproducible under a seed; the
 rendered frames are not bit-identical from one render to the next (Isaac's RTX,
 robosuite's offscreen EGL renderer and SAPIEN's ray tracer alike).
@@ -29,7 +29,8 @@ __version__ = "0.2.0"
 
 for _b in BENCHMARKS.values():
     register(id=_b.gym_id, entry_point="embodiedscore_envs.benchmarks:build_env",
-             max_episode_steps=_b.max_episode_steps, nondeterministic=_b.engine in ("isaac", "libero", "robotwin", "robocasa", "calvin"),
+             max_episode_steps=_b.max_episode_steps,
+             nondeterministic=_b.engine in ("isaac", "libero", "robotwin", "robocasa", "calvin", "behavior"),
              kwargs={"benchmark_name": _b.name})
 del _b
 

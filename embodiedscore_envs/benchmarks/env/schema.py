@@ -27,13 +27,13 @@ from typing import Any, Callable, Union
 
 import numpy as np
 
-from .sim import (Body, CalvinBody, CalvinSceneRef, IsaacBody, IsaacSceneRef, LiberoBody, LiberoSceneRef,
+from .sim import (BehaviorBody, BehaviorSceneRef, Body, CalvinBody, CalvinSceneRef, IsaacBody, IsaacSceneRef, LiberoBody, LiberoSceneRef,
                   RobocasaBody, RobocasaSceneRef, RobotwinBody, RobotwinSceneRef, SceneRef)
 
 Vec3 = tuple[float, float, float]
 Quat = tuple[float, float, float, float]     # habitat: x, y, z, w — Isaac: w, x, y, z
 
-ENGINES = ("habitat", "isaac", "libero", "robotwin", "robocasa", "calvin")
+ENGINES = ("habitat", "isaac", "libero", "robotwin", "robocasa", "calvin", "behavior")
 
 
 class Act(IntEnum):
@@ -122,7 +122,9 @@ class Question:
 @dataclass(frozen=True)
 class ManipGoal:
     """Make the scene satisfy a set of predicates: LIBERO's BDDL goal state,
-    e.g. ``(("On", "akita_black_bowl_1", "plate_1"),)``. RoboTwin writes its
+    e.g. ``(("On", "akita_black_bowl_1", "plate_1"),)``, or BEHAVIOR's BDDL
+    goal conditions, one entry per top-level predicate of the activity's
+    ``problem0.bddl``. RoboTwin writes its
     goal as python rather than as declarative predicates, so its lines name
     the check instead — ``(("check_success", "beat_block_hammer"),)``. Either
     way success is the simulator's own check; the goal has no place, so
@@ -176,7 +178,7 @@ def to_dict(obj: Any) -> Any:
 class Episode:
     index: int                           # position in the loaded list
     episode_id: str
-    scene: SceneRef | IsaacSceneRef | LiberoSceneRef | RobotwinSceneRef | RobocasaSceneRef | CalvinSceneRef
+    scene: SceneRef | IsaacSceneRef | LiberoSceneRef | RobotwinSceneRef | RobocasaSceneRef | CalvinSceneRef | BehaviorSceneRef
     start_position: Vec3 | None          # the engine's frame (habitat y up; Isaac z up); None on a manipulation line
     start_rotation: Quat | None          # habitat x, y, z, w — Isaac w, x, y, z; None on a manipulation line
     goal: Goal | None                    # None when the split withholds it (VLNverse test / challenge)
@@ -203,7 +205,8 @@ class DepthSpec:
 class Benchmark:
     name: str                                    # make() key, e.g. "objectnav-hm3d-v1" / "objectnav-hm3d-v1-upstream"
     gym_id: str                                  # e.g. "EmbodiedScore/ObjectNav-HM3Dv1-v0"
-    body: Body | IsaacBody | LiberoBody | RobotwinBody | RobocasaBody | CalvinBody   # the engine's Body type (checked against ``engine``)
+    # the engine's Body type, checked against ``engine`` in __post_init__
+    body: Body | IsaacBody | LiberoBody | RobotwinBody | RobocasaBody | CalvinBody | BehaviorBody
     actions: tuple[Act, ...]
     splits: tuple[str, ...]
     episodes: Callable[..., list[Episode]]      # (split, data_root=None, scene_root=None, **kw) -> episodes
@@ -218,8 +221,11 @@ class Benchmark:
     polar: bool = False                          # isaac: IsaacPolarEnv (Box [angle, distance, elevation]) instead of IsaacEnv
     macro: bool = False                          # manipulation engines: the pose protocol (absolute end-effector targets, closed loop) instead of the upstream per-tick one
     ticks: int | None = None                     # libero: the control-tick cap (truncation); the macro protocol's guard, the per-tick protocol's budget. None on robotwin — its cap is per task, through ``budget``
-    tick_scale: float = 1.0                      # robocasa: with ``ticks`` None the cap is this multiple of the episode's own horizon (RoboCasa's is per task)
-    engine: str = "habitat"                      # "habitat" (habitat-sim, in process) | "isaac" (Isaac Sim render worker) | "libero" / "robocasa" (robosuite / MuJoCo, in process) | "robotwin" (SAPIEN 3, in process) | "calvin" (pybullet, in process)
+    tick_scale: float = 1.0                      # robocasa / behavior: with ``ticks`` None the cap is this
+                                                 # multiple of the episode's own horizon (both are per task)
+    engine: str = "habitat"                      # "habitat" (habitat-sim, in process) | "isaac" (Isaac Sim render worker) |
+                                                 # "libero" / "robocasa" (robosuite / MuJoCo, in process) | "robotwin"
+                                                 # (SAPIEN 3) | "behavior" (OmniGibson on Isaac Sim, in process)
     description: str = ""
     line: str = ""                               # the benchmark line both variants belong to, e.g. "objectnav-hm3d-v1"
     variant: str = "standard"                    # "standard" (EmbodiedScore's shared body) | "upstream" (the line's own evaluator)
@@ -230,13 +236,13 @@ class Benchmark:
         if self.engine not in ENGINES:
             raise ValueError(f"{self.name}: engine must be one of {ENGINES}")
         want = {"habitat": Body, "isaac": IsaacBody, "libero": LiberoBody, "robotwin": RobotwinBody,
-                "robocasa": RobocasaBody, "calvin": CalvinBody}[self.engine]
+                "robocasa": RobocasaBody, "calvin": CalvinBody, "behavior": BehaviorBody}[self.engine]
         if not isinstance(self.body, want):
             raise TypeError(f"{self.name}: engine {self.engine!r} needs a {want.__name__}, got {type(self.body).__name__}")
         if (self.pose and self.engine != "habitat" or self.polar and self.engine != "isaac"
-                or self.macro and self.engine not in ("libero", "robotwin", "robocasa", "calvin")):
+                or self.macro and self.engine not in ("libero", "robotwin", "robocasa", "calvin", "behavior")):
             raise ValueError(f"{self.name}: pose is a habitat protocol, polar an isaac one, "
-                             "macro a manipulation one (libero / robotwin / robocasa / calvin)")
+                             "macro a manipulation one (libero / robotwin / robocasa / calvin / behavior)")
         if not self.line:
             object.__setattr__(self, "line", self.name[: -len("-upstream")] if self.name.endswith("-upstream") else self.name)
 

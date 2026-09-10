@@ -91,12 +91,27 @@ CALVIN    CALVIN's own rig (``calvin_env/conf/cameras/cameras/{static,gripper}.y
           static camera 200x200 at fov 10, the gripper camera 84x84 at fov 75.
           Both cameras' geometry is the release's either way — only the raster
           size differs (both have ``aspect: 1``).
+
+BEHAVIOR engine (a Galaxea R1 Pro — holonomic base, 4-joint torso, two 7-DOF
+arms with parallel grippers — under the controllers the 2025 BEHAVIOR
+Challenge fixes, at 30 Hz control / 120 Hz physics: the benchmark's physics,
+not a body knob. A body fixes the camera rig; all three cameras are the
+robot's own, ``ROBOT_CAMERA_NAMES["R1Pro"]``):
+
+BEHAVIOR  the challenge's default evaluation rig, its ``RGBLowResWrapper``
+          (``omnigibson/learning/wrappers/rgb_low_res_wrapper.py`` L16-29): the
+          ZED head camera and both RealSense wrist cameras at 224², RGB only,
+          the head camera's horizontal aperture forced to 40 mm to match the
+          data collection. Both challenge tracks use it by default.
+BEHAVIOR_STANDARD  the same three cameras at 256², the resolution the rest of
+          EmbodiedScore's standard manipulation bodies serve (LIBERO_STANDARD,
+          ROBOCASA_STANDARD), aperture unchanged. Decided 2026-09-10.
 """
 
 from __future__ import annotations
 
-from ..env import (Body, CalvinBody, CalvinCameraSpec, CameraSpec, IsaacBody, IsaacCameraSpec, LiberoBody,
-                   LiberoCameraSpec, NavMesh, RobocasaBody, RobocasaCameraSpec, RobotwinBody,
+from ..env import (BehaviorBody, BehaviorCameraSpec, Body, CalvinBody, CalvinCameraSpec, CameraSpec, IsaacBody,
+                   IsaacCameraSpec, LiberoBody, LiberoCameraSpec, NavMesh, RobocasaBody, RobocasaCameraSpec, RobotwinBody,
                    RobotwinRandomization)
 from ..env.sim.robocasa.body import LEFT_CAMERA, RIGHT_CAMERA
 from ..env.sim.robotwin import D435, LARGE_D435
@@ -178,8 +193,12 @@ CALVIN_STANDARD = CalvinBody(rgb=CalvinCameraSpec(256, 256), wrist=CalvinCameraS
 
 CALVIN = CalvinBody(rgb=CalvinCameraSpec(200, 200), wrist=CalvinCameraSpec(84, 84), settle_ticks=0)
 
+BEHAVIOR = BehaviorBody(rgb=BehaviorCameraSpec(224, 224), wrist=BehaviorCameraSpec(224, 224))
+
+BEHAVIOR_STANDARD = BehaviorBody(rgb=BehaviorCameraSpec(256, 256), wrist=BehaviorCameraSpec(256, 256))
+
 __all__ = ["STANDARD", "VLNCE", "RXR_CE", "LOCOBOT", "STRETCH", "EXPLORE_EQA", "EXPRESS",
            "VLNVERSE_STANDARD", "VLNVERSE", "LIBERO_STANDARD", "LIBERO",
            "CLEAN", "RANDOMIZED", "ROBOTWIN", "ROBOTWIN_RANDOMIZED", "ROBOTWIN_STANDARD",
            "ROBOTWIN_STANDARD_RANDOMIZED", "ROBOCASA_STANDARD", "ROBOCASA",
-           "CALVIN_STANDARD", "CALVIN"]
+           "CALVIN_STANDARD", "CALVIN", "BEHAVIOR", "BEHAVIOR_STANDARD"]
