@@ -9,10 +9,10 @@ depth post-processing and, for the EQA and VLNverse lines, its own action
 protocol). Task semantics — loader, goal, success distance, budget, metric keys
 — are the line's and do not change between variants. ``Benchmark.engine`` picks
 the simulator: habitat-sim in process, Isaac Sim through its render worker,
-robosuite / MuJoCo in process (the LIBERO manipulation lines), or SAPIEN 3 in
-process (the RoboTwin bimanual manipulation lines). Both manipulation engines'
-variants differ in protocol — see ``libero.py`` and ``robotwin.py`` for the one
-deviation from the rule above."""
+robosuite / MuJoCo in process (the LIBERO and RoboCasa manipulation lines), or
+SAPIEN 3 in process (the RoboTwin bimanual manipulation lines). Every manipulation
+engine's variants differ in protocol — see ``libero.py``, ``robotwin.py`` and
+``robocasa.py`` for the one deviation from the rule above."""
 
 from __future__ import annotations
 
@@ -22,10 +22,10 @@ from typing import Any
 import gymnasium as gym
 
 from .env import (Benchmark, DepthClip, DynamicTimeLimit, HabitatEnv, HabitatPoseEnv, IsaacEnv, IsaacPolarEnv, LiberoEnv,
-                  LiberoPoseEnv, RobotwinEnv, RobotwinPoseEnv)
+                  LiberoPoseEnv, RobocasaEnv, RobocasaPoseEnv, RobotwinEnv, RobotwinPoseEnv)
 
 _MEMBERS = ("vlnce", "ivlnce", "objectnav", "goat", "hmeqa", "express", "vlnverse", "libero", "libero_pro",
-            "libero_plus", "robotwin")
+            "libero_plus", "robotwin", "robocasa")
 
 BENCHMARKS: dict[str, Benchmark] = {}
 for _m in _MEMBERS:
@@ -90,6 +90,10 @@ def build_env(benchmark_name: str, split: str, data_root: str | None = None, sce
     if b.engine == "libero":
         common = dict(episodes=episodes, body=body, max_ticks=b.ticks, gpu_id=gpu_id, render_mode=render_mode)
         return LiberoPoseEnv(**common) if b.macro else LiberoEnv(**common)
+    if b.engine == "robocasa":
+        common = dict(episodes=episodes, body=body, max_ticks=b.ticks, tick_scale=b.tick_scale, gpu_id=gpu_id,
+                      render_mode=render_mode)
+        return RobocasaPoseEnv(**common) if b.macro else RobocasaEnv(**common)
     if b.engine == "isaac":
         common = dict(episodes=episodes, body=body, gpu_id=gpu_id, render_mode=render_mode)
         if b.polar if polar is None else polar:

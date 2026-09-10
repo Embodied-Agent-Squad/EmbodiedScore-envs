@@ -25,13 +25,13 @@ from typing import Any, Callable, Union
 
 import numpy as np
 
-from .sim import (Body, IsaacBody, IsaacSceneRef, LiberoBody, LiberoSceneRef, RobotwinBody, RobotwinSceneRef,
+from .sim import (Body, IsaacBody, IsaacSceneRef, LiberoBody, LiberoSceneRef, RobocasaBody, RobocasaSceneRef, RobotwinBody, RobotwinSceneRef,
                   SceneRef)
 
 Vec3 = tuple[float, float, float]
 Quat = tuple[float, float, float, float]     # habitat: x, y, z, w — Isaac: w, x, y, z
 
-ENGINES = ("habitat", "isaac", "libero", "robotwin")
+ENGINES = ("habitat", "isaac", "libero", "robotwin", "robocasa")
 
 
 class Act(IntEnum):
@@ -169,7 +169,7 @@ def to_dict(obj: Any) -> Any:
 class Episode:
     index: int                           # position in the loaded list
     episode_id: str
-    scene: SceneRef | IsaacSceneRef | LiberoSceneRef | RobotwinSceneRef
+    scene: SceneRef | IsaacSceneRef | LiberoSceneRef | RobotwinSceneRef | RobocasaSceneRef
     start_position: Vec3 | None          # the engine's frame (habitat y up; Isaac z up); None on a manipulation line
     start_rotation: Quat | None          # habitat x, y, z, w — Isaac w, x, y, z; None on a manipulation line
     goal: Goal | None                    # None when the split withholds it (VLNverse test / challenge)
@@ -196,7 +196,7 @@ class DepthSpec:
 class Benchmark:
     name: str                                    # make() key, e.g. "objectnav-hm3d-v1" / "objectnav-hm3d-v1-upstream"
     gym_id: str                                  # e.g. "EmbodiedScore/ObjectNav-HM3Dv1-v0"
-    body: Body | IsaacBody | LiberoBody | RobotwinBody   # the engine's Body type (checked against ``engine``)
+    body: Body | IsaacBody | LiberoBody | RobotwinBody | RobocasaBody   # the engine's Body type (checked against ``engine``)
     actions: tuple[Act, ...]
     splits: tuple[str, ...]
     episodes: Callable[..., list[Episode]]      # (split, data_root=None, scene_root=None, **kw) -> episodes
@@ -211,7 +211,8 @@ class Benchmark:
     polar: bool = False                          # isaac: IsaacPolarEnv (Box [angle, distance, elevation]) instead of IsaacEnv
     macro: bool = False                          # manipulation engines: the pose protocol (absolute end-effector targets, closed loop) instead of the upstream per-tick one
     ticks: int | None = None                     # libero: the control-tick cap (truncation); the macro protocol's guard, the per-tick protocol's budget. None on robotwin — its cap is per task, through ``budget``
-    engine: str = "habitat"                      # "habitat" (habitat-sim, in process) | "isaac" (Isaac Sim render worker) | "libero" (robosuite / MuJoCo, in process) | "robotwin" (SAPIEN 3, in process)
+    tick_scale: float = 1.0                      # robocasa: with ``ticks`` None the cap is this multiple of the episode's own horizon (RoboCasa's is per task)
+    engine: str = "habitat"                      # "habitat" (habitat-sim, in process) | "isaac" (Isaac Sim render worker) | "libero" / "robocasa" (robosuite / MuJoCo, in process) | "robotwin" (SAPIEN 3, in process)
     description: str = ""
     line: str = ""                               # the benchmark line both variants belong to, e.g. "objectnav-hm3d-v1"
     variant: str = "standard"                    # "standard" (EmbodiedScore's shared body) | "upstream" (the line's own evaluator)
@@ -221,13 +222,14 @@ class Benchmark:
             raise ValueError(f"{self.name}: variant must be 'standard' or 'upstream'")
         if self.engine not in ENGINES:
             raise ValueError(f"{self.name}: engine must be one of {ENGINES}")
-        want = {"habitat": Body, "isaac": IsaacBody, "libero": LiberoBody, "robotwin": RobotwinBody}[self.engine]
+        want = {"habitat": Body, "isaac": IsaacBody, "libero": LiberoBody, "robotwin": RobotwinBody,
+                "robocasa": RobocasaBody}[self.engine]
         if not isinstance(self.body, want):
             raise TypeError(f"{self.name}: engine {self.engine!r} needs a {want.__name__}, got {type(self.body).__name__}")
         if (self.pose and self.engine != "habitat" or self.polar and self.engine != "isaac"
-                or self.macro and self.engine not in ("libero", "robotwin")):
+                or self.macro and self.engine not in ("libero", "robotwin", "robocasa")):
             raise ValueError(f"{self.name}: pose is a habitat protocol, polar an isaac one, "
-                             "macro a manipulation one (libero / robotwin)")
+                             "macro a manipulation one (libero / robotwin / robocasa)")
         if not self.line:
             object.__setattr__(self, "line", self.name[: -len("-upstream")] if self.name.endswith("-upstream") else self.name)
 

@@ -4,9 +4,10 @@ Every benchmark of the EmbodiedScore workspace behind the Gymnasium 1.3 API:
 the habitat lines on one simulator — a frozen
 [habitat-sim 0.3.3](https://github.com/Embodied-Agent-Squad/EmbodiedScore-habitat),
 no habitat-lab — with the legacy stacks' numerics reproduced to the last digit
-(evidence archived on the `archive/reproduction` branch), and
+(evidence archived on the `archive/reproduction` branch),
 [VLNverse](https://arxiv.org/abs/2512.19021) on Isaac Sim 5.1 through an
-out-of-process render worker.
+out-of-process render worker, and the manipulation lines — LIBERO and
+RoboCasa / RoboCasa365 — on robosuite / MuJoCo in process.
 
 ```python
 import embodiedscore_envs as es
@@ -34,6 +35,8 @@ env.close()
 | `libero-pro-spatial` · `-object` · `-goal` · `-10` | all / mini | — (pose / OSC) | same keys; the suite's ten tasks perturbed four ways | LIBERO-PRO (arXiv:2510.03827) |
 | `libero-plus-camera` · `-noise` · `-robot` · `-language` · `-layout` · `-light` · `-background` | all / mini | — (pose / OSC) | same keys; one perturbation kind over all four suites | LIBERO-Plus (arXiv:2510.13626) |
 | `robotwin-clean` · `robotwin-randomized` | all / mini | — (Box) | success / steps_taken / ticks, the task's own `check_success` | RoboTwin 2.0 on SAPIEN 3 |
+| `robocasa365-atomic-seen` · `-composite-seen` · `-composite-unseen` | all / mini | — (pose + base / 12-D) | success / steps_taken / ticks, RoboCasa's own `_check_success` | RoboCasa365 on robosuite 1.5 |
+| `robocasa-pnp` · `-doors` · `-drawers` · `-levers` · `-knobs` · `-insertion` · `-buttons` · `-navigate` | all / mini | — (pose + base / 12-D) | same | RoboCasa v0.2 on robosuite 1.5 |
 
 The last column is provenance only — which evaluator each line's numbers were
 reproduced against (evidence on the `archive/reproduction` branch). The habitat
@@ -75,7 +78,7 @@ embodiedscore_envs/
 └── benchmarks/                 one file per line — declarations (standard + upstream): engine, body, action prefix, episodes(), metrics, budget
     ├── vlnce.py  ivlnce.py  objectnav.py (+ ovon)  goat.py  hmeqa.py (+ mthm3d)  express.py  vlnverse.py
     ├── libero.py  libero_pro.py  libero_plus.py     the three manipulation benchmarks on the one LIBERO engine
-    │   robotwin.py
+    │   robotwin.py  robocasa.py
     ├── presets/                bodies (STANDARD + the upstream rigs, habitat and Isaac) · action tables · depth post-processing — pure data
     └── env/                    what every benchmark is built on
         ├── schema.py           Episode · Goal types (Point / Object / Image / Text / Sequence / Question / Manip) · Act · Benchmark
@@ -83,13 +86,15 @@ embodiedscore_envs/
         ├── isaac_env.py        IsaacEnv (Discrete) · IsaacPolarEnv (Box rotate-then-advance)
         ├── libero_env.py       LiberoEnv (Box: per-tick OSC delta) · LiberoPoseEnv (Box: absolute end-effector target, closed loop)
         ├── robotwin_env.py     RobotwinEnv (Box: RoboTwin's own joint / end-effector action) · RobotwinPoseEnv (Box: an absolute end-effector target PER ARM, closed loop)
-        ├── metrics.py          NavMetrics (one formula set) · SequenceNavMetrics (GOAT) · VLNVerseMetrics · ManipMetrics (LIBERO, RoboTwin)
+        ├── robocasa_env.py     RobocasaEnv (Box: RoboCasa's per-tick 12-D action) · RobocasaPoseEnv (Box: base move | absolute end-effector target | gripper hold)
+        ├── metrics.py          NavMetrics (one formula set) · SequenceNavMetrics (GOAT) · VLNVerseMetrics · ManipMetrics (LIBERO, RoboTwin, RoboCasa)
         ├── wrappers.py         DepthClip · DynamicTimeLimit
         └── sim/                one facade per engine; the engines never import each other
             ├── habitat/        the only place that imports habitat_sim (lazily): Body · SceneRef · SimWorld
             ├── isaac/          IsaacBody · IsaacSceneRef · IsaacWorld; worker.py runs under Isaac's python, backend.py drives it
             ├── libero/         LiberoBody · LiberoSceneRef · LiberoWorld — the only place that imports libero / robosuite (lazily)
-            └── robotwin/       RobotwinBody · RobotwinSceneRef · RobotwinWorld — the only place that imports RoboTwin / sapien (lazily)
+            ├── robotwin/       RobotwinBody · RobotwinSceneRef · RobotwinWorld — the only place that imports RoboTwin / sapien (lazily)
+            └── robocasa/       RobocasaBody · RobocasaSceneRef · RobocasaWorld — the only place that imports robocasa / robosuite (lazily)
 ```
 
 Imports point strictly downward; benchmark files never import each other
@@ -110,7 +115,10 @@ in its module docstring. Both can be overridden per call:
 fetched by `scripts/download_vlnverse_data.py` (INSTALL-isaac.md § 5). The
 LIBERO lines read nothing from either root: the BDDL files and init states ship
 inside the `libero` package (INSTALL-libero.md); the RoboTwin lines read
-neither root.
+neither root. Nor do the RoboCasa lines: a
+kitchen is generated from a layout id and a style id, and the meshes and
+textures it draws from are downloaded into the `robocasa` checkout
+(INSTALL-robocasa.md).
 
 ## The LIBERO lines (manipulation)
 
@@ -206,6 +214,48 @@ same reason. Unlike LIBERO, one macro move costs about ONE upstream tick rather
 than a hundred: a RoboTwin action is already a planned motion, not a 20 Hz
 delta. Actor poses are in `info` (privileged) and never in the observation.
 
+## The RoboCasa lines (kitchen manipulation on a mobile manipulator)
+
+`robocasa365-*` (RoboCasa365, ICLR 2026, [arXiv:2603.04356](https://arxiv.org/abs/2603.04356);
+repo `main`, version 1.0.1) and `robocasa-*` (RoboCasa, RSS 2024,
+[arXiv:2406.02523](https://arxiv.org/abs/2406.02523); repo tag `v0.2`) are one
+engine over two releases of the same package. The robot is a Franka Panda on an
+Omron mobile base (`PandaOmron`) under robosuite's `HYBRID_MOBILE_BASE`
+controller: the arm on `OSC_POSE` at 20 Hz (5 cm / 0.5 rad per unit **in the
+arm's base frame**), the torso on `JOINT_POSITION`, the base on
+`JOINT_VELOCITY`. Success is the task class's own `_check_success`;
+`ManipMetrics` reports `success`, `steps_taken` and `ticks`, as on the LIBERO
+lines.
+
+Lines are the groups each release itself scores — RoboCasa365's three target
+task sets (`TASK_SET_REGISTRY`, 18 + 16 + 16 = the leaderboard's 50), RoboCasa
+v0.2's eight foundational skills over its 25 atomic tasks. Splits `all` and
+`mini`.
+
+An episode is one evaluation scenario: `(task, layout_id, style_id, seed)`.
+RoboCasa365's `target` split is 10 fixed kitchens `(1, 1) … (10, 10)` with the
+target object instances, RoboCasa v0.2's is 5 — `(1, 1), (2, 2), (4, 4), (6, 9),
+(7, 10)` — with object split `B`; both prescribe 50 rollouts per task. Neither
+says *which* scenario is which, so this port deals the 50 round-robin over the
+line's scenes and uses the scenario index as the env seed:
+`episode_id = <task>/<layout>-<style>/<seed>`. Every reset regenerates the
+kitchen (fixtures, objects, placements, robot spawn), which is why a reset costs
+tens of seconds.
+
+| | `<line>` (standard) | `<line>-upstream` |
+|---|---|---|
+| body | `RobocasaPoseEnv`: one step is one **base move** `[dx, dy, dyaw]` in the base's own frame, one **absolute end-effector target** `[x, y, z, ax, ay, az, gripper]` driven in a closed loop of bounded OSC deltas (≤ 2 cm / 0.05 rad per tick, 1 cm / 0.1 rad tolerance, ≤ 200 ticks; the base loop parks to 5 cm / 0.05 rad in ≤ 300), or a **gripper hold** — a target at `inf` with no base move, 60 ticks, as on the LIBERO lines | `RobocasaEnv`: one step = one 20 Hz tick, the action is RoboCasa's own 12-D gym action (eef delta 6, gripper flag, base 3, torso, base-mode flag), as `robocasa/wrappers/gym_wrapper.py` composes it |
+| rig | `robot0_agentview_center` 256² + wrist (`bodies.ROBOCASA_STANDARD`) | RoboCasa's three cameras at 128²: `agentview_left` as `rgb`, `agentview_right` as `aux`, `eye_in_hand` as `wrist` (`bodies.ROBOCASA`, `create_env`'s defaults) |
+| budget | 100 macro steps (gym TimeLimit) + a tick guard of 10× the task's horizon | the task's own horizon (`dataset_registry.py`; per task, 300–7200 on RoboCasa365) |
+| termination | the agent's own stop or the budget; `success` latches the first tick the check held | RoboCasa's: done on success |
+
+The budget unit differs between the variants for the same reason as on the
+LIBERO lines. Frames are turned upright (RoboCasa's own gym wrapper flips the
+renderer's rows too). Object poses, the fixture list and the episode's language
+are in `info` (`info["language"]` is the instruction RoboCasa words for the
+objects it sampled — only known after a reset, so it also replaces the
+declaration's placeholder in `info["episode"]["instruction"]`).
+
 ## Metrics of the VLNverse lines
 
 `VLNVerseMetrics` implements the VLNverse evaluator's formulas (`VLNPEMetrics`,
@@ -258,6 +308,12 @@ RoboTwin's scripted expert can fill in). Its Vulkan ray-traced frames are not
 bit-identical between renders of one state, so its gym ids register
 `nondeterministic=True` too.
 
+The RoboCasa lines reproduce RoboCasa's physics as is (robosuite 1.5, the
+release's controller config and task classes). What they do *not* inherit is
+the choice of scenario: RoboCasa draws each of its 50 evaluation rollouts from
+the split's scenes at random, and this port deals them round-robin instead, so
+an episode id names a reproducible kitchen (§ The RoboCasa lines).
+
 The LIBERO lines reproduce LIBERO's physics as is (robosuite 1.4.1, the
 controller config and the init states are the release's; MuJoCo is deterministic
 given the state — facts and proprioception repeat exactly). Its offscreen EGL
@@ -280,11 +336,15 @@ frames are not bit-identical between renders of one state; the gym ids register
    `ac-libero` · `ac-libero-pro` · `ac-libero-plus`.
 5. RoboTwin 2.0 (SAPIEN 3 + curobo) — the `robotwin-*` lines only, in their own env:
    [INSTALL-robotwin.md](INSTALL-robotwin.md).
-6. `pytest tests` with the data roots set (a GPU and the datasets are needed); the Isaac
+6. RoboCasa (robosuite 1.5 + MuJoCo) — the `robocasa*-*` lines only, in *two* more envs
+   (the two releases pin incompatible numpy / mujoco / python and share a distribution
+   name): [INSTALL-robocasa.md](INSTALL-robocasa.md).
+7. `pytest tests` with the data roots set (a GPU and the datasets are needed); the Isaac
    contracts additionally opt in with `EMBODIEDSCORE_RUN_ISAAC_TESTS=1`, the LIBERO ones with
    `EMBODIEDSCORE_RUN_LIBERO_TESTS=1`, `EMBODIEDSCORE_RUN_LIBERO_PRO_TESTS=1` and
    `EMBODIEDSCORE_RUN_LIBERO_PLUS_TESTS=1` — each in the env that has its own `libero` — the
-   RoboTwin ones with `EMBODIEDSCORE_RUN_ROBOTWIN_TESTS=1`.
+   RoboTwin ones with `EMBODIEDSCORE_RUN_ROBOTWIN_TESTS=1`, the RoboCasa ones with
+   `EMBODIEDSCORE_RUN_ROBOCASA_TESTS=1`.
 
 Python 3.10–3.12, Linux, NVIDIA driver for headless EGL (and Vulkan for the
 RoboTwin lines).

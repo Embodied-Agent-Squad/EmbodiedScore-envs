@@ -5,6 +5,8 @@
               (render worker under Isaac's python, freemap kinematics on this side).
 ``libero/``   LIBERO (robosuite 1.4 + MuJoCo) in process: LiberoBody · LiberoSceneRef · LiberoWorld.
 ``robotwin/`` RoboTwin 2.0 (SAPIEN 3) in process: RobotwinBody · RobotwinSceneRef · RobotwinWorld.
+``robocasa/`` RoboCasa / RoboCasa365 (robosuite 1.5 + MuJoCo) in process:
+              RobocasaBody · RobocasaSceneRef · RobocasaWorld.
 
 The engines never import each other. The pure-data types of both are
 importable without either simulator installed; ``SimWorld`` and its
@@ -20,6 +22,7 @@ from .habitat import Body, CameraSpec, NavMesh, SceneRef
 from .isaac import IsaacBody, IsaacCameraSpec, IsaacSceneRef, IsaacSettings, IsaacWorld
 from .libero import LiberoBody, LiberoCameraSpec, LiberoSceneRef, LiberoWorld
 from .robotwin import RobotwinBody, RobotwinCameraSpec, RobotwinRandomization, RobotwinSceneRef, RobotwinWorld
+from .robocasa import RobocasaBody, RobocasaCameraSpec, RobocasaSceneRef, RobocasaWorld
 
 _HABITAT_LAZY = ("SimWorld", "Follower", "FollowerError", "FORWARD", "LEFT", "RIGHT", "LOOK_UP", "LOOK_DOWN")
 
@@ -35,4 +38,5 @@ __all__ = ["Body", "CameraSpec", "NavMesh", "SceneRef", "SimWorld", "Follower", 
            "FORWARD", "LEFT", "RIGHT", "LOOK_UP", "LOOK_DOWN",
            "IsaacBody", "IsaacCameraSpec", "IsaacSceneRef", "IsaacSettings", "IsaacWorld",
            "LiberoBody", "LiberoCameraSpec", "LiberoSceneRef", "LiberoWorld",
-           "RobotwinBody", "RobotwinCameraSpec", "RobotwinRandomization", "RobotwinSceneRef", "RobotwinWorld"]
+           "RobotwinBody", "RobotwinCameraSpec", "RobotwinRandomization", "RobotwinSceneRef", "RobotwinWorld",
+           "RobocasaBody", "RobocasaCameraSpec", "RobocasaSceneRef", "RobocasaWorld"]

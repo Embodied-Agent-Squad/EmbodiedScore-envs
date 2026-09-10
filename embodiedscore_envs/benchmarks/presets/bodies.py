@@ -69,12 +69,22 @@ ROBOTWIN_STANDARD / ROBOTWIN_STANDARD_RANDOMIZED  the same rig at RoboTwin's own
           larger camera type, ``Large_D435`` (640x480, the same fovy 37), so the
           macro protocol's agent reads the scene at the resolution the rest of
           EmbodiedScore's standard bodies serve. Decided 2026-09-10.
+
+RoboCasa engine (a Franka Panda on an Omron mobile base under robosuite's
+HYBRID_MOBILE_BASE controller — the benchmark's physics, not a body knob):
+
+ROBOCASA_STANDARD  robot0_agentview_center 256² + wrist 256², frames upright,
+          10 settle ticks. Decided 2026-09-10, matching LIBERO_STANDARD.
+ROBOCASA  RoboCasa's own rig (``robocasa/utils/env_utils.py`` ``create_env``:
+          robot0_agentview_left + robot0_agentview_right + robot0_eye_in_hand at
+          128²) — the left view as obs["rgb"], the right one as obs["aux"].
 """
 
 from __future__ import annotations
 
 from ..env import (Body, CameraSpec, IsaacBody, IsaacCameraSpec, LiberoBody, LiberoCameraSpec, NavMesh,
-                   RobotwinBody, RobotwinRandomization)
+                   RobocasaBody, RobocasaCameraSpec, RobotwinBody, RobotwinRandomization)
+from ..env.sim.robocasa.body import LEFT_CAMERA, RIGHT_CAMERA
 from ..env.sim.robotwin import D435, LARGE_D435
 
 STANDARD = Body(forward_step_m=0.25, turn_deg=15.0, tilt_deg=30.0, tilt_limit_deg=60.0,
@@ -143,7 +153,14 @@ ROBOTWIN_STANDARD = RobotwinBody(embodiment="aloha-agilex", head=LARGE_D435, wri
 ROBOTWIN_STANDARD_RANDOMIZED = RobotwinBody(embodiment="aloha-agilex", head=LARGE_D435, wrist=LARGE_D435,
                                             randomization=RANDOMIZED)
 
+ROBOCASA_STANDARD = RobocasaBody(rgb=RobocasaCameraSpec(256, 256), wrist=RobocasaCameraSpec(256, 256),
+                                 aux=None, settle_ticks=10)
+
+ROBOCASA = RobocasaBody(rgb=RobocasaCameraSpec(128, 128), wrist=RobocasaCameraSpec(128, 128),
+                        aux=RobocasaCameraSpec(128, 128), rgb_camera=LEFT_CAMERA, aux_camera=RIGHT_CAMERA,
+                        settle_ticks=10)
+
 __all__ = ["STANDARD", "VLNCE", "RXR_CE", "LOCOBOT", "STRETCH", "EXPLORE_EQA", "EXPRESS",
            "VLNVERSE_STANDARD", "VLNVERSE", "LIBERO_STANDARD", "LIBERO",
            "CLEAN", "RANDOMIZED", "ROBOTWIN", "ROBOTWIN_RANDOMIZED", "ROBOTWIN_STANDARD",
-           "ROBOTWIN_STANDARD_RANDOMIZED"]
+           "ROBOTWIN_STANDARD_RANDOMIZED", "ROBOCASA_STANDARD", "ROBOCASA"]
