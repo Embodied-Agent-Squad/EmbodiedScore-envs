@@ -1,6 +1,7 @@
 """Layer L1 — what every benchmark is built on: the environment bodies (one
-per engine: habitat, isaac, libero, robotwin, robocasa), the episode / goal vocabulary, the metric and observation
-wrappers, and the simulator facades underneath (``env.sim``).
+per engine: habitat, isaac, libero, robotwin, robocasa, behavior), the episode / goal
+vocabulary, the metric and observation wrappers, and the simulator facades
+underneath (``env.sim``).
 
 ``SimWorld`` / ``Follower`` / ``FollowerError`` are the habitat_sim importers
 and resolve lazily (``sim.__getattr__``); everything else imports without a
@@ -14,15 +15,17 @@ from .isaac_env import IsaacEnv, IsaacPolarEnv
 from .libero_env import LiberoEnv, LiberoPoseEnv
 from .robotwin_env import RobotwinEnv, RobotwinPoseEnv
 from .robocasa_env import RobocasaEnv, RobocasaPoseEnv
-from .metrics import (MANIP_KEYS, NAV_KEYS, OBJECTNAV_KEYS, VLN_KEYS, VLNVERSE_EVALUATOR_NAMES, VLNVERSE_KEYS,
-                      ManipMetrics, NavMetrics, SequenceNavMetrics, VLNVerseMetrics)
+from .behavior_env import BehaviorEnv, BehaviorPoseEnv
+from .metrics import (BEHAVIOR_KEYS, MANIP_KEYS, NAV_KEYS, OBJECTNAV_KEYS, VLN_KEYS, VLNVERSE_EVALUATOR_NAMES,
+                      VLNVERSE_KEYS, BehaviorMetrics, ManipMetrics, NavMetrics, SequenceNavMetrics, VLNVerseMetrics)
 from .schema import (ENGINES, Act, Benchmark, DepthSpec, Episode, Goal, GoalSequence, ImageGoal, ManipGoal, ObjectGoal,
                      ObjectInstance, PointGoal, Question, TextGoal, action_prefix, data_root, scene_root,
                      targets_of, to_dict)
-from .sim import (Body, CameraSpec, IsaacBody, IsaacCameraSpec, IsaacSceneRef, IsaacSettings, IsaacWorld, LiberoBody,
-                  LiberoCameraSpec, LiberoSceneRef, LiberoWorld, NavMesh, RobocasaBody, RobocasaCameraSpec,
-                  RobocasaSceneRef, RobocasaWorld, RobotwinBody, RobotwinCameraSpec, RobotwinRandomization,
-                  RobotwinSceneRef, RobotwinWorld, SceneRef)
+from .sim import (BehaviorBody, BehaviorCameraSpec, BehaviorSceneRef, BehaviorWorld, Body, CameraSpec, IsaacBody,
+                  IsaacCameraSpec, IsaacSceneRef, IsaacSettings, IsaacWorld, LiberoBody, LiberoCameraSpec,
+                  LiberoSceneRef, LiberoWorld, NavMesh, RobocasaBody, RobocasaCameraSpec, RobocasaSceneRef,
+                  RobocasaWorld, RobotwinBody, RobotwinCameraSpec, RobotwinRandomization, RobotwinSceneRef,
+                  RobotwinWorld, SceneRef)
 from .wrappers import DepthClip, DynamicTimeLimit
 
 _SIM_LAZY = ("SimWorld", "Follower", "FollowerError")
@@ -39,15 +42,18 @@ __all__ = [
     "HabitatEnv", "HabitatPoseEnv", "IsaacEnv", "IsaacPolarEnv", "LiberoEnv", "LiberoPoseEnv",
     "RobotwinEnv", "RobotwinPoseEnv",
     "RobocasaEnv", "RobocasaPoseEnv",
+    "BehaviorEnv", "BehaviorPoseEnv",
     "NavMetrics", "SequenceNavMetrics", "VLNVerseMetrics", "ManipMetrics", "NAV_KEYS", "VLN_KEYS", "OBJECTNAV_KEYS",
     "VLNVERSE_KEYS", "VLNVERSE_EVALUATOR_NAMES", "MANIP_KEYS",
-    "ENGINES", "Act", "Benchmark", "DepthSpec", "Episode", "Goal", "GoalSequence", "ImageGoal", "ManipGoal", "ObjectGoal",
-    "ObjectInstance", "PointGoal", "Question", "TextGoal", "action_prefix", "data_root", "scene_root", "targets_of",
-    "to_dict",
+    "BehaviorMetrics", "BEHAVIOR_KEYS",
+    "ENGINES", "Act", "Benchmark", "DepthSpec", "Episode", "Goal", "GoalSequence", "ImageGoal", "ManipGoal",
+    "ObjectGoal", "ObjectInstance", "PointGoal", "Question", "TextGoal", "action_prefix", "data_root", "scene_root",
+    "targets_of", "to_dict",
     "Body", "CameraSpec", "NavMesh", "SceneRef", "SimWorld", "Follower", "FollowerError",
     "IsaacBody", "IsaacCameraSpec", "IsaacSceneRef", "IsaacSettings", "IsaacWorld",
     "LiberoBody", "LiberoCameraSpec", "LiberoSceneRef", "LiberoWorld",
     "RobotwinBody", "RobotwinCameraSpec", "RobotwinRandomization", "RobotwinSceneRef", "RobotwinWorld",
     "RobocasaBody", "RobocasaCameraSpec", "RobocasaSceneRef", "RobocasaWorld",
+    "BehaviorBody", "BehaviorCameraSpec", "BehaviorSceneRef", "BehaviorWorld",
     "DepthClip", "DynamicTimeLimit",
 ]

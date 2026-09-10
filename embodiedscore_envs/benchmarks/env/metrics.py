@@ -47,6 +47,11 @@ NAV_KEYS = ("distance_to_goal", "success", "spl", "soft_spl", "ndtw", "path_leng
 VLN_KEYS = ("distance_to_goal", "success", "spl", "ndtw", "path_length", "oracle_success", "steps_taken")
 OBJECTNAV_KEYS = ("distance_to_goal", "success", "spl", "soft_spl")
 MANIP_KEYS = ("success", "steps_taken", "ticks")
+# BEHAVIOR scores more than success — see ``BehaviorMetrics`` for the source of each number.
+BEHAVIOR_KEYS = ("success", "q_score", "steps_taken", "ticks", "simulator_time_s", "normalized_time",
+                 "agent_distance_base", "agent_distance_left", "agent_distance_right",
+                 "normalized_agent_distance_base", "normalized_agent_distance_left",
+                 "normalized_agent_distance_right")
 
 
 def _euclid(a, b) -> float:
@@ -488,3 +493,93 @@ class ManipMetrics(gym.Wrapper):
         obs, reward, terminated, truncated, info = self.env.step(action)
         self._steps += 1
         return obs, reward, terminated, truncated, self._write(info)
+
+
+class BehaviorMetrics(ManipMetrics):
+    """The BEHAVIOR lines' accounting — the 2025 BEHAVIOR Challenge's own
+    metric set, transcribed from the code that produced the leaderboard.
+
+    Ranking metric (``docs/challenge/evaluation.md`` § "Metrics and Results":
+    "The success score (Q) is the metric used for ranking submissions"; the
+    leaderboard averages it over 10 instances x 50 tasks,
+    ``learning/utils/score_utils.py`` L114, L122):
+
+    * ``q_score``   ``omnigibson/metrics/task_metric.py`` ``end_callback``
+                    L30-45 — 1.0 when the task succeeded, else the LARGEST
+                    fraction, over the goal's groundings, of goal predicates
+                    that were false at the episode's first state and are true
+                    now ("the maximum progress made, across any of the
+                    groundings, from the initial state of the task"). The body
+                    evaluates it every step and it is reported live; the
+                    challenge only reads it at the end of the rollout.
+    * ``success``   the same run's binary task success, latched (the body's
+                    ``info["success"]``): every goal predicate of some
+                    grounding satisfied.
+
+    Efficiency (secondary; the challenge normalises them by the human average
+    over that task's 200 demonstrations and uses them only to break ties):
+
+    * ``simulator_time_s``  ticks x the rendering dt (``task_metric.py``
+                            ``gather_results``: ``simulator_steps *
+                            og.sim.get_rendering_dt()``); here ticks / 30 Hz,
+                            the challenge's ``rendering_frequency``.
+    * ``normalized_time``   ``human_steps / agent_steps`` (``task_metric.py``
+                            ``gather_results``). ``human_steps`` is the mean
+                            length of that task's 200 demonstrations, from the
+                            release's ``metadata/episodes.jsonl`` — the loader
+                            carries it as ``episode.info["human_steps"]``.
+                            The leaderboard's derived ``time_score`` is
+                            ``2 - 1 / normalized_time`` (``score_utils.py``
+                            L98); it is not recomputed here.
+    * ``agent_distance_*``  accumulated per-step L2 displacement of the base
+                            and of each end effector, in metres
+                            (``omnigibson/metrics/agent_metric.py`` L26-45),
+                            read off the body's ``info["travel_m"]``.
+    * ``normalized_agent_distance_*``  ``human_distance / agent_distance``,
+                            ``inf`` when the part never moved
+                            (``agent_metric.py`` ``gather_results``); the human
+                            distances are ``distance_traveled`` /
+                            ``left_eef_displacement`` / ``right_eef_displacement``
+                            averaged over the same 200 demonstrations, carried
+                            as ``episode.info["human_distance"]``.
+
+    Nothing is invented: a key whose human reference the episode does not carry
+    is reported as ``None`` rather than guessed.
+    """
+
+    def __init__(self, env: gym.Env, keys: Sequence[str] | None = None, render_hz: float = 30.0) -> None:
+        super().__init__(env, keys=BEHAVIOR_KEYS if keys is None else keys)
+        self.render_hz = float(render_hz)
+
+    def _reference(self) -> tuple[float | None, dict[str, float]]:
+        """(human steps, human distances) of this episode's task, or (None, {})
+        when the loader could not read the release's metadata."""
+        info = getattr(self.env.unwrapped, "episode", None)
+        info = dict(getattr(info, "info", {}) or {})
+        steps = info.get("human_steps")
+        return (float(steps) if steps else None, {k: float(v) for k, v in (info.get("human_distance") or {}).items()})
+
+    def _write(self, info: dict[str, Any]) -> dict[str, Any]:
+        if info.get("success"):
+            self._success = 1.0
+        ticks = int(info.get("ticks", 0))
+        human_steps, human_distance = self._reference()
+        travel = dict(info.get("travel_m") or {})
+        m: dict[str, Any] = {
+            "success": self._success,
+            "q_score": 1.0 if self._success else float(info.get("q_score") or 0.0),
+            "steps_taken": self._steps,
+            "ticks": ticks,
+            "simulator_time_s": ticks / self.render_hz if self.render_hz else None,
+            "normalized_time": (human_steps / ticks) if (human_steps and ticks) else None,
+        }
+        for part in ("base", "left", "right"):
+            distance = travel.get(part)
+            m[f"agent_distance_{part}"] = None if distance is None else float(distance)
+            reference = human_distance.get(part)
+            m[f"normalized_agent_distance_{part}"] = (
+                None if (reference is None or distance is None)
+                else (float("inf") if distance == 0.0 else reference / float(distance))
+            )
+        info["metrics"] = {k: m[k] for k in self.keys}
+        return info

@@ -10,9 +10,10 @@ protocol). Task semantics — loader, goal, success distance, budget, metric key
 — are the line's and do not change between variants. ``Benchmark.engine`` picks
 the simulator: habitat-sim in process, Isaac Sim through its render worker,
 robosuite / MuJoCo in process (the LIBERO and RoboCasa manipulation lines), or
-SAPIEN 3 in process (the RoboTwin bimanual manipulation lines). Every manipulation
-engine's variants differ in protocol — see ``libero.py``, ``robotwin.py`` and
-``robocasa.py`` for the one deviation from the rule above."""
+SAPIEN 3 in process (the RoboTwin bimanual manipulation lines), or OmniGibson on
+Isaac Sim in process (the BEHAVIOR-1K line). Every manipulation
+engine's variants differ in protocol — see ``libero.py``, ``robotwin.py``,
+``robocasa.py`` and ``behavior.py`` for the one deviation from the rule above."""
 
 from __future__ import annotations
 
@@ -21,11 +22,12 @@ from typing import Any
 
 import gymnasium as gym
 
-from .env import (Benchmark, DepthClip, DynamicTimeLimit, HabitatEnv, HabitatPoseEnv, IsaacEnv, IsaacPolarEnv, LiberoEnv,
-                  LiberoPoseEnv, RobocasaEnv, RobocasaPoseEnv, RobotwinEnv, RobotwinPoseEnv)
+from .env import (BehaviorEnv, BehaviorPoseEnv, Benchmark, DepthClip, DynamicTimeLimit, HabitatEnv, HabitatPoseEnv,
+                  IsaacEnv, IsaacPolarEnv, LiberoEnv, LiberoPoseEnv, RobocasaEnv, RobocasaPoseEnv, RobotwinEnv,
+                  RobotwinPoseEnv)
 
 _MEMBERS = ("vlnce", "ivlnce", "objectnav", "goat", "hmeqa", "express", "vlnverse", "libero", "libero_pro",
-            "libero_plus", "robotwin", "robocasa")
+            "libero_plus", "robotwin", "robocasa", "behavior")
 
 BENCHMARKS: dict[str, Benchmark] = {}
 for _m in _MEMBERS:
@@ -67,7 +69,7 @@ def benchmark(name: str, variant: str | None = None) -> Benchmark:
 def build_env(benchmark_name: str, split: str, data_root: str | None = None, scene_root: str | None = None,
               body: Any = None, actions: Any = None, gpu_id: int = 0, sim_seed: int = 42,
               render_mode: str | None = None, polar: bool | None = None, robotwin_root: str | None = None,
-              **loader_kwargs: Any) -> gym.Env:
+              behavior_root: str | None = None, **loader_kwargs: Any) -> gym.Env:
     """The bare body for a benchmark (what the gym ids point at). ``body`` /
     ``actions`` override the declaration (a different rig or action table on
     the same episodes and measures — how the legacy nodesets' per-graph
@@ -76,6 +78,9 @@ def build_env(benchmark_name: str, split: str, data_root: str | None = None, sce
     body). ``sim_seed`` is habitat's; the Isaac worker takes none, MuJoCo is
     deterministic given the init state."""
     b = benchmark(benchmark_name)
+    if b.engine == "behavior" and behavior_root:
+        # BEHAVIOR resolves its assets by OmniGibson's own data root, not EMBODIEDSCORE_DATA_ROOT
+        loader_kwargs.setdefault("behavior_root", behavior_root)
     if b.engine == "robotwin" and robotwin_root:
         # the RoboTwin loader reads the task's language out of the checkout too
         loader_kwargs.setdefault("robotwin_root", robotwin_root)
@@ -94,6 +99,10 @@ def build_env(benchmark_name: str, split: str, data_root: str | None = None, sce
         common = dict(episodes=episodes, body=body, max_ticks=b.ticks, tick_scale=b.tick_scale, gpu_id=gpu_id,
                       render_mode=render_mode)
         return RobocasaPoseEnv(**common) if b.macro else RobocasaEnv(**common)
+    if b.engine == "behavior":
+        common = dict(episodes=episodes, body=body, max_ticks=b.ticks, tick_scale=b.tick_scale, gpu_id=gpu_id,
+                      render_mode=render_mode, data_path=behavior_root)
+        return BehaviorPoseEnv(**common) if b.macro else BehaviorEnv(**common)
     if b.engine == "isaac":
         common = dict(episodes=episodes, body=body, gpu_id=gpu_id, render_mode=render_mode)
         if b.polar if polar is None else polar:

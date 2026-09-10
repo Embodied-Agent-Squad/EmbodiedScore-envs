@@ -78,7 +78,7 @@ embodiedscore_envs/
 └── benchmarks/                 one file per line — declarations (standard + upstream): engine, body, action prefix, episodes(), metrics, budget
     ├── vlnce.py  ivlnce.py  objectnav.py (+ ovon)  goat.py  hmeqa.py (+ mthm3d)  express.py  vlnverse.py
     ├── libero.py  libero_pro.py  libero_plus.py     the three manipulation benchmarks on the one LIBERO engine
-    │   robotwin.py  robocasa.py
+    │   robotwin.py  robocasa.py  behavior.py
     ├── presets/                bodies (STANDARD + the upstream rigs, habitat and Isaac) · action tables · depth post-processing — pure data
     └── env/                    what every benchmark is built on
         ├── schema.py           Episode · Goal types (Point / Object / Image / Text / Sequence / Question / Manip) · Act · Benchmark
@@ -87,14 +87,16 @@ embodiedscore_envs/
         ├── libero_env.py       LiberoEnv (Box: per-tick OSC delta) · LiberoPoseEnv (Box: absolute end-effector target, closed loop)
         ├── robotwin_env.py     RobotwinEnv (Box: RoboTwin's own joint / end-effector action) · RobotwinPoseEnv (Box: an absolute end-effector target PER ARM, closed loop)
         ├── robocasa_env.py     RobocasaEnv (Box: RoboCasa's per-tick 12-D action) · RobocasaPoseEnv (Box: base move | absolute end-effector target | gripper hold)
-        ├── metrics.py          NavMetrics (one formula set) · SequenceNavMetrics (GOAT) · VLNVerseMetrics · ManipMetrics (LIBERO, RoboTwin, RoboCasa)
+        ├── behavior_env.py     BehaviorEnv (Box: the BEHAVIOR Challenge's per-tick 23-D action) · BehaviorPoseEnv (Box: base move | an absolute end-effector target PER ARM | gripper hold)
+        ├── metrics.py          NavMetrics (one formula set) · SequenceNavMetrics (GOAT) · VLNVerseMetrics · ManipMetrics (LIBERO, RoboTwin, RoboCasa) · BehaviorMetrics (the BEHAVIOR Challenge's q_score + efficiency terms)
         ├── wrappers.py         DepthClip · DynamicTimeLimit
         └── sim/                one facade per engine; the engines never import each other
             ├── habitat/        the only place that imports habitat_sim (lazily): Body · SceneRef · SimWorld
             ├── isaac/          IsaacBody · IsaacSceneRef · IsaacWorld; worker.py runs under Isaac's python, backend.py drives it
             ├── libero/         LiberoBody · LiberoSceneRef · LiberoWorld — the only place that imports libero / robosuite (lazily)
             ├── robotwin/       RobotwinBody · RobotwinSceneRef · RobotwinWorld — the only place that imports RoboTwin / sapien (lazily)
-            └── robocasa/       RobocasaBody · RobocasaSceneRef · RobocasaWorld — the only place that imports robocasa / robosuite (lazily)
+            ├── robocasa/       RobocasaBody · RobocasaSceneRef · RobocasaWorld — the only place that imports robocasa / robosuite (lazily)
+            └── behavior/       BehaviorBody · BehaviorSceneRef · BehaviorWorld — the only place that imports omnigibson / Isaac Sim 4.5 (lazily; Isaac boots once per process)
 ```
 
 Imports point strictly downward; benchmark files never import each other
@@ -118,7 +120,10 @@ inside the `libero` package (INSTALL-libero.md); the RoboTwin lines read
 neither root. Nor do the RoboCasa lines: a
 kitchen is generated from a layout id and a style id, and the meshes and
 textures it draws from are downloaded into the `robocasa` checkout
-(INSTALL-robocasa.md).
+(INSTALL-robocasa.md). The BEHAVIOR line reads neither root either: OmniGibson
+resolves its own assets by `OMNIGIBSON_DATA_PATH`, and the loader is given the
+same root (`es.make("behavior-1k", split, behavior_root=...)`, else that
+variable) — INSTALL-behavior.md § 4.
 
 ## The LIBERO lines (manipulation)
 
@@ -255,6 +260,70 @@ renderer's rows too). Object poses, the fixture list and the episode's language
 are in `info` (`info["language"]` is the instruction RoboCasa words for the
 objects it sampled — only known after a reset, so it also replaces the
 declaration's placeholder in `info["episode"]["instruction"]`).
+
+## The BEHAVIOR-1K line (long-horizon household activities)
+
+`behavior-1k`: the 2025 BEHAVIOR Challenge (NeurIPS 2025) on BEHAVIOR-1K
+([arXiv:2403.09227](https://arxiv.org/abs/2403.09227)), pinned at
+`StanfordVL/BEHAVIOR-1K` tag `v3.7.2` (commit `88454bd0`) — OmniGibson 3.7.2 on
+NVIDIA Isaac Sim 4.5.0, a different Isaac from the VLNverse lines' 5.1, so a
+different conda environment (INSTALL-behavior.md). The robot the challenge
+fixes is a **Galaxea R1 Pro** (`eval.py` L128 asserts it): a holonomic wheeled
+base, a four-joint torso, two 7-DOF arms with a parallel gripper each, 28 DOF,
+control at 30 Hz over 120 Hz physics, three RGB cameras (a ZED head camera and
+a RealSense in each wrist).
+
+One line, because the leaderboard is one number:
+`learning/utils/score_utils.py` averages the per-task score over its 10
+instances and then over all 50 tasks, and computes nothing per scene or per
+group. The 50 activities span three scene models — `house_single_floor` (23),
+`house_double_floor_lower` (22), `house_double_floor_upper` (5).
+
+An episode is one **task instance**: an activity plus one of its sampled
+initial states. For each task the port takes the 10 public-test instances the
+release names in `metadata/test_instances.csv`, which is exactly an official
+submission's 500 rollouts. Splits `all` (500) and `mini` (the first instance of
+each task, 50 — one instance per activity rather than a prefix of the task
+list, because a scene load costs minutes). `episode_id = <task>/<instance_id>`.
+
+Success is BEHAVIOR's own: every goal predicate of some grounding of the
+activity's BDDL goal satisfied. `BehaviorMetrics` reports the challenge's own
+set — `q_score` (its ranking metric: 1.0 on success, else the largest fraction,
+over the goal's groundings, of predicates that were false at the start and are
+true now — `omnigibson/metrics/task_metric.py`), `success`, and the efficiency
+terms it normalises by the mean of that task's 200 human demonstrations
+(simulated time, and base / left-hand / right-hand travel —
+`omnigibson/metrics/agent_metric.py`).
+
+| | `behavior-1k` (standard) | `behavior-1k-upstream` |
+|---|---|---|
+| body | `BehaviorPoseEnv`: one step is one **base move** `[dx, dy, dyaw]` in the base's own frame (a proportional loop on the holonomic velocity controller, parking to 5 cm / 0.05 rad in ≤ 300 ticks), an **absolute end-effector target per arm** `[x, y, z, ax, ay, az, gripper]` (world frame, metres, axis-angle; an arm at `inf` holds, as on the RoboTwin lines) driven for ≤ 120 ticks to 2 cm / 0.15 rad, or a **gripper hold** — both arms at `inf` with no base move, 30 ticks | `BehaviorEnv`: one step = one 30 Hz tick, the action is the challenge's own 23-D vector `[base 3 | torso 4 | left arm 7 | left gripper 1 | right arm 7 | right gripper 1]` — absolute joint angles for the torso and both arms, a base velocity, a finger target per gripper (`ACTION_QPOS_INDICES["R1Pro"]`, `R1_CONTROLLER_CONFIG`) |
+| controllers | the challenge's, with the two arms swapped to `InverseKinematicsController` in `absolute_pose` mode — one of the four substitutions `docs/challenge/evaluation.md` § "Configure Robot Action Space" documents for participants, applied through the hook the evaluator itself uses | the challenge's, verbatim |
+| rig | head + both wrists at 256² (`bodies.BEHAVIOR_STANDARD`) | the challenge's `RGBLowResWrapper`: the same three cameras at 224², head aperture 40 mm (`bodies.BEHAVIOR`) |
+| budget | 150 macro steps (gym TimeLimit) | — (the tick cap alone) |
+| tick cap | the task's own: twice the mean length of its 200 human demos (`eval.py` L146-153; 4 299 to 52 120 ticks across the 50 tasks) | the same |
+| termination | the agent's own stop or the budget; `success` latches the first tick the goal held | the challenge's: done on success |
+
+**Known limitation of the macro protocol: it does not command the torso.** The
+R1 Pro's four trunk joints are in the challenge's own action space and they
+decide where the arms can reach at all; the macro protocol holds them at the
+posture the instance loaded with. Measured 2026-09-10 on ``turning_on_radio``,
+the closed loop asymptotes 0.131 m short of the radio's toggle button from a
+0.40 m base park (0.031 m from a 0.55 m park) and then improves by under a
+millimetre per 250 ticks — the arm's kinematic limit with the torso fixed, not
+a tracking failure. Giving the protocol an absolute torso target, or solving
+for one inside the closed loop, is the outstanding work. The per-tick variant
+commands the torso already: it is the challenge's own 23-D action.
+
+Only the unit the *agent's* budget counts bends between the variants; the
+simulator's tick cap is BEHAVIOR's own on both. A zero action vector is not a
+no-op on this robot (the torso and both arms take absolute joint angles) —
+`world.no_op_action()` is. Isaac Sim boots once per process
+(`simulator.py` L386); the world reloads at the cheapest level a change allows
+— a new instance replays a JSON state, a new task in the same house is
+`env.update_task`, and only a new scene model clears the stage and rebuilds.
+Goal predicates, per-predicate goal status, accumulated travel and the poses of
+every task-relevant object are in `info`.
 
 ## Metrics of the VLNverse lines
 

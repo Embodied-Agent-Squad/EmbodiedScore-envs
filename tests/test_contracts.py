@@ -1,7 +1,8 @@
 """Gymnasium's env checker plus the contracts every benchmark shares — the
 habitat lines here, the Isaac lines in ``test_vlnverse_contracts.py`` (they boot
 Isaac Sim and opt in separately), the LIBERO lines in ``test_libero_contracts.py``, the RoboCasa lines in
-``test_robocasa_contracts.py``. Needs habitat-sim, the datasets and a GPU:
+``test_robocasa_contracts.py``, the BEHAVIOR line in
+``test_behavior_contracts.py``. Needs habitat-sim, the datasets and a GPU:
 skipped unless the data roots are set."""
 
 import os
@@ -52,7 +53,7 @@ def test_every_line_has_both_variants():
     from embodiedscore_envs.benchmarks import resolve
     from embodiedscore_envs.benchmarks.presets import actions, bodies, depth
     lines = {b.line for b in es.BENCHMARKS.values()}
-    assert len(es.BENCHMARKS) == 2 * len(lines) == 84
+    assert len(es.BENCHMARKS) == 2 * len(lines) == 86
     assert len(HABITAT) == 22
     for line in lines:
         std, up = es.benchmark(line), es.benchmark(line, "upstream")

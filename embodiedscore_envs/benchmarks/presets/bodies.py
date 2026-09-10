@@ -78,12 +78,27 @@ ROBOCASA_STANDARD  robot0_agentview_center 256² + wrist 256², frames upright,
 ROBOCASA  RoboCasa's own rig (``robocasa/utils/env_utils.py`` ``create_env``:
           robot0_agentview_left + robot0_agentview_right + robot0_eye_in_hand at
           128²) — the left view as obs["rgb"], the right one as obs["aux"].
+
+BEHAVIOR engine (a Galaxea R1 Pro — holonomic base, 4-joint torso, two 7-DOF
+arms with parallel grippers — under the controllers the 2025 BEHAVIOR
+Challenge fixes, at 30 Hz control / 120 Hz physics: the benchmark's physics,
+not a body knob. A body fixes the camera rig; all three cameras are the
+robot's own, ``ROBOT_CAMERA_NAMES["R1Pro"]``):
+
+BEHAVIOR  the challenge's default evaluation rig, its ``RGBLowResWrapper``
+          (``omnigibson/learning/wrappers/rgb_low_res_wrapper.py`` L16-29): the
+          ZED head camera and both RealSense wrist cameras at 224², RGB only,
+          the head camera's horizontal aperture forced to 40 mm to match the
+          data collection. Both challenge tracks use it by default.
+BEHAVIOR_STANDARD  the same three cameras at 256², the resolution the rest of
+          EmbodiedScore's standard manipulation bodies serve (LIBERO_STANDARD,
+          ROBOCASA_STANDARD), aperture unchanged. Decided 2026-09-10.
 """
 
 from __future__ import annotations
 
-from ..env import (Body, CameraSpec, IsaacBody, IsaacCameraSpec, LiberoBody, LiberoCameraSpec, NavMesh,
-                   RobocasaBody, RobocasaCameraSpec, RobotwinBody, RobotwinRandomization)
+from ..env import (BehaviorBody, BehaviorCameraSpec, Body, CameraSpec, IsaacBody, IsaacCameraSpec, LiberoBody,
+                   LiberoCameraSpec, NavMesh, RobocasaBody, RobocasaCameraSpec, RobotwinBody, RobotwinRandomization)
 from ..env.sim.robocasa.body import LEFT_CAMERA, RIGHT_CAMERA
 from ..env.sim.robotwin import D435, LARGE_D435
 
@@ -160,7 +175,11 @@ ROBOCASA = RobocasaBody(rgb=RobocasaCameraSpec(128, 128), wrist=RobocasaCameraSp
                         aux=RobocasaCameraSpec(128, 128), rgb_camera=LEFT_CAMERA, aux_camera=RIGHT_CAMERA,
                         settle_ticks=10)
 
+BEHAVIOR = BehaviorBody(rgb=BehaviorCameraSpec(224, 224), wrist=BehaviorCameraSpec(224, 224))
+
+BEHAVIOR_STANDARD = BehaviorBody(rgb=BehaviorCameraSpec(256, 256), wrist=BehaviorCameraSpec(256, 256))
+
 __all__ = ["STANDARD", "VLNCE", "RXR_CE", "LOCOBOT", "STRETCH", "EXPLORE_EQA", "EXPRESS",
            "VLNVERSE_STANDARD", "VLNVERSE", "LIBERO_STANDARD", "LIBERO",
            "CLEAN", "RANDOMIZED", "ROBOTWIN", "ROBOTWIN_RANDOMIZED", "ROBOTWIN_STANDARD",
-           "ROBOTWIN_STANDARD_RANDOMIZED", "ROBOCASA_STANDARD", "ROBOCASA"]
+           "ROBOTWIN_STANDARD_RANDOMIZED", "ROBOCASA_STANDARD", "ROBOCASA", "BEHAVIOR", "BEHAVIOR_STANDARD"]
