@@ -51,7 +51,7 @@ def test_every_line_has_both_variants():
     from embodiedscore_envs.benchmarks import resolve
     from embodiedscore_envs.benchmarks.presets import actions, bodies, depth
     lines = {b.line for b in es.BENCHMARKS.values()}
-    assert len(es.BENCHMARKS) == 2 * len(lines) == 36
+    assert len(es.BENCHMARKS) == 2 * len(lines) == 40
     assert len(HABITAT) == 22
     for line in lines:
         std, up = es.benchmark(line), es.benchmark(line, "upstream")
@@ -63,8 +63,11 @@ def test_every_line_has_both_variants():
         elif std.engine == "isaac":   # the Isaac worker renders yaw-only poses: STANDARD's numbers, no LOOK
             assert std.body is bodies.VLNVERSE_STANDARD and std.actions == actions.NAV
             assert std.depth is depth.STANDARD
-        else:   # libero: no depth camera, no action table (test_libero_contracts.py has the rest)
+        elif std.engine == "libero":   # no depth camera, no action table (test_libero_contracts.py has the rest)
             assert std.body is bodies.LIBERO_STANDARD and std.depth is None
+        else:   # robotwin: likewise (test_robotwin_contracts.py has the rest)
+            assert std.engine == "robotwin" and std.depth is None and std.macro
+            assert std.body in (bodies.ROBOTWIN_STANDARD, bodies.ROBOTWIN_STANDARD_RANDOMIZED)
         assert up.gym_id.endswith("-Upstream-v0") and std.gym_id == up.gym_id.replace("-Upstream", "")
         assert es.benchmark(f"{line}-upstream", "standard") is std
     assert resolve("goat-upstream") == "goat-upstream" and resolve("goat-upstream", "standard") == "goat"
