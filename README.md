@@ -388,8 +388,10 @@ simulator's tick cap is BEHAVIOR's own on both. A zero action vector is not a
 no-op on this robot (the torso and both arms take absolute joint angles) —
 `world.no_op_action()` is. Isaac Sim boots once per process
 (`simulator.py` L386); the world reloads at the cheapest level a change allows
-— a new instance replays a JSON state, a new task in the same house is
-`env.update_task`, and only a new scene model clears the stage and rebuilds.
+— a new instance of the same task replays a JSON state; a new task clears the
+stage and rebuilds, as a new scene model does, because the challenge loads a
+scene file per task instance and `env.update_task` cannot find a new task's
+objects in the old one (measured 2026-09-10).
 Goal predicates, per-predicate goal status, accumulated travel and the poses of
 every task-relevant object are in `info`.
 

@@ -19,8 +19,9 @@ og.sim point to a new simulator instance". So this world never restarts Isaac
 and reloads at the cheapest level the change allows:
 
     same scene model, same task   -> replay the instance state only
-    same scene model, new task    -> ``env.update_task(cfg)`` (env_base.py L457-478)
-    new scene model               -> ``og.clear()`` + a fresh ``og.Environment``
+    new task or new scene model   -> ``og.clear()`` + a fresh ``og.Environment`` (a task's
+                                     objects live in its own scene file, so ``update_task``
+                                     cannot serve a task change — see ``load_scene``)
 
 ``og.shutdown()`` is never called: with ``og.app`` alive it closes the app,
 and the SIGINT handler installed at ``omnigibson/__init__.py`` L166 routes
@@ -168,10 +169,14 @@ class BehaviorWorld:
         og = _import_omnigibson()
         from omnigibson.macros import gm, macros
 
-        gm.ENABLE_FLATCACHE = True        # eval.py L53
-        gm.USE_GPU_DYNAMICS = False       # eval.py L54
-        gm.ENABLE_TRANSITION_RULES = True  # eval.py L55
-        gm.HEADLESS = True
+        # A second world in one process (the tests build several stacks) sets the same
+        # values again; a macro that has been read locks, so the write goes through
+        # ``unlocked()`` — the values are the evaluator's either way.
+        with gm.unlocked():
+            gm.ENABLE_FLATCACHE = True        # eval.py L53
+            gm.USE_GPU_DYNAMICS = False       # eval.py L54
+            gm.ENABLE_TRANSITION_RULES = True  # eval.py L55
+            gm.HEADLESS = True
         with macros.unlocked():
             macros.robots.manipulation_robot.GRASP_WINDOW = GRASP_WINDOW_S   # eval.py L58-59
         return og
@@ -244,12 +249,15 @@ class BehaviorWorld:
         og = self._prepare()
         if self._env is None:
             self._env = og.Environment(configs=self._config(scene, max_steps))
-        elif scene.model_key != self._model_key:
+        elif scene.model_key != self._model_key or scene.task_key != self._task_key:
+            # A task change rebuilds the stage too: the challenge loads a scene file PER task
+            # instance (``<scene>_task_<task>_instances``), so the objects of a new task are
+            # not in the scene that was loaded for the old one — ``env.update_task`` then
+            # fails in behavior_task.py L433 ("BDDL object instance … should exist in cached
+            # metadata from loaded scene"). Measured 2026-09-10 when the env checker reset to
+            # a random episode.
             og.clear()
             self._env = og.Environment(configs=self._config(scene, max_steps))
-        elif scene.task_key != self._task_key:
-            cfg = self._config(scene, max_steps)
-            self._env.update_task(cfg["task"])                    # env_base.py L457-478
         else:
             # Same task: only the budget can differ. behavior_task.py L197-202 names the condition "timeout".
             self._env.task_config["termination_config"]["max_steps"] = int(max_steps)
